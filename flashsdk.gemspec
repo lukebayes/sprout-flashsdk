@@ -8,8 +8,8 @@ Bundler.setup
 require 'flashsdk'
 
 Gem::Specification.new do |s|
-  s.name        = FlashSDK::NAME
-  s.version     = FlashSDK::VERSION::STRING
+  s.name        = 'flashsdk'
+  s.version     = FlashSDK::VERSION
   s.author      = "Luke Bayes"
   s.email       = "projectsprouts@googlegroups.com"
   s.homepage    = "http://www.adobe.com/products/flex"

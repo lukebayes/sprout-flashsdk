@@ -9,9 +9,10 @@ module FlashSDK
     def manifest
       directory class_directory do
         template "#{class_name}.as", 'ActionScript3Class.as'
-        generator :test_class, :input => "#{fully_qualified_class_name}Test"
-        generator :suite_class
       end
+
+      generator :test_class, :input => "#{fully_qualified_class_name}Test"
+      generator :suite_class
     end
 
   end

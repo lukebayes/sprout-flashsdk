@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
-require 'as3'
+require 'flashsdk'
 
-generator = AS3::ProjectGenerator.new
+generator = FlashSDK::ProjectGenerator.new
 generator.parse! ARGV
 generator.execute
 
