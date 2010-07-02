@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'as3'
+
+generator = AS3::ProjectGenerator.new
+generator.parse! ARGV
+generator.execute
+
