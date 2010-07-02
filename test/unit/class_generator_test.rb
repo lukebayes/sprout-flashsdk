@@ -11,6 +11,10 @@ class ClassGeneratorTest < Test::Unit::TestCase
       @generator = FlashSDK::ClassGenerator.new
       @generator.path = @temp
       @generator.logger = StringIO.new
+
+      Sprout::Generator.register FlashSDK::ClassGenerator
+      Sprout::Generator.register FlashSDK::TestClassGenerator
+      Sprout::Generator.register FlashSDK::SuiteClassGenerator
     end
 
     teardown do
