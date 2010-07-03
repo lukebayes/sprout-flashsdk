@@ -1,3 +1,4 @@
+require 'flashsdk'
 
 Sprout::Specification.new do |s|
   s.name        = FlashPlayer::NAME
