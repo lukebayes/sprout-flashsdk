@@ -21,7 +21,7 @@ class MXMLCTest < Test::Unit::TestCase
         mxmlc = FlashSDK::MXMLC.new
         mxmlc.input = @input
         mxmlc.source_path << @fixture
-        assert_equal '--source-path+=test/fixtures/mxmlc/simple test/fixtures/mxmlc/simple/SomeFile.as', mxmlc.to_shell
+        assert_equal '--source-path+=test/fixtures/mxmlc/simple --static-link-runtime-shared-libraries test/fixtures/mxmlc/simple/SomeFile.as', mxmlc.to_shell
       end
     end
 

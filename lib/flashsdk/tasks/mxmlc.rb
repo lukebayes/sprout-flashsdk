@@ -25,6 +25,8 @@ module FlashSDK
   #     t.input                     = 'SomeProject.as'
   #     t.default_size              = '800 600'
   #     t.default_background_color  = "#FFFFFF"
+  #     t.library_path              << 'lib/SomeLibrary.swc'
+  #     t.source_path               << 'lib/otherlib'
   #   end
   #
   # Note: Be sure to check out the features of the Executable to learn more about gem_version and preprocessor
@@ -583,7 +585,7 @@ module FlashSDK
     #
     #     alias -static-rsls
     #
-    add_param :static_link_runtime_shared_libraries, Boolean
+    add_param :static_link_runtime_shared_libraries, Boolean, { :default => true }
 
     ##
     # Alias for static_link_runtime_shared_libraries
@@ -663,7 +665,7 @@ module FlashSDK
     ##
     # The default gem name is sprout-flex3sdk
     #
-    set :pkg_name, 'flex3'
+    set :pkg_name, 'flex4'
 
     ##
     # The default gem version
