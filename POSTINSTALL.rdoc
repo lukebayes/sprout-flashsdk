@@ -1,0 +1,40 @@
+++++++++++++++++++++++++++++++++
+You have successfully installed the Project Sprouts FlashSDK!
+
+To get started with a new ActionScript 3 project:
+
+  # Generate a project named 'SomeProject'
+  sprout-as3 SomeProject
+
+  # Change directory to the newly-created directory:
+  cd SomeProject
+
+  # Install whatever additional gems are required 
+  # by this project Gemfile:
+  bundle install
+
+  # Use Rake to run the default task:
+  rake
+
+++++++++++++++++++++++++++++++++
+Next Steps:
+
+  # Generate a new class, test case and test suite:
+  sprout-class utils.MathUtil
+
+  # Compile and run the test harness:
+  rake test
+
+  # List available rake tasks:
+  rake -T
+
+  # List available generators:
+  sprout-
+  (followed by the TAB key)
+
+++++++++++++++++++++++++++++++++
+Issues or Questions? 
+
+  Email us at:
+  projectsprouts@googlegroups.com
+
