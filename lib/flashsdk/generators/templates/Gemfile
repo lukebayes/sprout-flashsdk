@@ -2,5 +2,4 @@ source "http://rubygems.org"
 
 gem "flashsdk", ">= 1.0.0.pre"
 gem "asunit4", ">= 4.2.pre"
-gem "flashplayer", ">= 10.1.2.pre"
 
