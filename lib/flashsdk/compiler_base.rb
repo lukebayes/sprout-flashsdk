@@ -107,9 +107,17 @@ module FlashSDK
     add_param :default_script_limits, String
     
     ##
-    # Defines the default application size, in pixels for example: default_size = '950 550'. This is an advanced option.
+    # Defines the default application size, in pixels for example: 
     #
-    add_param :default_size, String, { :delimiter => ' ' }
+    #  default_size = '950 550'. 
+    #
+    # If you're using the Flex 4 SDK, this value should be comma-delimited like:
+    #
+    #  default_size = '950,550'
+    #
+    # This is an advanced option.
+    #
+    add_param :default_size, String
     
     ##
     # Defines the location of the default style sheet. Setting this option overrides the implicit use of the defaults.css style sheet in the framework.swc file.
