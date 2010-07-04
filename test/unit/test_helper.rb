@@ -14,3 +14,4 @@ require File.join(File.dirname(__FILE__), '..', '..', 'lib', 'flashsdk')
 $:.unshift File.dirname(__FILE__)
 
 require 'sprout/test/sprout_test_case'
+

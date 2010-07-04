@@ -28,8 +28,6 @@ class MXMLCTest < Test::Unit::TestCase
     should "compile a swf" do
       mxmlc = FlashSDK::MXMLC.new
       mxmlc.input = @input
-      # Turn on to trigger an actual compilation:
-      # (This is too damn slow to leave in the every-time test run)
       mxmlc.execute
       assert_file @expected_output
     end

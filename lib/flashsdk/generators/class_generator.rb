@@ -16,7 +16,6 @@ module FlashSDK
     end
 
   end
-
 end
 
 ##
