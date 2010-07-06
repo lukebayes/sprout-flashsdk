@@ -1,5 +1,5 @@
 ++++++++++++++++++++++++++++++++
-You have successfully installed the Project Sprouts FlashSDK!
+You have successfully installed the Project Sprouts Flash SDK!
 
 To get started with a new ActionScript 3 project:
 

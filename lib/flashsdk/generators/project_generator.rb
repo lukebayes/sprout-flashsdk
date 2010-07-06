@@ -7,7 +7,8 @@ module FlashSDK
         template 'Gemfile'
 
         directory src do
-          template "#{input}.as", 'ActionScript3MainClass.as'
+          template "#{input.camel_case}.as", 'ActionScript3MainClass.as'
+          template "#{test_runner_name}.as", 'ActionScript3RunnerClass.as'
         end
 
         directory assets do
@@ -26,6 +27,14 @@ module FlashSDK
 
     def debug_swf_name
       "#{class_name}-debug.swf"
+    end
+
+    def test_swf_name
+      "#{class_name}-test.swf"
+    end
+
+    def test_runner_name
+      "#{class_name}Runner"
     end
   end
 end

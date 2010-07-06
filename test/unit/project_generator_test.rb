@@ -32,6 +32,10 @@ class ProjectGeneratorTest < Test::Unit::TestCase
       assert_file File.join(project, 'src', 'SomeProject.as') do |content|
         assert_matches /flash.display.Sprite;/, content
       end
+      assert_file File.join(project, 'src', 'SomeProjectRunner.as') do |content|
+        assert_matches /asunit.core.TextCore;/, content
+        
+      end
       assert_directory File.join(project, 'lib')
       assert_directory File.join(project, 'bin')
     end

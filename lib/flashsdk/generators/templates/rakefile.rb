@@ -13,5 +13,14 @@ end
 desc "Compile and run the debug swf"
 flashplayer :debug => "<%= bin %>/<%= debug_swf_name %>"
 
+desc "Compile the test swf"
+mxmlc "<%= bin %>/<%= test_swf_name %>" => :asunit4 do |t|
+  t.input = "<%= src %>/<%= test_runner_name %>.as"
+  t.debug = true
+end
+
+desc "Compile and run the test swf"
+flashplayer :test => "<%= bin %>/<%= test_swf_name %>"
+
 task :default => :debug
 
