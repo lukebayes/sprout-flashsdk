@@ -7,7 +7,7 @@ h3. Installation
 # "Install RubyGems":http://rubyforge.org/frs/?group_id=126 _(>= v 1.3.6)_
 # Install the Flash SDK prerelease gem:
 
-  gem install flashsdk --pre
+  <pre><code>gem install flashsdk --pre</code></pre>
 
 h3. Getting Started
 
@@ -15,36 +15,37 @@ Open a terminal and enter the following commands:
 
 Create a new ActionScript 3 project and move into it:
 
-  sprout-as3 SomeProject
-  cd SomeProject
+  <pre><code>sprout-as3 SomeProject
+  cd SomeProject</code></pre>
+
 
 Resolve all dependencies, compile and launch the SWF:
 
-  rake
+  <pre><code>rake</code></pre>
 
 Generate a new class, test case and test suite:
 
-  sprout-class utils.MathUtil
+  <pre><code>sprout-class utils.MathUtil</code></pre>
 
 Compile and launch the test harness:
 
-  rake test
+  <pre><code>rake test</code></pre>
 
 Compile a SWC file:
 
-  rake swc
+  <pre><code>rake swc</code></pre>
 
 Generate documentation using "AsDoc":http://labs.adobe.com/wiki/index.php/ASDoc:
 
-  rake asdoc
+  <pre><code>rake asdoc</code></pre>
 
 Execute the test harness, emit a JUnit-compatible test results document, and close the Flash Player when complete or after encountering an uncaught exception:
 
-  rake ci
+  <pre><code>rake ci</code></pre>
 
 Display all available Rake tasks:
 
-  rake -T
+  <pre><code>rake -T</code></pre>
 
 h3. Some Links
 
@@ -52,3 +53,27 @@ h3. Some Links
 * "See the Documentation":http://projectsprouts.org/rdoc
 * "Meet the Community":http://groups.google.com/group/projectsprouts
 
+h3. MIT License
+
+<pre>
+Copyright (c) 2007-2010 Pattern Park
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</pre>
