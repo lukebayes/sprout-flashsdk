@@ -21,9 +21,9 @@ module FlashSDK
   #
   #   # Create an MXMLC named for the output file that it creates. This task depends on the
   #   # corelib library and will automatically add the corelib.swc to it's library_path
-  #   mxmlc 'SomeProject.swf' => :corelib do |t|
-  #     t.input                     = 'SomeProject.as'
-  #     t.default_size              = '800 600'
+  #   mxmlc 'bin/SomeProject.swf' => :corelib do |t|
+  #     t.input                     = 'src/SomeProject.as'
+  #     t.default_size              = '800,600'
   #     t.default_background_color  = "#FFFFFF"
   #     t.library_path              << 'lib/SomeLibrary.swc'
   #     t.source_path               << 'lib/otherlib'
