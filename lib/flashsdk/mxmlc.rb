@@ -45,17 +45,20 @@ module FlashSDK
     set :default_prefix, '-'
 
     ##
-    # The default gem name is sprout-flex3sdk
+    # The the Ruby file that will load the expected
+    # Sprout::Specification.
+    #
+    # Default value is 'flex4'
     #
     set :pkg_name, 'flex4'
 
     ##
-    # The default gem version
+    # The default pkg version
     #
-    set :pkg_version, ">= #{VERSION}"
+    set :pkg_version, ">= #{FlashSDK::VERSION}"
     
     ##
-    # The default executable target
+    # The default executable target.
     #
     set :executable, :mxmlc
 

@@ -10,5 +10,8 @@ require 'flashsdk/generators/project_generator'
 require 'flashsdk/compiler_base'
 require 'flashsdk/mxmlc'
 require 'flashsdk/compc'
+require 'flashsdk/amxmlc'
+require 'flashsdk/adt'
+require 'flashsdk/adl'
 require 'flashplayer'
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<application xmlns="http://ns.adobe.com/air/application/2.0"> 
+  <id>sprouts.ADTTest</id>
+  <version>0.1</version> 
+  <filename>SomeProject</filename> 
+  <initialWindow> 
+    <content>SomeProject.swf</content> 
+    <visible>true</visible> 
+    <width>400</width> 
+    <height>200</height> 
+  </initialWindow> 
+</application>
+
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns="http://ns.adobe.com/air/application/1.1">
+  <filename>MapDemo</filename>
+  <customUpdateUI>false</customUpdateUI>
+  <name>MapDemo</name>
+  <id>MapDemo</id>
+  <version>1</version>
+  <initialWindow>
+    <content>MapDemo.html</content>
+    <height>600</height>
+    <width>800</width>
+    <systemChrome>standard</systemChrome>
+    <transparent>false</transparent>
+    <visible>true</visible>
+  </initialWindow>
+</application>
