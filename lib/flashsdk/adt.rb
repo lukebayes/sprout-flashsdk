@@ -12,21 +12,23 @@ module FlashSDK
   #
   #   adt 'cert/SomeProject.pfx' do |t|
   #     t.certificate = true
-  #     t.cn = 'SelfCertificate'
-  #     t.key_type = '1024-RSA'
-  #     t.password = File.read('cert/.password')
-  #     t.pfx_file = 'cert/SomeProject.pfx'
+  #     t.cn          = 'SelfCertificate'
+  #     t.key_type    = '1024-RSA'
+  #     t.password    = File.read('cert/.password')
+  #     t.pfx_file    = 'cert/SomeProject.pfx'
   #   end
   #
   #   adt 'bin/SomeProject.air' => ['bin/SomeProject.swf', 'cert/SomeProject.pfx'] do |t|
-  #     t.package = true
-  #     t.package_input = 'SomeProject.xml'
+  #     t.package        = true
+  #     t.package_input  = 'SomeProject.xml'
   #     t.package_output = 'bin/SomeProject.air'
-  #     t.storetype = 'pkcs12'
-  #     t.keystore = 'cert/SomeProject.pfx'
+  #     t.storetype      = 'pkcs12'
+  #     t.keystore       = 'cert/SomeProject.pfx'
+  #     t.storepass      = File.read('cert/.password')
   #     t.included_files << 'bin/SomeProject.swf'
   #   end
   #
+  #   desc "Compile, certify and package the AIR application"
   #   task package => 'bin/SomeProject.air'
   #
   class ADT

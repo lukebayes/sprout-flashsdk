@@ -27,11 +27,9 @@ class ADTTest < Test::Unit::TestCase
         adt.package        = true
         adt.package_input  = @application_xml
         adt.package_output = @expected_output
-        #adt.key_type       = 'pfx'
-        #adt.pfx_file       = @certificate
         adt.storetype      = 'PKCS12'
         adt.keystore       = @certificate
-        adt.storepass       = @cert_password
+        adt.storepass      = @cert_password
         adt.included_files << @swf_input
         #assert_equal "-package #{@expected_output} #{@application_xml} #{@swf_input} -storetype pkcs12 -keystore #{@certificate}", adt.to_shell
 

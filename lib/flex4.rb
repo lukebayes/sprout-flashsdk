@@ -9,8 +9,8 @@ Sprout::Specification.new do |s|
     # Apply the shared platform configuration:
     # Remote Archive:
     t.archive_type = :zip
-    t.url          = "http://download.macromedia.com/pub/labs/flex/4/flex4sdk_b2_100509.zip"
-    t.md5          = "6a0838c5cb33145fe88933778ddb966d"
+    t.url          = "http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4/flex_sdk_4.1.0.16076.zip"
+    t.md5          = "4c5f3d3fa4e1f5be244679210cd852c0"
 
     # Executables: (add .exe suffix if it was passed in)
     t.add_executable :aasdoc,     "bin/aasdoc"
