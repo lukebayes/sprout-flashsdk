@@ -19,7 +19,7 @@ class ADLTest < Test::Unit::TestCase
       adl = FlashSDK::ADL.new
       adl.app_desc = @app_desc
       adl.root_dir = Dir.pwd
-      assert_equal 'test/fixtures/air/simple/SomeProject.xml /Users/lbayes/Projects/Sprouts/flashsdk', adl.to_shell
+      assert_equal "#{@app_desc} #{Dir.pwd}", adl.to_shell
       # Uncomment to actually launch
       # the AIR application:
       #adl.execute
