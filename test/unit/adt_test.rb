@@ -10,6 +10,7 @@ class ADTTest < Test::Unit::TestCase
       @application_xml = File.join @fixture, 'SomeProject.xml'
       @expected_output = File.join @fixture, 'SomeProject.air'
       @swf_input       = File.join @fixture, 'SomeProject.swf'
+      @swf_main        = File.join @fixture, 'SomeProject.mxml'
 
       @certificate     = File.join @fixture, 'SomeProject.pfx'
       @cert_password   = 'samplePassword'
@@ -51,6 +52,13 @@ class ADTTest < Test::Unit::TestCase
       end
     end
 
+    # USE THIS METHOD TO CREATE THE INPUT SWF:
+    should "create an input swf" do
+      t = amxmlc @swf_input do |t|
+        t.input = @swf_main
+      end
+      t.execute
+    end
   end
 end
 

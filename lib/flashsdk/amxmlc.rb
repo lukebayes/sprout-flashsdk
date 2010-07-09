@@ -21,9 +21,9 @@ module FlashSDK
   end
 end
 
-def amxmlc args, &block
+def amxmlc *args, &block
   exe = FlashSDK::AMXMLC.new
-  exe.to_rake(args, &block)
+  exe.to_rake *args, &block
   exe
 end
 
