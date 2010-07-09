@@ -42,10 +42,12 @@ class AMXMLCTest < Test::Unit::TestCase
     end
 
     should "assign simple output" do
-      t = amxmlc 'bin/SomeProject.swf' do |t|
-        t.input = @input
+      as_a_unix_system do
+        t = amxmlc 'bin/SomeProject.swf' do |t|
+          t.input = @input
+        end
+        assert_equal '-output=bin/SomeProject.swf -static-link-runtime-shared-libraries test/fixtures/air/simple/SomeProject.as', t.to_shell
       end
-      assert_equal '-output=bin/SomeProject.swf -static-link-runtime-shared-libraries test/fixtures/air/simple/SomeProject.as', t.to_shell
     end
   end
 end
