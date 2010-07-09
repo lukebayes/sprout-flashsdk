@@ -21,7 +21,7 @@ class AMXMLCTest < Test::Unit::TestCase
         amxmlc = FlashSDK::AMXMLC.new
         amxmlc.input = @input
         amxmlc.source_path << @fixture
-        assert_equal '--source-path+=test/fixtures/air/simple --static-link-runtime-shared-libraries test/fixtures/air/simple/SomeProject.as', amxmlc.to_shell
+        assert_equal '-source-path+=test/fixtures/air/simple -static-link-runtime-shared-libraries test/fixtures/air/simple/SomeProject.as', amxmlc.to_shell
       end
     end
 
@@ -38,14 +38,14 @@ class AMXMLCTest < Test::Unit::TestCase
       amxmlc = FlashSDK::AMXMLC.new
       amxmlc.default_size = '800,500'
       amxmlc.static_link_runtime_shared_libraries = false
-      assert_equal '--default-size=800,500', amxmlc.to_shell
+      assert_equal '-default-size=800,500', amxmlc.to_shell
     end
 
     should "assign simple output" do
       t = amxmlc 'bin/SomeProject.swf' do |t|
         t.input = @input
       end
-      assert_equal '--output=bin/SomeProject.swf --static-link-runtime-shared-libraries test/fixtures/air/simple/SomeProject.as', t.to_shell
+      assert_equal '-output=bin/SomeProject.swf -static-link-runtime-shared-libraries test/fixtures/air/simple/SomeProject.as', t.to_shell
     end
   end
 end

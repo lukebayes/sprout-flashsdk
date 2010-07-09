@@ -16,6 +16,9 @@ class ADLTest < Test::Unit::TestCase
       remove_file @expected_output
     end
 
+=begin
+These are some possible example tests...
+
     should "accept input" do
       as_a_unix_system do
         adl = FlashSDK::ADL.new
@@ -46,6 +49,8 @@ class ADLTest < Test::Unit::TestCase
       end
       assert_equal 'bin/SomeProject.swf', t.output
     end
+=end
+
   end
 end
 

@@ -13,17 +13,19 @@ module FlashSDK
   #   adt 'cert/SomeProject.pfx' do |t|
   #     t.certificate = true
   #     t.cn          = 'SelfCertificate'
-  #     t.key_type    = '1024-RSA'
-  #     t.password    = File.read('cert/.password')
+  #     t.key_type    = '2048-RSA'
   #     t.pfx_file    = 'cert/SomeProject.pfx'
+  #     # Don't check the .password file into version control:
+  #     t.password    = File.read('cert/.password')
   #   end
   #
   #   adt 'bin/SomeProject.air' => ['bin/SomeProject.swf', 'cert/SomeProject.pfx'] do |t|
   #     t.package        = true
   #     t.package_input  = 'SomeProject.xml'
   #     t.package_output = 'bin/SomeProject.air'
-  #     t.storetype      = 'pkcs12'
+  #     t.storetype      = 'PKCS12'
   #     t.keystore       = 'cert/SomeProject.pfx'
+  #     # Don't check the .password file into version control:
   #     t.storepass      = File.read('cert/.password')
   #     t.included_files << 'bin/SomeProject.swf'
   #   end
@@ -71,7 +73,6 @@ module FlashSDK
     # A Signing Option
     #
     add_param :keystore, String, { :delimiter => ' ' }
-
 
     ##
     # Provide the password directly to the ADT task
@@ -162,13 +163,13 @@ module FlashSDK
     ##
     # PFX File
     #
-    add_param :pfx_file, File, { :hidden_name => true, :file_task_name => true }
+    add_param :pfx_file, String, { :hidden_name => true }
 
     ##
     # When creating a certificate, this is the file
     # where the password can be found.
     #
-    add_param :password, String, { :delimiter => ' ' }
+    add_param :password, String, { :hidden_name => true, :delimiter => ' ' }
 
     ##
     # Expects Signing Options, plus
@@ -212,18 +213,15 @@ module FlashSDK
     #
     set :executable, :adt
 
+    ##
+    # Ensure the default prefix is '-'
+    set :default_prefix, '-'
   end
 end
 
-def adt args, &block
+def adt *args, &block
   exe = FlashSDK::ADT.new
-  exe.to_rake(args, &block)
+  exe.to_rake(*args, &block)
   exe
 end
 
-# This should be removed when we fix
-# the bug at: http://www.pivotaltracker.com/story/show/4194822
-#
-module Sprout::Executable
-  DEFAULT_PREFIX          = '-'
-end

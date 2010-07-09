@@ -4,7 +4,7 @@
   <version>0.1</version> 
   <filename>SomeProject</filename> 
   <initialWindow> 
-    <content>SomeProject.swf</content> 
+    <content>test/fixtures/air/simple/SomeProject.swf</content> 
     <visible>true</visible> 
     <width>400</width> 
     <height>200</height> 
