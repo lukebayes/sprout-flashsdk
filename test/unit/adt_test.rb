@@ -33,8 +33,10 @@ class ADTTest < Test::Unit::TestCase
           t.storepass      = @cert_password
           t.included_files << @swf_input
         end
-        t.execute
-        assert_file @expected_output
+        assert_equal '-package -storetype PKCS12 -keystore test/fixtures/air/simple/SomeProject.pfx -storepass samplePassword test/fixtures/air/simple/SomeProject.air test/fixtures/air/simple/SomeProject.xml test/fixtures/air/simple/SomeProject.swf', t.to_shell
+
+        #t.execute
+        #assert_file @expected_output
       end
     end
 
@@ -47,18 +49,20 @@ class ADTTest < Test::Unit::TestCase
           t.pfx_file    = @certificate
           t.password    = @cert_password
         end
-        t.execute
-        assert_file @certificate
+        assert_equal '-certificate -cn SelfCertificate 2048-RSA test/fixtures/air/simple/SomeProject.pfx samplePassword', t.to_shell
+
+        #t.execute
+        #assert_file @certificate
       end
     end
 
     # USE THIS METHOD TO CREATE THE INPUT SWF:
-    should "create an input swf" do
-      t = amxmlc @swf_input do |t|
-        t.input = @swf_main
-      end
-      t.execute
-    end
+    #should "create an input swf" do
+      #t = amxmlc @swf_input do |t|
+        #t.input = @swf_main
+      #end
+      #t.execute
+    #end
   end
 end
 
