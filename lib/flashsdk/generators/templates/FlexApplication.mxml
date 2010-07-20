@@ -1,0 +1,43 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+               xmlns:context="<%= context_package %>"
+               minWidth="800"
+               minHeight="600"
+               width="1024"
+               height="768"
+               backgroundColor="0xFFFFFF"
+               pageTitle="<%= project_name.camel_case %>"
+               usePreloader="true"
+               applicationComplete="<%= project_name.camel_case %>CompleteHandler()">
+
+    <fx:Declarations>
+
+        <!-- You have to put all non-visual object declarations here -->
+        <context:<%= project_name.camel_case %>Context contextView="{this}" />
+
+    </fx:Declarations>
+	
+	<fx:Style source="/assets/css/main.css"/>
+	
+    <fx:Script>
+
+        <![CDATA[
+             
+             //---------------------------------------
+             // PRIVATE METHODS
+             //---------------------------------------
+
+             /**
+              * @private
+              */
+             private function <%= project_name.camel_case %>CompleteHandler():void
+             {
+                 trace("<%= project_name.camel_case %>.mxml::<%= project_name.camel_case %>CompleteHandler()");
+             }
+         ]]>
+
+    </fx:Script>
+
+</s:Application>
+
