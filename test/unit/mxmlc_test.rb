@@ -20,7 +20,7 @@ class MXMLCTest < Test::Unit::TestCase
       as_a_unix_system do
         mxmlc = FlashSDK::MXMLC.new
         mxmlc.input = @input
-        mxmlc.source_path << @fixture
+        mxmlc.source_path << 'test/fixtures/mxmlc/simple'
         assert_equal '-source-path+=test/fixtures/mxmlc/simple -static-link-runtime-shared-libraries test/fixtures/mxmlc/simple/SomeFile.as', mxmlc.to_shell
       end
     end
