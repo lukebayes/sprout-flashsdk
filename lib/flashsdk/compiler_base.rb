@@ -629,6 +629,14 @@ module FlashSDK
     #
     add_param :warnings, Boolean
 
+    def library_added path
+      if(path =~ /\.swc$/)
+        self.library_path << path
+      else
+        self.source_path << path
+      end
+    end
+
   end
 end
 
