@@ -2,8 +2,6 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
                xmlns:s="library://ns.adobe.com/flex/spark"
                xmlns:mx="library://ns.adobe.com/flex/mx"
-               minWidth="955"
-               minHeight="600"
                creationComplete="creationCompleteHandler(event)">
 
     <fx:Script>
@@ -14,7 +12,8 @@
 
             private var core:TextCore;
             
-            private function creationCompleteHandler(event:Event):void {
+            private function creationCompleteHandler(event:Event):void 
+            {
                 // Flex 4 complains when we use UICompenent from MXML... Boo.
                 var visualContext:UIComponent = new UIComponent();
                 addElement(visualContext);
