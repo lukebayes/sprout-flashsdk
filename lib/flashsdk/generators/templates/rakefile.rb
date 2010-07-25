@@ -2,10 +2,11 @@ require 'rubygems'
 require 'bundler'
 Bundler.require
 
-library :asunit4
+##############################
+# Debug
 
-desc "Compile the debug swf"
-mxmlc "<%= bin %>/<%= debug_swf_name %>" => :asunit4 do |t|
+# Compile the debug swf
+mxmlc "<%= bin %>/<%= debug_swf_name %>" do |t|
   t.input = "<%= src %>/<%= class_name %>.as"
   t.debug = true
 end
@@ -13,7 +14,12 @@ end
 desc "Compile and run the debug swf"
 flashplayer :debug => "<%= bin %>/<%= debug_swf_name %>"
 
-desc "Compile the test swf"
+##############################
+# Test
+
+library :asunit4
+
+# Compile the test swf
 mxmlc "<%= bin %>/<%= test_swf_name %>" => :asunit4 do |t|
   t.input = "<%= src %>/<%= test_runner_name %>.as"
   t.debug = true
