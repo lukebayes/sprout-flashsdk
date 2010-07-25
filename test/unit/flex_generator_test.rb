@@ -14,7 +14,7 @@ class FlexGeneratorTest < Test::Unit::TestCase
     end
 
     teardown do
-      # remove_file @temp
+      remove_file @temp
     end
 
     should "generate a new Flex" do
