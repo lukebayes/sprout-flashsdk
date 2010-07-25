@@ -1,6 +1,10 @@
 module FlashSDK
   class ProjectGenerator < ClassGenerator
 
+    add_param :css, Path, { :default => 'css' }
+    add_param :images, Path, { :default => 'images' }
+    add_param :fonts, Path, { :default => 'fonts' }    
+        
     def manifest
       directory input do
         template 'rakefile.rb'

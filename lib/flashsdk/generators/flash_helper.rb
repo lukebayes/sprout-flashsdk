@@ -87,6 +87,10 @@ module FlashSDK
       end
       source
     end
+    
+    def project_name
+      input.camel_case
+    end
 
     def instance_name
       # TODO: should uncapitalize class_name
