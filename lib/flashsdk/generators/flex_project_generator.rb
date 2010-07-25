@@ -3,7 +3,7 @@ module FlashSDK
 
     def manifest
       directory input do
-        template 'rakefile.rb'
+        template 'Rakefile', 'Flex4Rakefile.rb'
         template 'Gemfile'
 
         directory src do
