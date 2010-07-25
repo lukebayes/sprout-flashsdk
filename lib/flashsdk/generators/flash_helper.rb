@@ -12,12 +12,12 @@ module FlashSDK
       return test
     end
 
-    # Glob that is used to search for test cases and build 
+    # Glob that is used to search for test cases and build
     # up the test suites
     def test_glob
       return @test_glob ||= File.join(path, test, '**', '?*Test.as')
     end
-    
+
     def test_glob= glob
       @test_glob = glob
     end
@@ -27,12 +27,12 @@ module FlashSDK
     def test_cases
       @test_cases ||= Dir.glob(test_glob)
     end
-    
+
     def test_cases= collection
       @test_cases = collection
     end
-    
-    # Get the list of test_cases (which are files) as a 
+
+    # Get the list of test_cases (which are files) as a
     # list of fully qualified class names
     def test_case_classes
       classes = self.test_cases.dup
@@ -52,7 +52,7 @@ module FlashSDK
       name.gsub!(/#{File::SEPARATOR}/, '.')
       return name
     end
-    
+
     def class_directory
       parts = input_in_parts
       if parts.size > 1
@@ -87,7 +87,7 @@ module FlashSDK
       end
       source
     end
-    
+
     def project_name
       input.camel_case
     end
@@ -117,6 +117,22 @@ module FlashSDK
     def fully_qualified_class_name
       input
     end
+
+    def deploy_swf_name
+      "#{class_name}.swf"
+    end
+
+    def debug_swf_name
+      "#{class_name}-debug.swf"
+    end
+
+    def test_swf_name
+      "#{class_name}-test.swf"
+    end
+
+    def test_runner_name
+      "#{class_name}Runner"
+    end
+
   end
 end
-

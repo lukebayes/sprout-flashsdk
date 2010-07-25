@@ -27,18 +27,5 @@ module FlashSDK
       end
     end
 
-    protected
-
-    def debug_swf_name
-      "#{class_name}-debug.swf"
-    end
-
-    def test_swf_name
-      "#{class_name}-test.swf"
-    end
-
-    def test_runner_name
-      "#{class_name}Runner"
-    end
   end
 end

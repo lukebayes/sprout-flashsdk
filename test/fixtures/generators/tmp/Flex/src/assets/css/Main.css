@@ -1,0 +1,7 @@
+@namespace "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+Application
+{
+	background-color: #666666;
+}
