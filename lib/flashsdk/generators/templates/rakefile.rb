@@ -22,6 +22,7 @@ library :asunit4
 # Compile the test swf
 mxmlc "<%= bin %>/<%= test_swf_name %>" => :asunit4 do |t|
   t.input = "<%= src %>/<%= test_runner_name %>.as"
+  t.source_path << 'test'
   t.debug = true
 end
 
