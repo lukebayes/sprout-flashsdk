@@ -3,7 +3,7 @@ lib = File.expand_path File.dirname(__FILE__), 'lib'
 $:.unshift lib unless $:.include?(lib)
 
 require 'bundler'
-Bundler.require
+require 'flashsdk'
 
 Gem::Specification.new do |s|
   s.name                 = 'flashsdk'
