@@ -4,4 +4,3 @@ on run argv
     tell application flash_player to quit
 end run
 
-

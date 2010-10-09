@@ -8,7 +8,5 @@ on run argv
       if application flash_player is not running then exit repeat
       delay 0.1
     end repeat
-
 end run
-
 
