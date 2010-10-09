@@ -1,6 +1,10 @@
 require 'rubygems'
 require 'bundler'
-Bundler.require
+require 'bundler/setup'
+
+require 'rake/clean'
+require 'flashsdk'
+require 'asunit4'
 
 ##############################
 # Debug
