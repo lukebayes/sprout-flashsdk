@@ -9,7 +9,7 @@ Sprout::Specification.new do |s|
     t.archive_type = :zip
     t.url          = "http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.app.zip"
     t.md5          = "ff6824b7fd676dd1b613204221f5b5b9"
-    t.add_executable :flashplayer, "Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger"
+    t.add_executable :flashplayer, "Flash Player Debugger.app"
   end
 
   s.add_remote_file_target do |t|

@@ -26,7 +26,10 @@ module FlashPlayer
       thread ||= fake_thread
       lines_put = 0
 
-      trap("INT") { thread.kill }
+      trap("INT") { 
+        Sprout::System.create.close_flashplayer
+        thread.kill
+      }
       
       while thread.alive? do
         lines_put = read_from_file path, lines_put
@@ -85,7 +88,7 @@ module FlashPlayer
   end
 end
 
-desc "Tail the flashlog.txt and block"
+desc "Tail the flashlog.txt and block (until CTRL+C)"
 task :flashlog do
   mm_config = FlashPlayer::MMConfig.new
   mm_config.create

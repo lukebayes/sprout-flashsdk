@@ -12,6 +12,7 @@ module FlashPlayer
     # signature...
     def initialize task_name, rake_application
       super
+      Thread.abort_on_exception = true
       @logger       = $stdout
       @mm_config    = MMConfig.new
       @reader       = LogFile.new

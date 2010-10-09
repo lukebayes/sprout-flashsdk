@@ -11,7 +11,7 @@ class TaskTest < Test::Unit::TestCase
       # Executable.clear_entities! but 'require'
       # only runs once per VM run...
       load 'flashplayer/specification.rb'
-      @swf          = File.join(fixtures, 'AsUnit4.swf')
+      @swf          = File.join(fixtures, 'flashplayer', 'AsUnit Runner.swf')
       @missing_home = File.join(fixtures, 'missing_folder')
       @config_path  = File.join(@missing_home, 'fp_config', 'mm.cfg')
     end
@@ -21,6 +21,7 @@ class TaskTest < Test::Unit::TestCase
     end
 
 =begin
+    ## THIS METHOD WAS COMMENTED OUT....
     should "wait for SWF even if clean system" do
       # No creation of expected FlashPlayer folders...
 
