@@ -1,3 +1,4 @@
+require 'flashplayer/system_mixins'
 require 'flashplayer/errors'
 require 'flashplayer/module'
 require 'flashplayer/mm_config'
