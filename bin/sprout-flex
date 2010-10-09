@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'flashsdk'
+
+generator = FlashSDK::FlexProjectGenerator.new
+generator.parse! ARGV
+generator.execute

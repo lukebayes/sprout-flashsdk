@@ -3,15 +3,14 @@ require "bundler"
 
 Bundler.setup :default, :development
 
+require 'sprout'
 # These require statments *must* be in this order:
 # http://bit.ly/bCC0Ew
 # Somewhat surprised they're not being required by Bundler...
 require 'shoulda'
 require 'mocha'
-require 'test/unit'
 
-require File.join(File.dirname(__FILE__), '..', '..', 'lib', 'flashsdk')
-$:.unshift File.dirname(__FILE__)
-
+$:.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'lib'))
+$:.unshift File.expand_path(File.join(File.dirname(__FILE__), '..'))
+require 'flashsdk'
 require 'sprout/test/sprout_test_case'
-
