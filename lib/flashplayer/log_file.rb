@@ -34,7 +34,7 @@ module FlashPlayer
       while thread.alive? do
         lines_put = read_from_file path, lines_put
         logger.flush
-        sleep(0.2)
+        sleep(0.1)
       end
 
       logger.puts ""
