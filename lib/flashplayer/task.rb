@@ -12,7 +12,6 @@ module FlashPlayer
     # signature...
     def initialize task_name, rake_application
       super
-      Thread.abort_on_exception = true
       @logger       = $stdout
       @mm_config    = MMConfig.new
       @reader       = LogFile.new
@@ -26,7 +25,6 @@ module FlashPlayer
 
     def execute *args
       super
-      #puts ">> invoke with: #{args} and input: #{input}"
       update_input_if_necessary
       execute_safely do
         update_mm_config
@@ -51,6 +49,7 @@ module FlashPlayer
 
     def execute_safely
       begin
+        Thread.abort_on_exception = true
         yield if block_given?
       rescue FlashPlayer::PathError => e
         logger.puts ">> [WARNING] It seems this was the first time FlashPlayer was launched on this system and as a result, the expected folders were not found. Please close the Player and run again - this message should only ever be displayed once."

@@ -17,6 +17,8 @@ module Sprout
 
     class OSXSystem < UnixSystem
 
+      ##
+      # Use AppleScript to close the Flash Player
       def close_flashplayer
         if @player_thread.alive?
           closer = []
@@ -27,6 +29,10 @@ module Sprout
         end
       end
 
+      ##
+      # Use AppleScript to open the specified Flash Player
+      # because, simply launching the executable does not focus
+      # it.
       def open_flashplayer_with exe, swf
         @player_exe = exe.split(' ').join('\ ')
         
