@@ -23,7 +23,7 @@ module Sprout
         if @player_thread.alive?
           closer = []
           closer << "osascript"
-          closer << "ext/CloseFlashPlayerForDumbassOSX.scpt"
+          closer << close_flashplayer_script_path
           closer << @player_exe
           `#{closer.join(" ")}`
         end
@@ -35,14 +35,28 @@ module Sprout
       # it.
       def open_flashplayer_with exe, swf
         @player_exe = exe.split(' ').join('\ ')
-        
+
         wrapper = []
         wrapper << "osascript"
-        wrapper << "ext/OpenFlashPlayerForDumbassOSX.scpt"
+        wrapper << open_flashplayer_script_path
         wrapper << @player_exe
 
         # Call the UnixSystem.open_flashplayer_with method:
         super wrapper.join(" "), File.expand_path(swf)
+      end
+
+      private
+
+      def ext_gem_path
+        File.join(File.dirname(__FILE__), '..', '..', 'ext')
+      end
+
+      def close_flashplayer_script_path
+        File.expand_path(File.join(ext_gem_path, "CloseFlashPlayerForDumbassOSX.scpt"))
+      end
+
+      def open_flashplayer_script_path
+        File.expand_path(File.join(ext_gem_path, "OpenFlashPlayerForDumbassOSX.scpt"))
       end
 
     end
