@@ -20,7 +20,6 @@ class TaskTest < Test::Unit::TestCase
       remove_file @missing_home
     end
 
-=begin
     ## THIS METHOD WAS COMMENTED OUT....
     should "wait for SWF even if clean system" do
       # No creation of expected FlashPlayer folders...
@@ -35,7 +34,6 @@ class TaskTest < Test::Unit::TestCase
         t.invoke
       end
     end
-=end
 
     should "work with swf as task name" do
       t = flashplayer @swf
@@ -76,13 +74,13 @@ class TaskTest < Test::Unit::TestCase
     t.logger = StringIO.new
 
     # Comment following lines to really launch the player:
-    sys = FakeSystem.new
+    sys = FakeFlashPlayerSystem.new
     t.stubs(:current_system).returns sys
     sys.expects(:open_flashplayer_with).returns Thread.new{}
   end
 end
 
-class FakeSystem
+class FakeFlashPlayerSystem
 
   def clean_path path
     path

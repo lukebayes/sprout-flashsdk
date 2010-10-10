@@ -6,7 +6,8 @@ module FlashPlayer
     attr_accessor :logger
 
     def initialize
-      @logger      = $stdout
+      @logger = $stdout
+      super
     end
 
     def tail thread=nil
@@ -26,11 +27,6 @@ module FlashPlayer
       thread ||= fake_thread
       lines_put = 0
 
-      trap("INT") { 
-        Sprout::System.create.close_flashplayer
-        thread.kill
-      }
-      
       while thread.alive? do
         lines_put = read_from_file path, lines_put
         logger.flush
