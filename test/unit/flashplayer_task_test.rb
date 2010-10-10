@@ -20,6 +20,7 @@ class TaskTest < Test::Unit::TestCase
       remove_file @missing_home
     end
 
+=begin
     ## THIS METHOD WAS COMMENTED OUT....
     should "wait for SWF even if clean system" do
       # No creation of expected FlashPlayer folders...
@@ -34,6 +35,7 @@ class TaskTest < Test::Unit::TestCase
         t.invoke
       end
     end
+=end
 
     should "work with swf as task name" do
       t = flashplayer @swf
