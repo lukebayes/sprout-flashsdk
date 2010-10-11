@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'bundler'
 
+test_package = File.join(File.dirname(__FILE__), 'test', 'unit')
+$: << test_package unless $:.include? test_package
+
 Bundler.require
 
 require 'rake'

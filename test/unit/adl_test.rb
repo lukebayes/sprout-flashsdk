@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'test_helper')
+require 'test_helper'
 
 class ADLTest < Test::Unit::TestCase
   include SproutTestCase
