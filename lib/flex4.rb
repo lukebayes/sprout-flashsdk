@@ -4,10 +4,7 @@ Sprout::Specification.new do |s|
   s.version = FlashSDK::VERSION
 
   s.add_remote_file_target do |t|
-    # Apply the windows-specific configuration:
-    t.platform = :universal
-    # Apply the shared platform configuration:
-    # Remote Archive:
+    t.platform     = :universal
     t.archive_type = :zip
     t.url          = "http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4/flex_sdk_4.1.0.16076.zip"
     t.md5          = "4c5f3d3fa4e1f5be244679210cd852c0"
