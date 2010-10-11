@@ -101,7 +101,7 @@ module FlashSDK
     end
 
     def input_in_parts
-      provided_input = input
+      provided_input = input.dup
       if provided_input.include?('/')
         provided_input.gsub! /^#{src}\//, ''
         provided_input = provided_input.split('/').join('.')
