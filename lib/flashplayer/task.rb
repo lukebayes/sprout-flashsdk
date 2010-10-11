@@ -84,8 +84,7 @@ module FlashPlayer
 
     def launch_player_with swf
       player = Sprout::Executable.load(:flashplayer, pkg_name, pkg_version).path
-      swf = clean_path swf
-      current_system.open_flashplayer_with player, swf
+      current_system.open_flashplayer_with player, clean_path(swf)
     end
 
     def tail_flashlog player_thread

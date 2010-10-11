@@ -10,7 +10,7 @@ module Sprout
       
       def open_flashplayer_with exe, swf
         return Thread.new {
-          system exe, swf
+          system "#{exe} #{swf}"
         }
       end
     end
