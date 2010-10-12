@@ -1,7 +1,7 @@
 
 Sprout::Specification.new do |s|
   s.name    = 'flex4'
-  s.version = FlashSDK::VERSION
+  s.version = '4.1.0.16076'
 
   s.add_remote_file_target do |t|
     t.platform     = :universal
