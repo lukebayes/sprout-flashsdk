@@ -31,7 +31,6 @@ class MXMLCTest < Test::Unit::TestCase
       mxmlc.execute
       assert_file @expected_output
     end
-    
 
     should "assign default-size" do
       mxmlc = FlashSDK::MXMLC.new
