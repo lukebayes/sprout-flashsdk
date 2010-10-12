@@ -1,6 +1,7 @@
 
 module FlashPlayer
   NAME    = 'flashplayer'
+  VERSION = '10.1.82'
 
   class << self
 

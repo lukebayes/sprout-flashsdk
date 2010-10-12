@@ -2,7 +2,7 @@ require 'flashsdk'
 
 Sprout::Specification.new do |s|
   s.name        = 'flashplayer'
-  s.version     = '10.1.82'
+  s.version     = FlashPlayer::VERSION
 
   ##
   # NOTE: The order of these declarations is important, the RubyFeature.load method

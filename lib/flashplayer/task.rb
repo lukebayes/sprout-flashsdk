@@ -20,7 +20,7 @@ module FlashPlayer
       @input        = task_name
 
       @pkg_name     = FlashPlayer::NAME
-      @pkg_version  = FlashSDK::VERSION
+      @pkg_version  = FlashPlayer::VERSION
     end
 
     def execute *args
