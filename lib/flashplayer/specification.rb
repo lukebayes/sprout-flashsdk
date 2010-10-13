@@ -19,7 +19,7 @@ Sprout::Specification.new do |s|
     t.archive_type = :exe
     t.url          = "http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.exe"
     t.md5          = "1f5e411f96817b56c99111a06f4c727f"
-    t.add_executable :flashplayer, "flashplayer_10_sa_debug.exe"
+    t.add_executable :flashplayer, "1f5e411f96817b56c99111a06f4c727f.exe"
   end
 
   s.add_remote_file_target do |t|
