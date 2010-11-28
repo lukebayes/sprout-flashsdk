@@ -1,7 +1,11 @@
 module FlashSDK
   class ClassGenerator < Sprout::Generator::Base
     include FlashHelper
-
+    
+    ##
+    # The default package to use.    
+    add_param :package, String, { :default => ""}
+    
     ##
     # The path where assets will be created.
     add_param :assets, String, { :default => 'assets' }

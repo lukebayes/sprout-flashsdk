@@ -2,7 +2,33 @@
 module FlashSDK
 
   module FlashHelper
+    
+    def package_directory
+      split_package package
+    end
 
+    def package_name
+      remove_slashes package
+    end
+    
+    def context_package
+      if package_name != ""
+        return package_name + ".*"
+      end
+      "*"
+    end
+    
+    def remove_slashes(value)
+      if value.include?('/')
+        value = value.split('/').join('.')
+      end
+      return value
+    end
+    
+    def split_package(value) 
+      value.split('.')
+    end
+    
     def test_class_directory
       parts = input_in_parts
       if parts.size > 1
