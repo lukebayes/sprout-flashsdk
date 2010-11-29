@@ -9,17 +9,6 @@ module FlashSDK
       end
         split_package package
     end
-
-    def package_name
-      remove_slashes package
-    end
-    
-    def context_package
-      if package_name != ""
-        return package_name + ".*"
-      end
-      "*"
-    end
     
     def remove_slashes(value)
       if value.include?('/')
@@ -91,6 +80,16 @@ module FlashSDK
       return src
     end
 
+    ##
+    # This method uses the package name specified by --package off the command line
+    # @example --package=com.foo.bar
+    def default_package_name
+      remove_slashes package
+    end
+    
+    ##
+    # This is the package name from a fully qualified class name input argument 
+    # @example com.foo.Mathutils.as
     def package_name
       parts = input_in_parts
       if parts.size > 1
