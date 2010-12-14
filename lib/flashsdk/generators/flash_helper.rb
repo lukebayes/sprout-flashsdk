@@ -2,7 +2,25 @@
 module FlashSDK
 
   module FlashHelper
-
+    
+    def package_directory
+      if package.include?('/')
+        remove_slashes package
+      end
+        split_package package
+    end
+    
+    def remove_slashes(value)
+      if value.include?('/')
+        value = value.split('/').join('.')
+      end
+      return value
+    end
+    
+    def split_package(value) 
+      value.split('.')
+    end
+    
     def test_class_directory
       parts = input_in_parts
       if parts.size > 1
@@ -45,9 +63,9 @@ module FlashSDK
     # to a fully-qualified class name
     def actionscript_file_to_class_name file
       name = file.dup
-      name.gsub!(/^#{path}\//, '')
-      name.gsub!(/^#{test}\//, '')
-      name.gsub!(/^#{src}\//, '')
+      name.gsub!(/^#{path}\//, '') if respond_to? :path
+      name.gsub!(/^#{test}\//, '') if respond_to? :test
+      name.gsub!(/^#{src}\//, '') if respond_to? :src
       name.gsub!(/.as$/, '')
       name.gsub!(/#{File::SEPARATOR}/, '.')
       return name
@@ -62,6 +80,16 @@ module FlashSDK
       return src
     end
 
+    ##
+    # This method uses the package name specified by --package off the command line
+    # @example --package=com.foo.bar
+    def default_package_name
+      remove_slashes package
+    end
+    
+    ##
+    # This is the package name from a fully qualified class name input argument 
+    # @example com.foo.Mathutils.as
     def package_name
       parts = input_in_parts
       if parts.size > 1
@@ -100,12 +128,10 @@ module FlashSDK
       'instance'
     end
 
-    def input_in_parts
-      provided_input = input.dup
-      if provided_input.include?('/')
-        provided_input.gsub! /^#{src}\//, ''
-        provided_input = provided_input.split('/').join('.')
-      end
+    def input_in_parts(value=nil)
+      provided_input = value || input.dup
+      provided_input.gsub! /^#{src}\//, '' if respond_to? :src
+      provided_input = provided_input.split('/').join('.')
 
       provided_input.gsub!(/\.as$/, '')
       provided_input.gsub!(/\.mxml$/, '')
@@ -115,7 +141,15 @@ module FlashSDK
     end
 
     def fully_qualified_class_name
-      input
+      remove_slashes(remove_file_extensions(input))
+    end
+    
+    def remove_file_extensions(value)
+      value = value.dup
+      value.gsub!(/\.as$/, '')
+      value.gsub!(/\.mxml$/, '')
+      value.gsub!(/\.xml$/, '')
+      return value
     end
 
     def deploy_swf_name
