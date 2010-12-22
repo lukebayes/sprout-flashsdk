@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+
+##
+# This is a Fake MXMLC executable that should
+# support our test cases by performing exactly 
+# the same tasks that MXMLC performs, but much
+# faster. 
+#
+# This executable should be easily swapped with
+# the real MXMLC binary for any test.
+class FakeMXMLC
+
+  def initialize args
+    #puts ">> ARGS: #{args.inspect}"
+    if(args.size == 2 && 
+       args[0] == "-static-link-runtime-shared-libraries" && 
+       args[1] == "test/fixtures/mxmlc/simple/SomeFile.as")
+      compile_simple_swf args
+    elsif args == ["-output=test/fixtures/air/simple/bin/SomeProject.swf", "-static-link-runtime-shared-libraries", "test/fixtures/air/simple/SomeProject.as"]
+      compile_amxmlc_swf args
+    end
+  end
+
+  private
+
+  def compile_amxmlc_swf args
+    path = args[0].split('=').pop
+    compile_swf path
+  end
+
+  ##
+  # /Users/lbayes/Library/Sprouts/1.0/cache/flex4/4.1.0.16076/bin/mxmlc -static-link-runtime-shared-libraries test/fixtures/mxmlc/simple/SomeFile.as
+  # Loading configuration file /Users/lbayes/Library/Sprouts/1.0/cache/flex4/4.1.0.16076/frameworks/flex-config.xml
+  # /Users/lbayes/Projects/Sprouts/flashsdk/test/fixtures/mxmlc/simple/SomeFile.swf (558 bytes)
+  def compile_simple_swf args
+    path = File.expand_path(args[1].gsub(/\.as$/, '.swf'))
+    compile_swf path
+  end
+
+  def compile_swf path
+    File.open path, 'wb+' do |f|
+      f.write swf_bytes
+    end
+    puts "#{File.expand_path(path)} (#{swf_bytes.size})"
+  end
+
+  def swf_bytes
+    @swf_bytes ||= File.read 'test/fixtures/air/simple/SomeProject.swf'
+  end
+
+end
+
+mxmlc = FakeMXMLC.new ARGV
+

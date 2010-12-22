@@ -26,6 +26,7 @@ class MXMLCTest < Test::Unit::TestCase
     end
 
     should "compile a swf" do
+      insert_fake_executable File.join(fixtures, 'sdk', 'mxmlc')
       mxmlc = FlashSDK::MXMLC.new
       mxmlc.input = @input
       mxmlc.execute
@@ -45,6 +46,16 @@ class MXMLCTest < Test::Unit::TestCase
       end
       assert_equal 'bin/SomeProject.swf', t.output
     end
+  end
+
+  private
+
+  def configure_mxmlc_fake exe_name
+    # Comment the following and install the flashsdk
+    # to run test against actual mxmlc:
+    @fake = File.join(fixtures, 'mxmlc', exe_name)
+    path_response = OpenStruct.new(:path => @fake)
+    Sprout::Executable.expects(:load).with(:fdb, 'flex4', '>= 4.1.0.pre').returns path_response
   end
 end
 

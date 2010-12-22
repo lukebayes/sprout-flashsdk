@@ -9,6 +9,7 @@ class AMXMLCTest < Test::Unit::TestCase
       @fixture         = File.join 'test', 'fixtures', 'air', 'simple'
       @input           = File.join @fixture, 'SomeProject.as'
       @expected_output = File.join @fixture, 'bin', 'SomeProject.swf'
+
       #Sprout::Log.debug = false
     end
 
@@ -26,6 +27,9 @@ class AMXMLCTest < Test::Unit::TestCase
     end
 
     should "compile a swf" do
+      insert_fake_executable File.join(fixtures, 'sdk', 'mxmlc')
+      FileUtils.mkdir_p File.dirname(@expected_output)
+
       amxmlc        = FlashSDK::AMXMLC.new
       amxmlc.input  = @input
       amxmlc.output = @expected_output

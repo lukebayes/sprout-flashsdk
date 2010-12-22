@@ -8,7 +8,7 @@ class FDBTest < Test::Unit::TestCase
     setup do
       # Uncomment to see actual output:
       #Sprout::Log.debug = false
-      configure_fdb_fake
+      insert_fake_executable File.join(fixtures, 'sdk', 'fdb')
     end
 
     should "execute without shell params" do
@@ -47,14 +47,5 @@ class FDBTest < Test::Unit::TestCase
 
   end
 
-  private
-
-  def configure_fdb_fake
-    # Comment the following and install the flashsdk
-    # to run test against actual fdb:
-    @fdb_fake = File.join(fixtures, 'fdb', 'fdb')
-    path_response = OpenStruct.new(:path => @fdb_fake)
-    Sprout::Executable.expects(:load).with(:fdb, 'flex4', '>= 4.1.0.pre').returns path_response
-  end
 end
 
