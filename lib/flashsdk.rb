@@ -14,5 +14,6 @@ require 'flashsdk/compc'
 require 'flashsdk/amxmlc'
 require 'flashsdk/adt'
 require 'flashsdk/adl'
+require 'flashsdk/fdb'
 require 'flashplayer'
 

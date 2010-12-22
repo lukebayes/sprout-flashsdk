@@ -19,6 +19,7 @@ class ADTTest < Test::Unit::TestCase
     end
 
     teardown do
+      clear_tasks
       remove_file @expected_output
     end
 
