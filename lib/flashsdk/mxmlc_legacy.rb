@@ -1,6 +1,6 @@
 
 =begin
-    def define # :nodoc:
+    def define
       super
 
       if(!output)

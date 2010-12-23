@@ -130,7 +130,7 @@
       @test_result ||= ''
     end
 
-    def define # :nodoc:
+    def define 
       CLEAN.add(test_result_file)
     end
 
