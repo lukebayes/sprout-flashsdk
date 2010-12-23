@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class LogFileTest < Test::Unit::TestCase
-  include SproutTestCase
+  include SproutTestHelper
 
   context "A LogFile" do
 
@@ -32,7 +32,7 @@ class LogFileTest < Test::Unit::TestCase
 
 
     # This method only works when run alone -
-    # Under normal circumstances, the SproutTestCase
+    # Under normal circumstances, the SproutTestHelper
     # clears out any Rake tasks that have been defined
     # and we don't have an easy way to redefine the
     # task...

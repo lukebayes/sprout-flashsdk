@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ProjectGeneratorTest < Test::Unit::TestCase
-  include SproutTestCase
+  include SproutTestHelper
 
   context "A new project generator" do
 

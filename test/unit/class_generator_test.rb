@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ClassGeneratorTest < Test::Unit::TestCase
-  include SproutTestCase
+  include SproutTestHelper
 
   context "a new class generator" do
 

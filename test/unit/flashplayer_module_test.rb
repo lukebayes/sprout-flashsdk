@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class FlashPlayerTest < Test::Unit::TestCase
-  include SproutTestCase
+  include SproutTestHelper
 
   context "The FlashPlayer module" do
 

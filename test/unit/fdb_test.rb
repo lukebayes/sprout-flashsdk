@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class FDBTest < Test::Unit::TestCase
-  include SproutTestCase
+  include SproutTestHelper
 
   context "a new fdb task" do
 

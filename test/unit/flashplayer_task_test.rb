@@ -1,13 +1,13 @@
 require 'test_helper'
 
 class TaskTest < Test::Unit::TestCase
-  include SproutTestCase
+  include SproutTestHelper
 
   context "A FlashPlayerTask" do
 
     setup do
       # Force reload of the Specification on each
-      # test method b/c SproutTestCase calls
+      # test method b/c SproutTestHelper calls
       # Executable.clear_entities! but 'require'
       # only runs once per VM run...
       load 'flashplayer/specification.rb'

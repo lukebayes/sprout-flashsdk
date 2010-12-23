@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ADTTest < Test::Unit::TestCase
-  include SproutTestCase
+  include SproutTestHelper
 
   context "An ADT tool" do
 

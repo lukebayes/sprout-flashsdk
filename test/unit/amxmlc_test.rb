@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AMXMLCTest < Test::Unit::TestCase
-  include SproutTestCase
+  include SproutTestHelper
 
   context "An AMXMLC tool" do
 

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TrustTest < Test::Unit::TestCase
-  include SproutTestCase
+  include SproutTestHelper
 
   context "A Trust instance" do
 
