@@ -1,9 +1,11 @@
-##
-# Update the native System instances
-# to handle FlashPlayer launching in 
-# order to overcome non-cli limitations.
-#
+
 module Sprout
+
+  ##
+  # Update the native System instances
+  # to handle FlashPlayer launching in 
+  # order to overcome non-cli limitations.
+  #
   module System
     
     class WinSystem

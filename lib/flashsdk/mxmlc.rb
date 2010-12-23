@@ -9,7 +9,7 @@ module FlashSDK
   # identical to what is available on the regular compiler except dashes have been replaced
   # by underscores.
   #
-  # @example The following example can be pasted in a file named 'rakefile.rb' which should be placed in the same folder as an ActionScript 3.0 class named 'SomeProject.as' that extends flash.display.Sprite.
+  # The following example can be pasted in a file named 'rakefile.rb' which should be placed in the same folder as an ActionScript 3.0 class named 'SomeProject.as' that extends flash.display.Sprite.
   #
   #   # Create a remote library dependency on the corelib swc.
   #   library :corelib
@@ -27,7 +27,7 @@ module FlashSDK
   #     t.source_path               << 'lib/otherlib'
   #   end
   #
-  # @example Remember that Rake files are really just regular Ruby code, so if you want to have some configuration information shared by multiple build tasks, just define a method like:
+  # Remember that Rake files are really just regular Ruby code, so if you want to have some configuration information shared by multiple build tasks, just define a method like:
   #
   #   def configure_tasks t
   #     t.library_path << 'lib/SomeLibrary.swc'
