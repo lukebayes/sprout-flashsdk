@@ -110,7 +110,7 @@ require 'flashplayer'
 # any manual intervention, but some of you are interested in
 # where these applications live and how to change how they're accessed.
 #
-# Following are the {Sprout::Specifications} that are included with the FlashSDK:
+# Following are the {Sprout::Specification}s that are included with the FlashSDK:
 # 
 # * {file:flashsdk/lib/flashplayer/specification.rb}
 # * {file:flashsdk/lib/flex3.rb}
