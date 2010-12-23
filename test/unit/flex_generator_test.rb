@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class FlexGeneratorTest < Test::Unit::TestCase
-  include SproutTestHelper
+  include Sprout::TestHelper
 
   context "A new Flex generator" do
 

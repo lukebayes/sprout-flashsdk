@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MMConfigTest < Test::Unit::TestCase
-  include SproutTestHelper
+  include Sprout::TestHelper
 
   context "An MMConfig" do
 

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class COMPCTest < Test::Unit::TestCase
-  include SproutTestHelper
+  include Sprout::TestHelper
 
   context "An COMPC tool" do
 

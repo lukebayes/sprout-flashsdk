@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MXMLCTest < Test::Unit::TestCase
-  include SproutTestHelper
+  include Sprout::TestHelper
 
   context "An MXMLC tool" do
 

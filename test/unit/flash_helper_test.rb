@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class FlashHelperTest < Test::Unit::TestCase
-  include SproutTestHelper
+  include Sprout::TestHelper
 
   context "A FlashHelper" do
     
