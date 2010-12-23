@@ -33,8 +33,7 @@ module FlashSDK
   #   desc "Compile, certify and package the AIR application"
   #   task package => 'bin/SomeProject.air'
   #
-  class ADT
-    include Sprout::Executable
+  class ADT < Sprout::Executable::Base
     #NOTE:
     # The order of these parameters is important!
     # Please do not alphabetize or rearrange unless you're

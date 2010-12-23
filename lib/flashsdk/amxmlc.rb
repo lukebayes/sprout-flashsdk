@@ -2,8 +2,7 @@ module FlashSDK
 
   ##
   # This is a wrapper for the AIR MXMLC compiler.
-  class AMXMLC < MXMLC
-    include Sprout::Executable
+  class AMXMLC < MXMLC 
 
     ##
     # The default executable target.

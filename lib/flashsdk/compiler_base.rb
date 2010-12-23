@@ -5,8 +5,7 @@ module FlashSDK
   #
   # @abstract
   #
-  class CompilerBase
-    include Sprout::Executable
+  class CompilerBase < Sprout::Executable::Base
 
     ##
     # Enables accessibility features when compiling the Flex application or SWC file. The default value is false.

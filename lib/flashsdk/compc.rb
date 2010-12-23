@@ -1,7 +1,6 @@
 module FlashSDK
 
   class COMPC < CompilerBase
-    include Sprout::Executable
 
     ##
     # Outputs the SWC file into an open directory format rather than a SWC file

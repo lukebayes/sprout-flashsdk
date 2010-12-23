@@ -50,7 +50,6 @@ module FlashSDK
   # @see Sprout::Executable
   #
   class MXMLC < CompilerBase
-    include Sprout::Executable
 
     ##
     # Main source file to send compiler.

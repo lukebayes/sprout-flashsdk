@@ -1,7 +1,6 @@
 module FlashSDK
 
-  class ADL
-    include Sprout::Executable
+  class ADL < Sprout::Executable::Base
 
     add_param :runtime, Path
 
@@ -41,6 +40,10 @@ module FlashSDK
   end
 end
 
+##
+# TODO: This should NOT be here!
+# This is preventing that method from working
+# as expected only after this FILE is required.
 class Sprout::System::UnixSystem
 
     def should_repair_executable path
