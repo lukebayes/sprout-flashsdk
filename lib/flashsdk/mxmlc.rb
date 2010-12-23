@@ -9,9 +9,7 @@ module FlashSDK
   # identical to what is available on the regular compiler except dashes have been replaced
   # by underscores.
   #
-  # The following example can be pasted in a file named 'rakefile.rb' which should be placed in
-  # the same folder as an ActionScript 3.0 class named 'SomeProject.as' that extends
-  # flash.display.Sprite.
+  # @example The following example can be pasted in a file named 'rakefile.rb' which should be placed in the same folder as an ActionScript 3.0 class named 'SomeProject.as' that extends flash.display.Sprite.
   #
   #   # Create a remote library dependency on the corelib swc.
   #   library :corelib
@@ -29,16 +27,33 @@ module FlashSDK
   #     t.source_path               << 'lib/otherlib'
   #   end
   #
-  # Note: Be sure to check out the features of the Executable to learn more about gem_version and preprocessor
+  # @example Remember that Rake files are really just regular Ruby code, so if you want to have some configuration information shared by multiple build tasks, just define a method like:
   #
-  # Interface and descriptions found here:
-  # http://livedocs.adobe.com/flex/2/docs/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&file=00001481.html
+  #   def configure_tasks t
+  #     t.library_path << 'lib/SomeLibrary.swc'
+  #     t.source_path << 'lib/otherlib'
+  #   end
+  #
+  #   desc "Compile the project"
+  #   mxmlc 'bin/SomeProject.swf' do |t|
+  #     configure_tasks t
+  #     t.input = 'src/SomeProject.as'
+  #   end
+  #
+  #   desc "Compile the test harness"
+  #   mxmlc 'bin/SomeProjectRunner.swf' => :asunit4 do |t|
+  #     configure_tasks t
+  #     t.input = 'src/SomeProjectRunner.as'
+  #   end
+  #
+  # @see FlashSDK::CompilerBase
+  # @see Sprout::Executable
   #
   class MXMLC < CompilerBase
     include Sprout::Executable
 
     ##
-    # Main source file to send compiler"
+    # Main source file to send compiler.
     # This must be the last item in this list
     add_param :input, File, { :required => true, :hidden_name => true }
 

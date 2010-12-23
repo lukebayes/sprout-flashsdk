@@ -1,37 +1,57 @@
+
 module FlashSDK
+
+  ##
+  # This Generator will create a new ActionScript class
+  # based on the +ActionScript3Class.as+ template.
+  #
+  # This Generator should only be executed from within
+  # a project that has a Gemfile. If your Gemfile
+  # loads the "asunit4" gem, a test case and test suite
+  # will also be created whenever this generator is run.
+  #
+  # You can run this generator as follows:
+  #
+  #   $ sprout-class utils.MathUtil
+  # 
+  # You can prevent the creation of a test case and test 
+  # suite by sending in the +--no-test+ parameter as follows:
+  #
+  #   $ sprout-class utils.MathUtil --no-test
+  #
   class ClassGenerator < Sprout::Generator::Base
     include FlashHelper
     
     ##
-    # The default package to use.    
+    # @return [String] The default package to use.    
     add_param :package, String, { :default => ""}
     
     ##
-    # The path where assets will be created.
+    # @return [String] The path where assets will be created.
     add_param :assets, String, { :default => 'assets' }
 
     ##
-    # The path where skins will be created.
+    # @return [String] The path where skins will be created.
     add_param :skins, String, { :default => 'skins' }
 
     ##
-    # The path where test cases should be created.
+    # @return [String] The path where test cases should be created.
     add_param :test, String, { :default => 'test' }
 
     ##
-    # The path where libraries should be added.
+    # @return [String] The path where libraries should be added.
     add_param :lib, String, { :default => 'lib' }
 
     ##
-    # The path where binaries should be created.
+    # @return [String] The path where binaries should be created.
     add_param :bin, String, { :default => 'bin' }
 
     ##
-    # The path where source files should be created.
+    # @return [String] The path where source files should be created.
     add_param :src, String, { :default => 'src' }
 
     ##
-    # Do not create a test case for this class.
+    # @return [String] Do not create a test case for this class.
     add_param :no_test, Boolean
 
     def manifest
@@ -49,12 +69,13 @@ module FlashSDK
   end
 end
 
-##
-# This is a null Generator, if you add a test library
-# to your Gemfile, it should have it's own TestClassGenerator
-# that supercedes this one.
 module FlashSDK
+  ##
+  # This is a null Generator, if you add a test library
+  # to your Gemfile, it should have it's own TestClassGenerator
+  # that supercedes this one.
   class TestClassGenerator < Sprout::Generator::Base
+
     def manifest
     end
   end

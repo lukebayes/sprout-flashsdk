@@ -1,5 +1,34 @@
 
 Sprout::Specification.new do |s|
+  # This is the Specification that loads the Flex 4 SDK,
+  # To use the Flex 4 SDK from your build tasks, you can
+  # simply update the pkg_name parameter of your build 
+  # task as follows:
+  #
+  #   mxmlc 'bin/SomeProject.swf' do |t|
+  #     t.input       = 'src/SomeProject.as'
+  #     t.pkg_name    = 'flex4'
+  #   end
+  #
+  # If you'd like to consume any of the libraries that
+  # are included with the Flex SDK, you can embed them
+  # from your Rakefile as follows:
+  #
+  #   library :f_textlayout
+  #
+  #   mxmlc 'bin/SomeProject.swf' => :f_textlayout do |t|
+  #     t.input = 'src/SomeProject.as'
+  #   end
+  #
+  # If you'd like to consume one of the localized frameworks
+  # you can set that up as follows:
+  #
+  #   library 'flex_4_es_ES'
+  #
+  #   mxmlc 'bin/SomeProject.swf' => 'flex_4_es_ES' do |t|
+  #     t.input = 'src/SomeProject.as'
+  #   end
+  #
   s.name    = 'flex4'
   s.version = '4.1.0.16076'
 

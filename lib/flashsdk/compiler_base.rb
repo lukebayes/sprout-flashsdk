@@ -1,15 +1,22 @@
 module FlashSDK
   
+  ##
+  # This is the abstract base class that defines common fields for ActionScript compilers like {FlashSDK::MXMLC} and {FlashSDK::COMPC}.
+  #
+  # @abstract
+  #
   class CompilerBase
     include Sprout::Executable
 
     ##
     # Enables accessibility features when compiling the Flex application or SWC file. The default value is false.
     #
+    #   t.accessible = true
+    #
     add_param :accessible, Boolean, { :hidden_value => true }
     
     ##
-    # Sets the file encoding for ActionScript files. For more information see: http://livedocs.adobe.com/flex/2/docs/00001503.html#149244
+    # Sets the file encoding for ActionScript files.
     #
     add_param :actionscript_file_encoding, String
     
@@ -34,22 +41,20 @@ module FlashSDK
     ##
     # Sets the value of the {context.root} token in channel definitions in the flex-services.xml file. If you do not specify the value of this option, Flex uses an empty string.
     #
-    # For more information on using the {context.root} token, see http://livedocs.adobe.com/flex/2/docs/00001446.html#205687.
-    #
     add_param :context_root, Path
     
     ##
-    # Sets metadata in the resulting SWF file. For more information, see Adding metadata to SWF files (http://livedocs.adobe.com/flex/2/docs/00001502.html#145380).
+    # Sets metadata in the resulting SWF file. 
     #
     add_param :contributor, String
     
     ##
-    # Sets metadata in the resulting SWF file. For more information, see Adding metadata to SWF files. (http://livedocs.adobe.com/flex/2/docs/00001502.html#145380)
+    # Sets metadata in the resulting SWF file.
     #
     add_param :creator, String
     
     ##
-    # Sets metadata in the resulting SWF file. For more information, see Adding metadata to SWF files. (http://livedocs.adobe.com/flex/2/docs/00001502.html#145380)
+    # Sets metadata in the resulting SWF file.
     #
     add_param :date, String
     
@@ -76,7 +81,7 @@ module FlashSDK
     # 
     #     -default-background-color=0xCCCCFF
     #
-    # The default value is null. The default background of a Flex application is an image of a gray gradient. You must override this image for the value of the default-background-color option to be visible. For more information, see Editing application settings (http://livedocs.adobe.com/flex/2/docs/00001504.html#138781).
+    # The default value is null. The default background of a Flex application is an image of a gray gradient. You must override this image for the value of the default-background-color option to be visible.
     #
     # This is an advanced option.
     # 
@@ -122,10 +127,6 @@ module FlashSDK
     ##
     # Defines the location of the default style sheet. Setting this option overrides the implicit use of the defaults.css style sheet in the framework.swc file.
     #
-    # For more information on the defaults.css file, see Using Styles and Themes (http://livedocs.adobe.com/flex/2/docs/00000751.html#241755) in Flex 2 Developer's Guide.
-    #
-    # This is an advanced option.
-    #
     add_param :default_css_url, Url
 
     ##
@@ -136,7 +137,7 @@ module FlashSDK
     add_param :define_conditional, Strings, { :shell_name => "-define" }
     
     ##
-    # Sets metadata in the resulting SWF file. For more information, see Adding metadata to SWF files (http://livedocs.adobe.com/flex/2/docs/00001502.html#145380).
+    # Sets metadata in the resulting SWF file.
     #
     add_param :description, String
     
@@ -165,16 +166,12 @@ module FlashSDK
     #
     # This option provides compile-time link checking for external references that are dynamically linked.
     #
-    # For more information about dynamic linking, see About linking (http://livedocs.adobe.com/flex/2/docs/00001521.html#205852).
-    #
     # This is an advanced option.
     # 
     add_param :externs, Strings
     
     ##
     # Specifies a list of SWC files or directories to exclude from linking when compiling a SWF file. This option provides compile-time link checking for external components that are dynamically linked.
-    #
-    # For more information about dynamic linking, see About linking (http://livedocs.adobe.com/flex/2/docs/00001521.html#205852).
     #
     # You can use the += operator to append the new SWC file to the list of external libraries.
     #
@@ -193,28 +190,28 @@ module FlashSDK
     add_param :file_specs, Files
     
     ##
-    # Specifies the range of Unicode settings for that language. For more information, see Using Styles and Themes (http://livedocs.adobe.com/flex/2/docs/00000751.html#241755) in Flex 2 Developer's Guide.
+    # Specifies the range of Unicode settings for that language.
     #
     # This is an advanced option.
     #
     add_param :fonts_languages_language_range, String, { :shell_name => "-compiler.fonts.languages.language-range" }
 
     ##
-    # Defines the font manager. The default is flash.fonts.JREFontManager. You can also use the flash.fonts.BatikFontManager. For more information, see Using Styles and Themes in Flex 2 Developer's Guide (http://livedocs.adobe.com/flex/2/docs/00000751.html#241755).
+    # Defines the font manager. The default is flash.fonts.JREFontManager. You can also use the flash.fonts.BatikFontManager.
     #
     # This is an advanced option.
     #
     add_param :fonts_managers, Strings
     
     ##
-    # Sets the maximum number of fonts to keep in the server cache. For more information, see Caching fonts and glyphs (http://livedocs.adobe.com/flex/2/docs/00001469.html#208457).
+    # Sets the maximum number of fonts to keep in the server cache.
     #
     # This is an advanced option.
     #
     add_param :fonts_max_cached_fonts, Number
     
     ##
-    # Sets the maximum number of character glyph-outlines to keep in the server cache for each font face. For more information, see Caching fonts and glyphs (http://livedocs.adobe.com/flex/2/docs/00001469.html#208457).
+    # Sets the maximum number of character glyph-outlines to keep in the server cache for each font face.
     #
     # This is an advanced option.
     # 
@@ -271,7 +268,7 @@ module FlashSDK
     add_param :include_path, Paths
     
     ##
-    # Enables incremental compilation. For more information, see About incremental compilation (http://livedocs.adobe.com/flex/2/docs/00001506.html#153980).
+    # Enables incremental compilation.
     # 
     # This option is true by default for the Flex Builder application compiler. For the command-line compiler, the default is false. The web-tier compiler does not support incremental compilation.
     #
@@ -311,7 +308,7 @@ module FlashSDK
     add_param :keep_generated_actionscript, Boolean
     
     ##
-    # Sets metadata in the resulting SWF file. For more information, see Adding metadata to SWF files (http://livedocs.adobe.com/flex/2/docs/00001502.html#145380).
+    # Sets metadata in the resulting SWF file.
     #
     add_param :language, String
     
@@ -375,8 +372,6 @@ module FlashSDK
     #
     # The file format output by this command can be used to write a file for input to the load-externs option.
     #
-    # For more information on the report, see Examining linker dependencies (http://livedocs.adobe.com/flex/2/docs/00001394.html#211202).
-    #
     # This is an advanced option.
     #
     add_param :link_report, File
@@ -390,8 +385,6 @@ module FlashSDK
     #
     # Use the += operator to chain this configuration file to other configuration files.
     #
-    # For more information on using configuration files to provide options to the command-line compilers, see About configuration files (http://livedocs.adobe.com/flex/2/docs/00001490.html#138195).
-    #
     add_param :load_config, Files
     
     ##
@@ -403,13 +396,7 @@ module FlashSDK
     #
     # The XML file uses the same syntax as the one produced by the link-report option. 
     #
-    # For more information on the report, see Examining linker dependencies (http://livedocs.adobe.com/flex/2/docs/00001394.html#211202).
-    #
     # This option provides compile-time link checking for external components that are dynamically linked.
-    #
-    # For more information about dynamic linking, see About linking (http://livedocs.adobe.com/flex/2/docs/00001521.html#205852).
-    #
-    # This is an advanced option.
     #
     add_param :load_externs, File
     
@@ -424,24 +411,20 @@ module FlashSDK
     #
     #      mxmlc -locale en_EN -source-path locale/{locale} -file-specs MainApp.mxml
     #
-    # For more information, see Localizing Flex Applicationsin (http://livedocs.adobe.com/flex/2/docs/00000898.html#129288) Flex 2 Developer's Guide.
-    #
     add_param :locale, String
     
     ##
-    # Sets metadata in the resulting SWF file. For more information, see Adding metadata to SWF files (http://livedocs.adobe.com/flex/2/docs/00001502.html#145380).
+    # Sets metadata in the resulting SWF file. 
     #
     add_param :localized_description, String
 
     ##
-    # Sets metadata in the resulting SWF file. For more information, see Adding metadata to SWF files (http://livedocs.adobe.com/flex/2/docs/00001502.html#145380)."
+    # Sets metadata in the resulting SWF file.
     #
     add_param :localized_title, String
     
     ##
     # Specifies a namespace for the MXML file. You must include a URI and the location of the manifest file that defines the contents of this namespace. This path is relative to the MXML file.
-    #
-    # For more information about manifest files, see About manifest files (http://livedocs.adobe.com/flex/2/docs/00001519.html#134676).
     #
     add_param :namespaces_namespace, String
     
@@ -466,7 +449,7 @@ module FlashSDK
     add_param :output, File, { :file_task_name => true }
     
     ##
-    # Sets metadata in the resulting SWF file. For more information, see Adding metadata to SWF files (http://livedocs.adobe.com/flex/2/docs/00001502.html#145380).
+    # Sets metadata in the resulting SWF file. 
     #
     add_param :publisher, String
 
@@ -478,16 +461,12 @@ module FlashSDK
     ##
     # Prints a list of resource bundles to input to the compc compiler to create a resource bundle SWC file. The filename argument is the name of the file that contains the list of bundles.
     #
-    # For more information, see Localizing Flex Applications (http://livedocs.adobe.com/flex/2/docs/00000898.html#129288) in Flex 2 Developer's Guide.
-    #
     add_param :resource_bundle_list, File
     
     ##
     # Specifies a list of run-time shared libraries (RSLs) to use for this application. RSLs are dynamically-linked at run time.
     #
     # You specify the location of the SWF file relative to the deployment location of the application. For example, if you store a file named library.swf file in the web_root/libraries directory on the web server, and the application in the web root, you specify libraries/library.swf.
-    #
-    # For more information about RSLs, see Using Runtime Shared Libraries. (http://livedocs.adobe.com/flex/2/docs/00001520.html#168690)
     #
     add_param :runtime_shared_libraries, Strings
 
@@ -497,9 +476,12 @@ module FlashSDK
     add_param_alias :rsl, :runtime_shared_libraries
 
     ##
-    # [path-element] [rsl-url] [policy-file-url] [rsl-url] [policy-file-url]
-    # alias -rslp
-    # (repeatable)
+    # Runtime shared library path.
+    #
+    #   t.runtime_shared_library_path << "[path-element] [rsl-url] [policy-file-url]"
+    #
+    # @see Sprout::MXMLC#rslp
+    #
     add_param :runtime_shared_library_path, Strings
     
     ##
@@ -517,8 +499,6 @@ module FlashSDK
     #
     # The default value is true.
     #
-    # For more information about viewing warnings and errors, see Viewing warnings and errors (http://livedocs.adobe.com/flex/2/docs/00001517.html#182413).
-    #
     add_param :show_actionscript_warnings, Boolean, { :default => true, :show_on_false => true }
 
     ##
@@ -526,16 +506,12 @@ module FlashSDK
     #
     # The default value is true.
     #
-    # For more information about compiler warnings, see Using SWC files (http://livedocs.adobe.com/flex/2/docs/00001505.html#158337).
-    #
     add_param :show_binding_warnings, Boolean, { :default => true, :show_on_false => true }
     
     ##
     # Shows deprecation warnings for Flex components. To see warnings for ActionScript classes, use the show-actionscript-warnings option.
     #
     # The default value is true.
-    #
-    # For more information about viewing warnings and errors, see Viewing warnings and errors.
     #
     add_param :show_deprecation_warnings, Boolean, { :default => true, :show_on_false => true }
     
@@ -571,8 +547,6 @@ module FlashSDK
     #
     # The default value is true.
     #
-    # For more information about viewing warnings and errors, see Viewing warnings and errors (http://livedocs.adobe.com/flex/2/docs/00001517.html#182413).
-    #
     add_param :strict, Boolean, { :default => true, :show_on_false => true }
     
     ##
@@ -590,7 +564,7 @@ module FlashSDK
     add_param :theme, Files
     
     ##
-    # Sets metadata in the resulting SWF file. For more information, see Adding metadata to SWF files (http://livedocs.adobe.com/flex/2/docs/00001502.html#145380).
+    # Sets metadata in the resulting SWF file.
     #
     add_param :title, String
     
@@ -600,8 +574,6 @@ module FlashSDK
     # The default value is true.
     #
     # When the use-network property is set to false, the application can access the local filesystem (for example, use the XML.load() method with file: URLs) but not network services. In most circumstances, the value of this property should be true.
-    #
-    # For more information about the use-network property, see Applying Flex Security (http://livedocs.adobe.com/flex/2/docs/00001328.html#137544).
     #
     add_param :use_network, Boolean, { :default => true, :show_on_false => true }
     
@@ -618,7 +590,7 @@ module FlashSDK
     add_param :verify_digests, Boolean
   
     ##
-    # Enables specified warnings. For more information, see Viewing warnings and errors (http://livedocs.adobe.com/flex/2/docs/00001517.html#182413).
+    # Enables specified warnings.
     #
     add_param :warn_warning_type, Boolean
     
@@ -629,12 +601,23 @@ module FlashSDK
     #
     add_param :warnings, Boolean
 
+    protected
+
+    ##
+    # Template method called by {Sprout::Executable} when
+    # a {Sprout::Library} is found in the Rake::Task prerequisite list.
+    #
+    # @param path [File] The path within the project where the library was copied.
+    #
+    # @return [File] The path that was provided.
+    #
     def library_added path
       if(path =~ /\.swc$/)
         self.library_path << path
       else
         self.source_path << path
       end
+      path
     end
 
   end

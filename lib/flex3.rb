@@ -1,19 +1,20 @@
 
 Sprout::Specification.new do |s|
+  # This is the Specification that loads the Flex 3 SDK,
+  # To use the Flex 3 SDK from your build tasks, you can
+  # simply update the pkg_name parameter of your build 
+  # task as follows:
+  #
+  #   mxmlc 'bin/SomeProject.swf' do |t|
+  #     t.input       = 'src/SomeProject.as'
+  #     t.pkg_name    = 'flex3'
+  #   end
+  #
   s.name    = 'flex3'
   s.version = FlashSDK::VERSION
 
-  # Create an independent remote_file_target for each
-  # platform that must be supported independently.
-  #
-  # If the archive includes support for all platforms (:windows, :osx, :unix)
-  # then set platform = :universal
-  #
   s.add_remote_file_target do |t|
-    # Apply the windows-specific configuration:
     t.platform = :universal
-    # Apply the shared platform configuration:
-    # Remote Archive:
     t.archive_type = :zip
     t.url          = "http://fpdownload.adobe.com/pub/flex/sdk/builds/flex3/flex_sdk_3.4.0.9271_mpl.zip"
     t.md5          = "ba0df5a5b7a9c901540bedaf8a4fec9e"
