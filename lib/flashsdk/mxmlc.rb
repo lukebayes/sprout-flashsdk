@@ -80,6 +80,18 @@ module FlashSDK
   end
 end
 
+##
+# Create a new Rake::File task that will execute {FlashSDK::MXMLC}.
+# 
+# @return [Sprout::MXMLC]
+#
+# @example The following is a simple MXMLC task:
+#
+#   desc "Compile the project"
+#   mxmlc 'bin/SomeProject.swf' do |t|
+#     t.input = 'src/SomeProject.as'
+#   end
+#
 def mxmlc args, &block
   exe = FlashSDK::MXMLC.new
   exe.to_rake(args, &block)
