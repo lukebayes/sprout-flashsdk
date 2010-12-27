@@ -566,7 +566,7 @@ module FlashSDK
     # Sets metadata in the resulting SWF file.
     #
     add_param :title, String
-    
+
     ##
     # Specifies that the current application uses network services.
     #
@@ -600,6 +600,52 @@ module FlashSDK
     #
     add_param :warnings, Boolean
 
+    ##
+    # Set to true in order to compile with the Flex Compiler Shell (FCSH).
+    #
+    # You can set this value directly on a single compiler instance like:
+    #
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.use_fcsh = true
+    #   end
+    #
+    # This value can also be set to true by sending it into Ruby as
+    # an environment variable like:
+    #
+    #   rake test USE_FCSH=true
+    #
+    # If you always want to use FCSH, you can set this value in your .bashrc
+    # or .bash_profile like:
+    #
+    #   export USE_FCSH=true
+    #
+    # There is also an :fcsh helper rake task that will set this value
+    # simply by executing it before your build tasks. You can do this
+    # from the terminal like:
+    #
+    #   rake fcsh test
+    #
+    # Or:
+    #
+    #   rake fcsh debug
+    #
+    # Or you can make it a prerequisite to any other build task like:
+    #
+    #   mxmlc 'bin/SomeProject.swf' => :fcsh do |t|
+    #     ...
+    #   end
+    #
+    attr_accessor :use_fcsh
+
+    ##
+    # Temporary override while waiting for integration of next version!
+    # TODO: Remove this method override.
+    def execute
+      prepare
+      super
+    end
+
     protected
 
     ##
@@ -617,6 +663,28 @@ module FlashSDK
         self.source_path << path
       end
       path
+    end
+
+    ##
+    # @override
+    def prepare
+      # Check for USE_FCSH on the environment
+      # variable hash, update instance value
+      # if found to be true:
+      if ENV['USE_FCSH'].to_s == 'true'
+        self.use_fcsh = true
+      end
+      super
+    end
+
+    ##
+    # @override
+    def execute_delegate
+      (use_fcsh) ? execute_with_fcsh : super
+    end
+
+    def execute_with_fcsh
+      puts "[execute_with_fcsh] #{executable} #{to_shell}"
     end
 
   end

@@ -6,14 +6,16 @@ class MXMLCTest < Test::Unit::TestCase
   context "An MXMLC tool" do
 
     setup do
-      @fixture         = File.join fixtures, 'mxmlc', 'simple'
-      @input           = File.join @fixture, 'SomeFile.as'
-      @expected_output = File.join @fixture, 'SomeFile.swf'
-      #Sprout::Log.debug = false
+      @original_use_fcsh_value = ENV['USE_FCSH']
+      @fixture                 = File.join fixtures, 'mxmlc', 'simple'
+      @input                   = File.join @fixture, 'SomeFile.as'
+      @expected_output         = File.join @fixture, 'SomeFile.swf'
+      #Sprout::Log.debug       = false
     end
 
     teardown do
       remove_file @expected_output
+      ENV['USE_FCSH'] = @original_use_fcsh_value
     end
 
     should "accept input" do
