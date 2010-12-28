@@ -1,15 +1,32 @@
 module FlashSDK
 
+  ##
+  # The COMPC compiler is a tool that creates SWC libraries from source code.
+  #
+  # Following is an example of the creation of a simple SWC file:
+  #
+  #   compc 'bin/SomeProject.swc' do |t|
+  #     t.include_classes << 'SomeProject'
+  #     t.source_path << 'src'
+  #   end
+  # 
+  #   desc 'Compile the SWC'
+  #   task :swc => 'bin/SomeProject.swc'
+  #
   class COMPC < CompilerBase
 
     ##
-    # Outputs the SWC file into an open directory format rather than a SWC file
+    # Outputs the SWC content as a SWF into an open directory format rather than a SWC file.
+    #
+    # This is especially useful for creating Runtime Shared Libraries.
     #
     #   compc "bin/rsls/foo" do |t|
     #     t.directory = true
     #     t.include_sources = 'src'
     #   end
     #
+    # @see Sprout::COMPC#include_sources
+    # 
     add_param :directory, Boolean
 
     ##
@@ -55,6 +72,13 @@ module FlashSDK
     # Specifies classes or directories to add to the SWC file. When specifying classes, you specify the path to the class file (for example, MyClass.as) rather than the class name itself (for example, MyClass). This lets you add classes to the SWC file that are not in the source path. In general, though, use the include-classes option, which lets you add classes that are in the source path.
     #
     # If you specify a directory, this option includes all files with an MXML or AS extension, and ignores all other files.
+    #
+    #   compc "bin/SomeProject.swc" do |t|
+    #     t.include_sources << 'src'
+    #     t.library_path << 'lib/somelib.swc'
+    #   end
+    #
+    # You'll need to be sure your source path and library path are both set up properly for this work.
     #
     add_param :include_sources, Paths
 

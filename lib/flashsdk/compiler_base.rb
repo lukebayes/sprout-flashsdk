@@ -666,7 +666,7 @@ module FlashSDK
     end
 
     ##
-    # @override
+    # override
     def prepare
       # Check for USE_FCSH on the environment
       # variable hash, update instance value
@@ -678,7 +678,7 @@ module FlashSDK
     end
 
     ##
-    # @override
+    # override
     def execute_delegate
       (use_fcsh) ? execute_with_fcsh : super
     end
