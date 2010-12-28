@@ -10,7 +10,6 @@ class MXMLCTest < Test::Unit::TestCase
       @fixture                 = File.join fixtures, 'mxmlc', 'simple'
       @input                   = File.join @fixture, 'SomeFile.as'
       @expected_output         = File.join @fixture, 'SomeFile.swf'
-      #Sprout::Log.debug       = false
     end
 
     teardown do

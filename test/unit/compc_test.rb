@@ -9,7 +9,6 @@ class COMPCTest < Test::Unit::TestCase
       @fixture         = File.join 'test', 'fixtures', 'compc', 'simple'
       @input           = File.join @fixture, 'SomeFile.as'
       @expected_output = File.join @fixture, 'SomeFile.swc'
-      #Sprout::Log.debug = false
     end
 
     teardown do

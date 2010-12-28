@@ -9,8 +9,6 @@ class AMXMLCTest < Test::Unit::TestCase
       @fixture         = File.join 'test', 'fixtures', 'air', 'simple'
       @input           = File.join @fixture, 'SomeProject.as'
       @expected_output = File.join @fixture, 'bin', 'SomeProject.swf'
-
-      #Sprout::Log.debug = false
     end
 
     teardown do

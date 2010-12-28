@@ -14,8 +14,6 @@ class ADTTest < Test::Unit::TestCase
 
       @certificate     = File.join @fixture, 'SomeProject.pfx'
       @cert_password   = 'samplePassword'
-
-      #Sprout::Log.debug = false
     end
 
     teardown do

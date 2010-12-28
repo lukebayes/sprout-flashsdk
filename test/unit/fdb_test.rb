@@ -6,8 +6,6 @@ class FDBTest < Test::Unit::TestCase
   context "a new fdb task" do
 
     setup do
-      # Uncomment to see actual output:
-      #Sprout::Log.debug = false
       insert_fake_executable File.join(fixtures, 'sdk', 'fdb')
     end
 

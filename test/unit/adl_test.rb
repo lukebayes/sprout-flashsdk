@@ -8,8 +8,6 @@ class ADLTest < Test::Unit::TestCase
     setup do
       @fixture  = File.join 'test', 'fixtures', 'air', 'simple'
       @app_desc = File.join @fixture, 'SomeProject.xml'
-
-      #Sprout::Log.debug = false
     end
 
     teardown do
