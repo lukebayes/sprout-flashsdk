@@ -48,6 +48,16 @@ class MXMLCTest < Test::Unit::TestCase
       end
       assert_equal 'bin/SomeProject.swf', t.output
     end
+
+    should "use fcsh if specified" do
+      Sprout::Executable.expects(:load).with(:mxmlc).never
+
+      mxmlc          = FlashSDK::MXMLC.new
+      mxmlc.input    = @input
+      mxmlc.use_fcsh = true
+      mxmlc.execute
+    end
+
   end
 
   private

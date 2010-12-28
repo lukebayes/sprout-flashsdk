@@ -9,16 +9,27 @@ class FCSHTest < Test::Unit::TestCase
       @fixture         = File.join fixtures, 'mxmlc', 'simple'
       @input           = File.join @fixture, 'SomeFile.as'
       @expected_output = File.join @fixture, 'SomeFile.swf'
+
       #Sprout::Log.debug = false
     end
 
-    should "not launch mxmlc" do
-      Sprout::Executable.expects(:load).with(:mxmlc).never
+    teardown do
+      remove_file @expected_output
+    end
 
-      mxmlc          = FlashSDK::MXMLC.new
-      mxmlc.input    = @input
-      mxmlc.use_fcsh = true
-      mxmlc.execute
+    should "spin up FCSH" do
+      mxmlc = FlashSDK::MXMLC.new
+      mxmlc.input = @input
+
+      fcsh = FlashSDK::FCSH.new
+      fcsh.execute false
+      fcsh.mxmlc mxmlc.to_shell
+      FileUtils.touch @input
+      fcsh.compile 1
+      fcsh.quit
+      fcsh.wait
+
+      assert_file @expected_output
     end
 
   end
