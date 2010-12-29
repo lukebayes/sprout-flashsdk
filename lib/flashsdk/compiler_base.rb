@@ -639,6 +639,19 @@ module FlashSDK
     attr_accessor :use_fcsh
 
     ##
+    # The FCSH port to use for connections. If you are building from
+    # multiple different directories, you will need to start up the
+    # FCSH servers on different ports. This can be done like:
+    #
+    #    rake fcsh:start FCSH_PORT=12322
+    #
+    # and in another terminal:
+    #
+    #    rake fcsh mxmlc FCSH_PORT=12322
+    #
+    attr_accessor :fcsh_port
+
+    ##
     # Temporary override while waiting for integration of next version!
     # TODO: Remove this method override.
     def execute
@@ -674,6 +687,11 @@ module FlashSDK
       if ENV['USE_FCSH'].to_s == 'true'
         self.use_fcsh = true
       end
+
+      if !ENV['FCSH_PORT'].nil?
+        self.fcsh_port = ENV['FCSH_PORT']
+      end
+
       super
     end
 
@@ -684,7 +702,8 @@ module FlashSDK
     end
 
     def execute_with_fcsh
-      #puts "[execute_with_fcsh] #{executable} #{to_shell}"
+      client = FlashSDK::FCSHSocket.new
+      client.execute "#{executable.to_s} #{to_shell}", ENV['FCSH_PORT']
     end
 
   end

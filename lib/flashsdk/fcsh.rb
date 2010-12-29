@@ -147,5 +147,17 @@ namespace :fcsh do
     server = FlashSDK::FCSHSocket.new
     server.listen ENV['FCSH_PKG_NAME'], ENV['FCSH_PKG_VERSION'], ENV['FCSH_PORT']
   end
+
+  desc "Clear the cached compilation data"
+  task :clear do
+    client = FlashSDK::FCSHSocket.new
+    client.execute "clear", ENV['FCSH_PORT']
+  end
+
+  desc "Quit the fcsh server"
+  task :quit do
+    client = FlashSDK::FCSHSocket.new
+    client.execute "quit", ENV['FCSH_PORT']
+  end
 end
 

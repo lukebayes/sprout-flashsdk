@@ -88,6 +88,12 @@ module FlashSDK
     add_param :namespace, String
 
     ##
+    # Main source Class to send compiler.
+    # If used, this should be the last item in the list
+    add_param :input_class, String, { :hidden_name => true }
+
+
+    ##
     # The the Ruby file that will load the expected
     # Sprout::Specification.
     #

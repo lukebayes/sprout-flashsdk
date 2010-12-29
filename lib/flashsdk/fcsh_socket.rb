@@ -61,6 +61,7 @@ module FlashSDK
       end
 
       while t.alive? do
+        Sprout.stdout.puts ""
         session  = server.accept
         rendered = render_request session.gets
         parts    = rendered.split(" ")
@@ -70,19 +71,30 @@ module FlashSDK
         else
           fcsh.send method
         end
-        session.puts output.read
+
+        if method == "clear"
+          clear_requests
+        end
+
+        response = output.read
+        session.puts response.gsub(fcsh.prompt, "\n")
         session.flush
         session.close
       end
     end
 
     def execute command, port=nil
+      start = Time.now
       port = port || @port
       begin
         session = TCPSocket.new 'localhost', port
         session.puts command
         response = session.read
-        Sprout.stdout.puts response
+        if response.match /Error/
+          raise Sprout::Errors::UsageError.new "[FCSH] #{response}"
+        else
+          Sprout.stdout.puts "[FCSH] #{response}"
+        end
         response
       rescue Errno::ECONNREFUSED => e
         message = "[ERROR] "
@@ -99,6 +111,7 @@ module FlashSDK
           session.close
         end
       end
+      Sprout.stdout.puts "[FCSH] Compilation complete in #{(Time.now - start).seconds} seconds."
     end
 
     private
@@ -115,6 +128,19 @@ module FlashSDK
       else
         request
       end
+    end
+
+    def clear_requests
+      # Clear the cached requests,
+      # but leave them in place, the underlying
+      # FCSH implementation continues incrementing
+      # indices.
+
+      new_requests = {}
+      @requests.each_key do |key|
+        new_requests["removed-item"] = "removed-item"
+      end
+      @requests = new_requests
     end
 
   end
