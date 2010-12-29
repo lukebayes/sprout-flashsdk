@@ -6,6 +6,8 @@ class FDBTest < Test::Unit::TestCase
   context "a new fdb task" do
 
     setup do
+      #Sprout.stdout = $stdout
+      #Sprout.stderr = $stderr
       insert_fake_executable File.join(fixtures, 'sdk', 'fdb')
     end
 
@@ -17,6 +19,7 @@ class FDBTest < Test::Unit::TestCase
       @fdb.kill
       @fdb.confirm
       @fdb.quit
+
       @fdb.execute
     end
 

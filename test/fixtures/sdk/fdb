@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby
 
-##
-# This is a Fake executable that will behave
-# exactly like a real FDB executable for a 
-# specific, expected set of steps.
 class FakeFDB
 
   def initialize
@@ -17,22 +13,33 @@ class FakeFDB
   def gather_input
     $stdout.flush
     command = $stdin.gets.chomp!
-    if command == "run"
-      handle_run
-    elsif command == "continue"
-      handle_continue
-    elsif command == "kill"
-      handle_kill
-    elsif command == "quit"
-      handle_quit
+    parts = command.split(' ')
+    name = parts.shift
+
+    case name
+    when "run"
+      handle_run parts
+    when "break"
+      handle_break parts
+    when "continue"
+      handle_continue parts
+    when "kill"
+      handle_kill parts
+    when "y"
+      handle_confirmation parts
+    when "quit"
+      handle_quit parts
+    when "run_with_error"
+      handle_run_with_error parts
     else
-      puts ""
-      raise "Don't know how to respond to #{command}"
+      puts "FAKE FDB doesn't know how to respond to #{command}"
+      exit 1
     end
+
     gather_input
   end
 
-  def handle_run
+  def handle_run args
     str = "Waiting for Player to connect\n"
     str << "Player connected; session starting.\n"
     str << "Set breakpoints and then type 'continue' to resume the session.\n"
@@ -41,22 +48,43 @@ class FakeFDB
     printf str
   end
 
-  def handle_continue
+  def handle_break args
     str = "Breakpoint 1, AsUnitRunner() at AsUnitRunner.as:12\n"
     str << "12                core = new TextCore();\n"
     str << "(fdb) "
     printf str
   end
 
-  def handle_kill
+  def handle_continue args
+    str = "Continuing now\n"
+    str << "(fdb) "
+    printf str
+  end
+
+  def handle_kill args
     printf "Kill the program being debugged? (y or n) "
   end
 
-  def handle_quit
-    exit
+  def handle_confirmation args
+    str = "Confirmation accepted\n"
+    str << "(fdb) "
+    printf str
+  end
+
+  def handle_run_with_error args
+    str = "This is an error!\n"
+    str << "This is more details about the error!\n"
+    str << "Here are even more details!\n"
+    $stderr.printf str
+    printf "(fdb) "
+  end
+
+  def handle_quit args
+    puts ">> EXITING NOW!\n"
+    exit! 0
   end
 
 end
 
-fdb = FakeFDB.new
+fake_fdb = FakeFDB.new
 

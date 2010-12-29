@@ -60,6 +60,7 @@ module FlashSDK
     ##
     # Exit FCSH
     add_action :quit
+
   end
 end
 
