@@ -43,6 +43,13 @@ class ClassGeneratorTest < Test::Unit::TestCase
       @generator.execute
       assert_file File.join(@temp, 'src', 'utils', 'MathUtil.as')
     end
+
+    should "not call TestGenerator when no_test" do
+      FlashSDK::TestClassGenerator.any_instance.expects(:manifest).never
+      @generator.input = 'utils.MathUtil'
+      @generator.no_test = true
+      @generator.execute
+    end
   end
 
 end
