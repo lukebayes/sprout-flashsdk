@@ -51,8 +51,8 @@ module FlashSDK
     add_param :src, String, { :default => 'src' }
 
     ##
-    # @return [String] Do not create a test case for this class.
-    add_param :no_test, Boolean
+    # @return [Boolean] Call the TestClassGenerator after creating class.
+    add_param :test_class, Boolean, { :default => true }
 
     def manifest
       if(!input.match(/Test$/))
@@ -61,7 +61,7 @@ module FlashSDK
         end
       end
 
-      unless no_test
+      if test_class
         generator :test_class, :input => "#{fully_qualified_class_name}Test"
       end
     end

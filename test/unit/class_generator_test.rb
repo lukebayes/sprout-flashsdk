@@ -47,7 +47,7 @@ class ClassGeneratorTest < Test::Unit::TestCase
     should "not call TestGenerator when no_test" do
       FlashSDK::TestClassGenerator.any_instance.expects(:manifest).never
       @generator.input = 'utils.MathUtil'
-      @generator.no_test = true
+      @generator.test_class = false
       @generator.execute
     end
   end
