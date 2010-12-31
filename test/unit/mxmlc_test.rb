@@ -52,6 +52,7 @@ class MXMLCTest < Test::Unit::TestCase
       Sprout::Executable.expects(:load).with(:mxmlc).never
 
       mxmlc          = FlashSDK::MXMLC.new
+      mxmlc.expects(:execute_with_fcsh)
       mxmlc.input    = @input
       mxmlc.use_fcsh = true
       mxmlc.execute
