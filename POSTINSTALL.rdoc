@@ -35,6 +35,9 @@ Next Steps:
 ++++++++++++++++++++++++++++++++
 Issues or Questions? 
 
+  Troubleshooting at:
+  http://projectsprouts.org/troubleshooting.html
+
   Email us at:
   projectsprouts@googlegroups.com
 
