@@ -14,13 +14,15 @@ class TaskTest < Test::Unit::TestCase
       @swf          = File.join(fixtures, 'flashplayer', 'AsUnit Runner.swf')
       @missing_home = File.join(fixtures, 'missing_folder')
       @config_path  = File.join(@missing_home, 'fp_config', 'mm.cfg')
+
+      Sprout.stdout = $stdout
+      Sprout.stderr = $stderr
     end
 
     teardown do
       remove_file @missing_home
     end
 
-=begin
     ## THIS METHOD WAS COMMENTED OUT....
     should "wait for SWF even if clean system" do
       # No creation of expected FlashPlayer folders...
@@ -30,12 +32,13 @@ class TaskTest < Test::Unit::TestCase
       FlashPlayer::MMConfig.any_instance.stubs(:config_path).returns @config_path
       FlashPlayer::MMConfig.any_instance.stubs(:user_confirmation?).returns false
 
+      ENV['USE_FDB'] = 'true'
+
       as_a_mac_system do
         t = flashplayer @swf
         t.invoke
       end
     end
-=end
 
     should "work with swf as task name" do
       t = flashplayer @swf

@@ -30,8 +30,14 @@ module FlashPlayer
         update_mm_config
         update_trust_config_with input
       end
-      player_thread = launch_player_with input
-      tail_flashlog player_thread
+
+      if use_fdb?
+        player_thread = launch_fdb_and_player_with input
+        #player_thread.join
+      else
+        player_thread = launch_player_with input
+        tail_flashlog player_thread
+      end
     end
 
     def logger=(logger)
@@ -46,6 +52,31 @@ module FlashPlayer
     end
 
     private
+
+    def use_fdb?
+      ENV['USE_FDB'] == 'true'
+    end
+
+    def launch_fdb_and_player_with input
+      fdb_instance = nil
+      fdb_ready = false
+      t = Thread.new do
+        Thread.current.abort_on_exception = true
+        fdb_instance = FlashSDK::FDB.new
+        fdb_instance.execute false
+        fdb_ready = true
+        fdb_instance.run
+      end
+
+      while !fdb_ready
+        sleep 0.5
+      end
+
+      player_thread = launch_player_with input
+      sleep 1.0
+      fdb_instance.handle_user_session
+      player_thread
+    end
 
     def execute_safely
       begin

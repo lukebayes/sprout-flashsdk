@@ -765,3 +765,7 @@ def fdb *args, &block
   fdb_tool
 end
 
+desc "Make subsequent FlashPlayer task(s) use FDB"
+task :fdb do
+  ENV['USE_FDB'] = 'true'
+end
