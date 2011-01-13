@@ -12,7 +12,7 @@ module FlashSDK
   # SWF manually on the desktop or the browser - as long 
   # as you run it in a Debug Flash Player.
   #
-  class FDB < Sprout::Daemon
+  class FDB < Sprout::Executable::Session
 
     set :default_prefix, '-'
 
@@ -28,7 +28,7 @@ module FlashSDK
     # The default executable target
     set :executable, :fdb
 
-    set :prompt, /^\(fdb\) |\(y or n\) /
+    set :prompt, /^\(fdb\) |\(y or n\) |Waiting for Player to connect/
 
     ##
     # Print a backtrace of all stack frames

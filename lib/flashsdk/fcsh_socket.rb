@@ -41,7 +41,7 @@ module FlashSDK
       Sprout.stdout.puts "FCSH socket open with: #{fcsh.pkg_name} and #{fcsh.pkg_version}, waiting for connections on port #{port}"
       Sprout.stdout.puts ""
 
-      # Start up the FCSH Daemon:
+      # Start up the FCSH Session:
       fcsh.execute false
 
       # Create a readable IO pipe:

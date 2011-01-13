@@ -1,7 +1,7 @@
 
 module FlashSDK
 
-  class FCSH < Sprout::Daemon
+  class FCSH < Sprout::Executable::Session
 
     ##
     # The the Ruby file that will load the expected

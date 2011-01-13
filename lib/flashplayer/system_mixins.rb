@@ -63,6 +63,7 @@ module Sprout
     class UnixSystem
 
       def open_flashplayer_with exe, swf
+        player_open = false
         trap("INT") { 
           close_flashplayer
           @player_thread.kill
@@ -71,8 +72,17 @@ module Sprout
         @player_thread = Thread.new {
           require 'open4'
           @player_pid, stdin, stdout, stderr = Open4.popen4("#{exe} #{swf}")
+          player_open = true
           stdout.read
         }
+
+        # Wait until the player process has actually
+        # openned...
+        while !player_open
+          sleep 0.1
+        end
+
+        @player_thread
       end
       
       private

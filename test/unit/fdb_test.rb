@@ -37,7 +37,7 @@ class FDBTest < Test::Unit::TestCase
 
       # NOTE: If this call raises, then the 
       # Executable.update_rake_task_name method 
-      # must have changed, and the Daemon override 
+      # must have changed, and the Session override 
       # is no longer preventing non-File tasks 
       # from being added to the CLEAN collection.
       #

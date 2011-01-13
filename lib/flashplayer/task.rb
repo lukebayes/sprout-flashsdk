@@ -7,17 +7,22 @@ module FlashPlayer
     attr_accessor :pkg_name
     attr_accessor :pkg_version
 
+    attr_accessor :stdout
+    attr_accessor :stderr
+
     ##
     # This is the Rake::Task constructor
     # signature...
     def initialize task_name, rake_application
       super
-      @logger       = $stdout
       @mm_config    = MMConfig.new
       @reader       = LogFile.new
       @trust_config = Trust.new
       @process      = nil
       @input        = task_name
+      @stdout       = $stdout
+      @stderr       = $stderr
+      @logger       = $stdout
 
       @pkg_name     = FlashPlayer::NAME
       @pkg_version  = FlashPlayer::VERSION
@@ -32,8 +37,7 @@ module FlashPlayer
       end
 
       if use_fdb?
-        player_thread = launch_fdb_and_player_with input
-        #player_thread.join
+        launch_fdb_and_player_with input
       else
         player_thread = launch_player_with input
         tail_flashlog player_thread
@@ -58,24 +62,36 @@ module FlashPlayer
     end
 
     def launch_fdb_and_player_with input
-      fdb_instance = nil
-      fdb_ready = false
-      t = Thread.new do
-        Thread.current.abort_on_exception = true
-        fdb_instance = FlashSDK::FDB.new
-        fdb_instance.execute false
-        fdb_ready = true
-        fdb_instance.run
-      end
+      # Keep getting a fatal lock error which I believe
+      # is being caused by the FlashPlayer and FDB attempting
+      # to write to stdout simultaneously.
+      # Trying to give fdb a fake stream until after the
+      # player is launched...
+      fake_out = Sprout::OutputBuffer.new
+      fake_err = Sprout::OutputBuffer.new
 
-      while !fdb_ready
-        sleep 0.5
-      end
-
+      fdb_instance = FlashSDK::FDB.new
+      fdb_instance.stdout = fake_out
+      fdb_instance.stderr = fake_err
+      fdb_instance.execute false
+      fdb_instance.run
       player_thread = launch_player_with input
-      sleep 1.0
+
+      # Emit whatever messages have been passed:
+      stdout.puts fake_out.read
+      stdout.flush
+      stderr.puts fake_err.read
+      stdout.flush
+      # Replace the fdb instance streams with
+      # the real ones:
+      fdb_instance.stdout = stdout
+      fdb_instance.stderr = stderr
+
+      # Let the user interact with fdb:
       fdb_instance.handle_user_session
-      player_thread
+
+      fdb_instance.wait
+      player_thread.join if player_thread.alive?
     end
 
     def execute_safely
