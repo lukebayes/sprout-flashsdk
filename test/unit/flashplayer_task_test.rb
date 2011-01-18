@@ -21,9 +21,11 @@ class TaskTest < Test::Unit::TestCase
 
     teardown do
       remove_file @missing_home
+      ENV['USE_FDB'] = 'false'
     end
 
     ## THIS METHOD WAS COMMENTED OUT....
+=begin
     should "wait for SWF even if clean system" do
       # No creation of expected FlashPlayer folders...
 
@@ -39,6 +41,7 @@ class TaskTest < Test::Unit::TestCase
         t.invoke
       end
     end
+=end
 
     should "work with swf as task name" do
       t = flashplayer @swf

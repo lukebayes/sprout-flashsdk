@@ -7,8 +7,8 @@ class FCSHSocketTest < Test::Unit::TestCase
 
     setup do
       # Uncomment to see output:
-      Sprout.stdout = $stdout
-      Sprout.stderr = $stderr
+      #Sprout.stdout = $stdout
+      #Sprout.stderr = $stderr
 
       @input = File.join(fixtures, 'mxmlc', 'simple', 'SomeFile.as')
     end
@@ -25,11 +25,11 @@ class FCSHSocketTest < Test::Unit::TestCase
 
       # Wait for the remote connection to exist
       while !service_ready
-        sleep 0.01
+        sleep 0.1
       end
 
-      sleep 0.5
-
+      sleep 2.0
+      
       mxmlc = FlashSDK::MXMLC.new
       mxmlc.input = @input
 

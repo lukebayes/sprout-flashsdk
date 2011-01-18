@@ -61,6 +61,16 @@ module FlashSDK
     # Exit FCSH
     add_action :quit
 
+
+    def system_execute binary, params
+      params ||= ''
+      ##
+      # Combine stdout and stderr for FCSH
+      # so that they both arrive on stdout
+      params << ' 2<&1'
+      super binary, params
+    end
+
   end
 end
 
@@ -87,7 +97,7 @@ end
 #
 desc "Make subsequent MXMLC or COMPC tasks use FCSH"
 task :fcsh do
-  ENV['USE_FCSH'] = 'true'
+  ENV['USE_FCSH'] = true
 end
 
 ##
@@ -113,7 +123,7 @@ end
 #
 desc "Make subsequent MXMLC or COMPC tasks use FCSH"
 task :fcsh do
-  ENV['USE_FCSH'] = 'true'
+  ENV['USE_FCSH'] = true
 end
 ##
 # Rake task that will make any subsequent
@@ -138,7 +148,7 @@ end
 #
 desc "Make subsequent MXMLC or COMPC tasks use FCSH"
 task :fcsh do
-  ENV['USE_FCSH'] = 'true'
+  ENV['USE_FCSH'] = true
 end
 
 namespace :fcsh do

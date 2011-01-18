@@ -58,7 +58,10 @@ module FlashPlayer
     private
 
     def use_fdb?
-      ENV['USE_FDB'] == 'true'
+      # Check as string b/c this is
+      # how the boolean value comes
+      # accross the command line input.
+      ENV['USE_FDB'].to_s == 'true'
     end
 
     def launch_fdb_and_player_with input
@@ -88,7 +91,7 @@ module FlashPlayer
       fdb_instance.stderr = stderr
 
       # Let the user interact with fdb:
-      fdb_instance.handle_user_session
+      fdb_instance.handle_user_input
 
       fdb_instance.wait
       player_thread.join if player_thread.alive?

@@ -767,5 +767,6 @@ end
 
 desc "Make subsequent FlashPlayer task(s) use FDB"
 task :fdb do
-  ENV['USE_FDB'] = 'true'
+  ENV['USE_FDB'] = true
 end
+

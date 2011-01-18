@@ -72,6 +72,8 @@ module FlashSDK
           fcsh.send method
         end
 
+        fcsh.wait_for_prompt
+
         if method == "clear"
           clear_requests
         end

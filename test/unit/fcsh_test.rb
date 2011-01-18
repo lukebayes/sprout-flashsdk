@@ -31,7 +31,7 @@ class FCSHTest < Test::Unit::TestCase
       fcsh.wait
 
       expected_error_message = '1 Error: Syntax error: expecting rightbrace before end of program'
-      assert_matches /#{expected_error_message}/, Sprout.stderr.read
+      assert_matches /#{expected_error_message}/, Sprout.stdout.read
     end
 
     should "spin up FCSH" do
