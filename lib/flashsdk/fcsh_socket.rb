@@ -113,7 +113,10 @@ module FlashSDK
           session.close
         end
       end
-      Sprout.stdout.puts "[FCSH] Compilation complete in #{(Time.now - start).seconds} seconds."
+
+      if command.match /^mxmlc|^compc/
+        Sprout.stdout.puts "[FCSH] complete in #{(Time.now - start).seconds} seconds."
+      end
     end
 
     private
@@ -139,7 +142,7 @@ module FlashSDK
       # indices.
 
       new_requests = {}
-      @requests.each_key do |key|
+      @requests.each do |item|
         new_requests["removed-item"] = "removed-item"
       end
       @requests = new_requests

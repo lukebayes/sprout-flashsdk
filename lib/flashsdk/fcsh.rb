@@ -97,7 +97,7 @@ end
 #
 desc "Make subsequent MXMLC or COMPC tasks use FCSH"
 task :fcsh do
-  ENV['USE_FCSH'] = true
+  ENV['USE_FCSH'] = 'true'
 end
 
 ##
@@ -123,7 +123,7 @@ end
 #
 desc "Make subsequent MXMLC or COMPC tasks use FCSH"
 task :fcsh do
-  ENV['USE_FCSH'] = true
+  ENV['USE_FCSH'] = 'true'
 end
 ##
 # Rake task that will make any subsequent
@@ -148,7 +148,7 @@ end
 #
 desc "Make subsequent MXMLC or COMPC tasks use FCSH"
 task :fcsh do
-  ENV['USE_FCSH'] = true
+  ENV['USE_FCSH'] = 'true'
 end
 
 namespace :fcsh do
