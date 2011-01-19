@@ -33,6 +33,26 @@ Next Steps:
   (followed by the TAB key)
 
 ++++++++++++++++++++++++++++++++
+To use FCSH, simply start the service,
+and call the fcsh task before any other
+mxmlc or compc task:
+
+  # Open a new terminal and from your project:
+  rake fcsh:start
+
+  # Open a new terminal and from your project:
+  rake fcsh test
+
+++++++++++++++++++++++++++++++++
+To use FDB, simply call the fdb task
+before any flashplayer task:
+
+  # Run the default task with FDB:
+  rake fdb test
+
+  (type, 'help' for more info when prompted)
+
+++++++++++++++++++++++++++++++++
 Issues or Questions? 
 
   Troubleshooting at:
