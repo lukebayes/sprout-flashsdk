@@ -11,6 +11,7 @@ class FCSHSocketTest < Test::Unit::TestCase
       #Sprout.stderr = $stderr
 
       @input = File.join(fixtures, 'mxmlc', 'simple', 'SomeFile.as')
+      @test_port = 12543
     end
 
     should "be instantiable" do
@@ -19,6 +20,7 @@ class FCSHSocketTest < Test::Unit::TestCase
       t = Thread.new do
         Thread.current.abort_on_exception = true
         server = FlashSDK::FCSHSocket.new
+        server.port = @test_port
         service_ready = true
         server.listen
       end
@@ -29,11 +31,12 @@ class FCSHSocketTest < Test::Unit::TestCase
       end
 
       sleep 2.0
-      
+
       mxmlc = FlashSDK::MXMLC.new
       mxmlc.input = @input
 
       client = FlashSDK::FCSHSocket.new
+      client.port = @test_port
       client.execute "mxmlc #{mxmlc.to_shell}"
       FileUtils.touch @input
       client.execute "mxmlc #{mxmlc.to_shell}"

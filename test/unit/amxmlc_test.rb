@@ -25,10 +25,10 @@ class AMXMLCTest < Test::Unit::TestCase
     end
 
     should "compile a swf" do
-      insert_fake_executable File.join(fixtures, 'sdk', 'mxmlc')
       FileUtils.mkdir_p File.dirname(@expected_output)
 
       amxmlc        = FlashSDK::AMXMLC.new
+      amxmlc.binary_path = File.join fixtures, 'sdk', 'mxmlc'
       amxmlc.input  = @input
       amxmlc.output = @expected_output
       amxmlc.execute

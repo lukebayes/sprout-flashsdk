@@ -6,9 +6,11 @@ class FDBTest < Test::Unit::TestCase
   context "a new fdb task" do
 
     setup do
+      path = File.join fixtures, 'sdk', 'fdb'
+      FlashSDK::FDB.any_instance.stubs(:binary_path).returns path
+
       #Sprout.stdout = $stdout
       #Sprout.stderr = $stderr
-      insert_fake_executable File.join(fixtures, 'sdk', 'fdb')
     end
 
     should "execute without shell params" do

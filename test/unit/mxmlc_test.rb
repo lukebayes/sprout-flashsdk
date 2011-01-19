@@ -27,8 +27,8 @@ class MXMLCTest < Test::Unit::TestCase
     end
 
     should "compile a swf" do
-      insert_fake_executable File.join(fixtures, 'sdk', 'mxmlc')
       mxmlc = FlashSDK::MXMLC.new
+      mxmlc.binary_path = File.join fixtures, 'sdk', 'mxmlc'
       mxmlc.input = @input
       mxmlc.execute
       assert_file @expected_output
