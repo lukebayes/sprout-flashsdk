@@ -661,6 +661,19 @@ module FlashSDK
 
     protected
 
+    def update_fcsh
+      # Check for USE_FCSH on the environment
+      # variable hash, update instance value
+      # if found to be true:
+      if ENV['USE_FCSH'].to_s == 'true'
+        self.use_fcsh = true
+      end
+
+      if !ENV['FCSH_PORT'].nil?
+        self.fcsh_port = ENV['FCSH_PORT']
+      end
+    end
+
     ##
     # Template method called by {Sprout::Executable} when
     # a {Sprout::Library} is found in the Rake::Task prerequisite list.
@@ -681,17 +694,7 @@ module FlashSDK
     ##
     # override
     def prepare
-      # Check for USE_FCSH on the environment
-      # variable hash, update instance value
-      # if found to be true:
-      if ENV['USE_FCSH'].to_s == 'true'
-        self.use_fcsh = true
-      end
-
-      if !ENV['FCSH_PORT'].nil?
-        self.fcsh_port = ENV['FCSH_PORT']
-      end
-
+      update_fcsh if use_fcsh.nil?
       super
     end
 

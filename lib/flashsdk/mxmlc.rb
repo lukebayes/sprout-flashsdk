@@ -56,6 +56,8 @@ module FlashSDK
     # This must be the last item in this list
     add_param :input, File, { :required => true, :hidden_name => true }
 
+    ##
+    # The default prefix for shell params.
     set :default_prefix, '-'
 
     ##
@@ -96,7 +98,7 @@ end
 ##
 # Create a new Rake::File task that will execute {FlashSDK::MXMLC}.
 # 
-# @return [Sprout::MXMLC]
+# @return [FlashSDK::MXMLC]
 #
 # @example The following is a simple MXMLC task:
 #
@@ -107,7 +109,7 @@ end
 #
 def mxmlc args, &block
   exe = FlashSDK::MXMLC.new
-  exe.to_rake(args, &block)
+  exe.to_rake args, &block
   exe
 end
 
