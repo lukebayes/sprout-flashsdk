@@ -25,10 +25,9 @@ class AsDocTest < Test::Unit::TestCase
       t.doc_sources << @source_path
       t.doc_sources << @lib_path
       t.output = @doc_output
-      t.expects(:execute)
       t.execute
 
-      assert_file @doc_output
+      assert_file File.join(@doc_output, 'index.html')
     end
 
 =begin
