@@ -36,17 +36,6 @@ desc "Compile and run the debug swf"
 flashplayer :run => "<%= bin %>/<%= debug_swf_name %>"
 
 ##############################
-# SWC
-
-compc "<%= bin %>/<%= class_name %>.swc" do |t|
-  t.input_class = "<%= class_name %>"
-  t.source_path << 'src'
-end
-
-desc "Compile the SWC file"
-task :swc => '<%= bin %>/<%= class_name %>.swc'
-
-##############################
 # Test
 
 library :asunit4
@@ -61,5 +50,27 @@ end
 desc "Compile and run the test swf"
 flashplayer :test => "<%= bin %>/<%= test_swf_name %>"
 
+##############################
+# SWC
+
+compc "<%= bin %>/<%= class_name %>.swc" do |t|
+  t.input_class = "<%= class_name %>"
+  t.source_path << 'src'
+end
+
+desc "Compile the SWC file"
+task :swc => '<%= bin %>/<%= class_name %>.swc'
+
+##############################
+# DOC
+
+desc "Generate documentation at <%= doc %>/"
+asdoc '<%= doc %>' do |t|
+  t.doc_sources << "<%= src %>"
+  t.exclude_sources << "<%= src %>/<%= test_runner_name %>.as"
+end
+
+##############################
+# DEFAULT
 task :default => :run
 

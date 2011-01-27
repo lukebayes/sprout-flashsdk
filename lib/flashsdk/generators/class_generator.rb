@@ -51,6 +51,10 @@ module FlashSDK
     add_param :src, String, { :default => 'src' }
 
     ##
+    # @return [String] The path where documentation should be created.
+    add_param :doc, String, { :default => 'doc' }
+
+    ##
     # @return [Boolean] Call the TestClassGenerator after creating class.
     add_param :test_class, Boolean, { :default => true }
 
