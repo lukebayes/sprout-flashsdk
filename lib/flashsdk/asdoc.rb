@@ -1,5 +1,20 @@
 module FlashSDK
 
+  ##
+  # The AsDoc executable is a wrapper around the Flex SDK binary of the same name.
+  #
+  # Following is a simple example of the asdoc Rake task:
+  #
+  #   desc "Generate documentation at <%= doc %>/"
+  #   asdoc 'doc' do |t|
+  #     t.doc_sources << 'src'
+  #
+  #     # Exclude test main file
+  #     t.exclude_sources << 'src/SomeProjectRunner.as'
+  #   end
+  #
+  # @see CompilerBase
+  #
   class AsDoc < CompilerBase
 
     ##
@@ -31,7 +46,6 @@ module FlashSDK
     ##
     # List of source file to include in the documentation.
     add_param :doc_sources, Files
-
     add_param_alias :ds, :doc_sources
 
     ##

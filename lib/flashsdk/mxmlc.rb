@@ -1,5 +1,6 @@
 module FlashSDK
 
+  ##
   # The MXMLC task provides a rake front end to the Flex MXMLC command line compiler.
   # This task is integrated with the LibraryTask so that if any dependencies are
   # library tasks, they will be automatically added to the library_path or source_path
@@ -45,6 +46,45 @@ module FlashSDK
   #     configure_tasks t
   #     t.input = 'src/SomeProjectRunner.as'
   #   end
+  #
+  # == FCSH
+  #
+  # Building with MXMLC can be quite slow. If you'd like 
+  # to measure your build times in fractions of a second
+  # rather than minutes, you can use the Flex Compiler 
+  # SHell (FCSH).
+  #
+  # Sprouts makes it incredibly easy to 
+  # use FCSH, following are some simple instructions:
+  #
+  # Open up a new terminal, cd into your project
+  # directory and run:
+  #
+  #    rake fcsh:start
+  #
+  # Open up a new terminal, cd into your project
+  # directory and run whatever Rake task depends
+  # on at least one MXMLC task, and call the
+  # +fcsh+ task first. This can be done on the
+  # terminal like this:
+  #
+  #    rake fcsh test
+  #
+  # More information about FCSH can be found on the {Project Sprouts Blog}[http://projectsprouts.org/2011/01/18/using-fcsh.html].
+  #
+  # == Flex Debugger (FDB)
+  #
+  # Like FCSH, the Flex Debugger can be initiated
+  # by calling (or depending on) the +fdb+ Rake task.
+  #
+  #    rake fdb test
+  #
+  # This will drop you into the Flex Debugger shell
+  # environment, you can type +help+ at anytime to 
+  # learn more about what commands are available.
+  #
+  # You can also type +quit+ or hit CTRL+C to exit
+  # FDB.
   #
   # @see FlashSDK::CompilerBase
   # @see Sprout::Executable

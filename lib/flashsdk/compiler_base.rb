@@ -3,6 +3,8 @@ module FlashSDK
   ##
   # This is the abstract base class that defines common fields for ActionScript compilers like {FlashSDK::MXMLC} and {FlashSDK::COMPC}.
   #
+  # Examples provided below will assume {MXMLC} is being used, but should generally be applicable for any subclass.
+  #
   # @abstract
   #
   class CompilerBase < Sprout::Executable::Base
@@ -10,7 +12,12 @@ module FlashSDK
     ##
     # Enables accessibility features when compiling the Flex application or SWC file. The default value is false.
     #
-    #   t.accessible = true
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.accessible = true
+    #   end
     #
     add_param :accessible, Boolean, { :hidden_value => true }
     
@@ -20,20 +27,43 @@ module FlashSDK
     add_param :actionscript_file_encoding, String
     
     ##
-    # Checks if a source-path entry is a subdirectory of another source-path entry. It helps make the package names of MXML components unambiguous. This is an advanced option.
+    # Checks if a source-path entry is a subdirectory of another source-path entry. It helps make the package names of MXML components unambiguous. 
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.source_path << 'src/com/foo'
+    #     t.allow_source_path_overlap = true
+    #   end
     #
     add_param :allow_source_path_overlap, Boolean, { :hidden_value => true }
 
     ##
     # Use the ActionScript 3.0 class-based object model for greater performance and better error reporting. In the class-based object model, most built-in functions are implemented as fixed methods of classes.
     #
+    # Setting this value to false will switch the compiler into a more ECMA-compatible mode.
+    #
     # The default value is true. If you set this value to false, you must set the es option to true.
     #
-    # This is an advanced option.
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.as3 = false
+    #   end
+    # 
     add_param :as3, Boolean, { :default => true, :show_on_false => true }
     
     ##
-    # Prints detailed compile times to the standard output. The default value is true.
+    # Prints detailed compile times to the standard output. The default value is true. 
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.benchmark = true
+    #   end
     #
     add_param :benchmark, Boolean, { :default => true, :show_on_false => true }
     
@@ -68,26 +98,52 @@ module FlashSDK
     #
     # Flex also uses the verbose-stacktraces setting to determine whether line numbers are added to the stacktrace.
     #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.debug = true
+    #   end
+    #
     add_param :debug, Boolean, { :hidden_value => true }
     
     ##
-    # Lets you engage in remote debugging sessions with the Flash IDE. This is an advanced option.
+    # Lets you engage in remote debugging sessions with the Flash IDE.
     #
     add_param :debug_password, String
     
     ##
-    # Sets the application's background color. You use the 0x notation to set the color, as the following example shows:
+    # Sets the SWF background color. 
     # 
-    #     -default-background-color=0xCCCCFF
+    # If you're using the Flex framework, the default background IMAGE is that sickly, horrendous, blue-green-grey gradient. 
     #
-    # The default value is null. The default background of a Flex application is an image of a gray gradient. You must override this image for the value of the default-background-color option to be visible.
+    # If you want to see the background color that you set here, you will also need to override the +backgroundImage+ property
+    # in your Flex Application document.
     #
-    # This is an advanced option.
-    # 
+    # You can also set the background color (and other values) using the +[Embed]+ metadata directive directly in your Document Root class.
+    #
+    #   [SWF(width='400', height='300', backgroundColor='#ffffff', frameRate='30')]
+    #
+    # To set the background color from a Rake task, use the 0x notation, as the following example shows:
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.default_background_color = '0xffcc00'
+    #   end
+    #
     add_param :default_background_color, String
     
     ##
-    # Sets the application's frame rate. The default value is 24. This is an advanced option.
+    # Sets the application's frame rate. The default value is 24.
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.default_frame_rate = 24
+    #   end
     #
     add_param :default_frame_rate, Number
     
@@ -100,26 +156,37 @@ module FlashSDK
     #
     # Example:
     #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
     #     # 900 is new max-recursion-depth
     #     # 20 is new max-execution-time
     #     t.default_script_limits = '900 20'
+    #   end
     #
     # You can override these settings in the application.
-    #
-    # This is an advanced option.
     #
     add_param :default_script_limits, String
     
     ##
-    # Defines the default application size, in pixels for example: 
+    # Defines the default application size, in pixels as a String for example: 
     #
-    #  default_size = '950 550'. 
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.default_size = '950 550'
+    #   end
     #
     # If you're using the Flex 4 SDK, this value should be comma-delimited like:
     #
-    #  default_size = '950,550'
-    #
-    # This is an advanced option.
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.default_size = '950,550'
+    #   end
     #
     add_param :default_size, String
     
@@ -129,23 +196,82 @@ module FlashSDK
     add_param :default_css_url, Url
 
     ##
-    # This parameter is normally called 'define' but thanks to scoping issues with Sprouts and Rake, we needed to rename it and chose: 'define_conditional'.
+    # This parameter is normally called 'define' but thanks to scoping issues
+    # with Sprouts and Rake, we needed to rename it and chose: 'define_conditional'.
     #
-    # Define a global AS3 conditional compilation definition, e.g. -define=CONFIG::debugging,true or -define+=CONFIG::debugging,true (to append to existing definitions in flex-config.xml)  (advanced, repeatable)
+    # The format of each String value is "namespace::variable_name,value", for 
+    # example, if I wanted an Environment named 'production' available to 
+    # conditional compilation statements, I might do the following:
+    #
+    # Define a global AS3 conditional compilation definition:
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.define_conditional << 'CONFIG::environment,production'
+    #   end
+    #
+    # Then, in any given ActionScript class, we might add the following:
+    #
+    #   public static const environent:String = CONFIG::environment
+    #
+    # This value would be available to code at runtime where we can then
+    # branch on different environments.
+    #
+    # We can also use IFDEF like statements to completely remove or add code based
+    # on a conditional value. This is (sadly) done with Boolean conditionals as follows:
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.define_conditional << 'CONFIG::release,true'
+    #     t.define_conditional << 'CONFIG::debug,false'
+    #   end
+    #
+    # Then, in any given ActionScript class, we might add the following:
+    #
+    #   CONFIG::release
+    #   public function getValue():String {
+    #       return value;
+    #   }
+    #
+    #   CONFIG::debug
+    #   public function getValue():String {
+    #       return value + " : " + debugInfo;
+    #   }
+    #
+    # Note how the CONFIG::[name] statement precedes an ActionScript statement, but doesn't need to enclose it brackets or anything. This can
+    # go in front of any ActionScript statement (functions, classes, variables, etc).
+    #
+    # For more information, please read {Adobe's documentation}[http://livedocs.adobe.com/flex/3/html/compilers_21.html] on conditional compilation.
     #
     add_param :define_conditional, Strings, { :shell_name => "-define" }
     
     ##
     # Sets metadata in the resulting SWF file.
     #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.description = "This SWF was built with Project Sprouts!"
+    #   end
+    #
     add_param :description, String
     
     ##
     # Outputs the compiler options in the flex-config.xml file to the target path; for example:
     #
-    #     mxmlc -dump-config myapp-config.xml
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.dump_config = 'mxmlc-config.xml'
+    #   end
     #
-    # This is an advanced option.
+    # @see #load_config
     #
     add_param :dump_config, File
     
@@ -154,9 +280,15 @@ module FlashSDK
     #
     # You can set the strict option to true when you use this model, but it might result in compiler errors for references to dynamic properties.
     #
-    # The default value is false. If you set this option to true, you must set the es3 option to false.
+    # The default value is false. If you set this option to true, you must set the as3 option to false.
     #
-    # This is an advanced option.
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.es = true
+    #     t.as3 = false
+    #   end
     #
     add_param :es, Boolean
     
@@ -165,21 +297,38 @@ module FlashSDK
     #
     # This option provides compile-time link checking for external references that are dynamically linked.
     #
-    # This is an advanced option.
-    # 
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.externs << 'com.somedomain.SomeClass'
+    #     t.externs << 'com.otherdomain.OtherClass'
+    #   end
+    #
+    # To dynamically link against files, folders or SWCs instead of classes, see {#external_library_path}.
+    #
     add_param :externs, Strings
     
     ##
-    # Specifies a list of SWC files or directories to exclude from linking when compiling a SWF file. This option provides compile-time link checking for external components that are dynamically linked.
+    # Specifies a list of SWC files or directories to exclude from linking when compiling a SWF file. 
     #
-    # You can use the += operator to append the new SWC file to the list of external libraries.
+    # This option provides compile-time link checking for external components that are dynamically linked.
     #
-    # This parameter has been aliased as +el+.
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.external_library_path << 'src/com/domain/project/SomeClass.as'
+    #     t.external_library_path << 'lib/somelib/'
+    #     t.external_library_path << 'lib/otherlib/OtherLibrary.swc'
+    #   end
+    #
+    # To dynamically link against classes instead of files, folders or SWCs, see {#externs}.
     #
     add_param :external_library_path, Files
     
     ##
-    # Alias for external_library_path
+    # Alias for {#external_library_path}
     #
     add_param_alias :el, :external_library_path
     
@@ -191,105 +340,158 @@ module FlashSDK
     ##
     # Specifies the range of Unicode settings for that language.
     #
-    # This is an advanced option.
-    #
     add_param :fonts_languages_language_range, String, { :shell_name => "-compiler.fonts.languages.language-range" }
 
     ##
     # Defines the font manager. The default is flash.fonts.JREFontManager. You can also use the flash.fonts.BatikFontManager.
-    #
-    # This is an advanced option.
     #
     add_param :fonts_managers, Strings
     
     ##
     # Sets the maximum number of fonts to keep in the server cache.
     #
-    # This is an advanced option.
-    #
     add_param :fonts_max_cached_fonts, Number
     
     ##
     # Sets the maximum number of character glyph-outlines to keep in the server cache for each font face.
     #
-    # This is an advanced option.
-    # 
     add_param :fonts_max_glyphs_per_face, Number
     
     ##
-    # Specifies a SWF file frame label with a sequence of class names that are linked onto the frame.
+    # Specifies a SWF file frame label with a sequence of one or more class names that will be linked onto the frame.
     #
-    # For example: frames_frame = 'someLabel MyProject OtherProject FoodProject'
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.frames_frame << 'someFrameLabel SomeClass OtherClass AnotherClass'
+    #     t.frames_frame << 'anotherFrameLabel YetAnotherClass'
+    #   end
     #
-    # This is an advanced option.
-    # 
-    add_param :frames_frame, String, { :shell_name => '-frames.frame' }
+    add_param :frames_frame, Strings, { :shell_name => '-frames.frame' }
     
     ##
     # Toggles the generation of an IFlexBootstrap-derived loader class.
     #
-    # This is an advanced option.
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.generate_frame_loader = false
+    #   end
+    #
+    # * Might be deprecated?
     #
     add_param :generate_frame_loader, Boolean
     
     ##
-    # Enables the headless implementation of the Flex compiler. This sets the following:
+    # Enables the headless implementation of the Flex compiler. 
     #
-    #     System.setProperty('java.awt.headless', 'true')
+    # This sets the following (in Java):
     #
-    # The headless setting (java.awt.headless=true) is required to use fonts and SVG on UNIX systems without X Windows.
+    #   System.setProperty('java.awt.headless', 'true')
     #
-    # This is an advanced option.
+    # The headless setting (java.awt.headless=true) is required to 
+    # compile SWFs that use fonts and SVG on UNIX systems that aren't 
+    # running X Windows.
     #
     add_param :headless_server, Boolean
     
     ##
     # Links all classes inside a SWC file to the resulting application SWF file, regardless of whether or not they are used.
     #
-    # Contrast this option with the library-path option that includes only those classes that are referenced at compile time.
+    # Contrast this option with the {#library_path} option that includes only those classes that are referenced at compile time.
     #
-    # To link one or more classes whether or not they are used and not an entire SWC file, use the includes option.
+    # To link one or more classes whether or not they are used and not an entire SWC file, use the {#includes} option.
     #
     # This option is commonly used to specify resource bundles.
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.include_libraries << 'lib/somelib/SomeLib.swc'
+    #   end
+    #
+    # @see #include_path
+    # @see #includes
+    # @see #library_path
     #
     add_param :include_libraries, Files
 
     ##
     # Links one or more classes to the resulting application SWF file, whether or not those classes are required at compile time.
     #
-    # To link an entire SWC file rather than individual classes, use the include-libraries option.
+    # To link an entire SWC file rather than individual classes, use the {#include_libraries} option.
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.source_path << 'lib/somelib'
+    #     t.includes << 'com.domain.SomeClass'
+    #   end
+    #
+    # @see #include_libraries
+    # @see #include_path
+    # @see #library_path
     #
     add_param :includes, Strings
     
     ##
     # Define one or more directory paths for include processing. For each path that is provided, all .as and .mxml files found forward of that path will
-    # be included in the SWF regardless of whether they are imported or not.
+    # be included in the SWF regardless of whether they are referenced elsewhere.
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.source_path << 'lib/somelib'
+    #     t.include_path << 'lib/somelib/com/somelib/net'
+    #   end
+    #
+    # @see #include_libraries
+    # @see #includes
+    # @see #library_path
+    #
     add_param :include_path, Paths
     
     ##
     # Enables incremental compilation.
     # 
-    # This option is true by default for the Flex Builder application compiler. For the command-line compiler, the default is false. The web-tier compiler does not support incremental compilation.
+    # This option is true by default for the Flex Builder application compiler. 
+    #
+    # For the command-line compiler, the default is false. 
+    #
+    # The web-tier compiler does not support incremental compilation.
     #
     add_param :incremental, Boolean
     
     ##
-    # Keep the specified metadata in the SWF (advanced, repeatable).
+    # Keep the specified metadata in the SWF (advanced, repeatable). This parameter must be set
+    # if you attempt to define new metadata tags.
     #
-    # Example:
+    # If you define metadata tags and use this parameter to include them when building a SWC,
+    # consumers of your SWC library will not also need to re-include the same metadata tags.
     #
-    # Rakefile:
+    # Following is an example Rakefile that is setting this property:
     #
-    #     mxmlc 'bin/SomeProject.swf' do |t|
-    #       t.keep_as3_metadata << 'Orange'
-    #     end
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.keep_as3_metadata << 'Orange'
+    #   end
     #
-    # Source Code:
+    # There could be a class somewhere that defines this metadata tag:
     #
-    #     [Orange(isTasty=true)]
-    #     public function eatOranges():void {
-    #         // do something
-    #     }
+    #   [Orange(isTasty=true)]
+    #   public function eatOranges():void {
+    #       // do something
+    #   }
+    #
+    # There would normally be another class that does some kind of reflection to perform
+    # some special operation on all entities that declare themselves as [Orange].
     #
     add_param :keep_as3_metadata, Strings
     
@@ -302,7 +504,7 @@ module FlashSDK
     #
     # The default names of the primary generated class files are filename-generated.as and filename-interface.as.
     #
-    # The default value is false.\nThis is an advanced option.
+    # The default value is false.
     #
     add_param :keep_generated_actionscript, Boolean
     
@@ -316,8 +518,6 @@ module FlashSDK
     #
     # The default value is false.
     #
-    # This is an advanced option.
-    #
     add_param :lazy_init, Boolean
 
 
@@ -326,33 +526,40 @@ module FlashSDK
     #
     # Specifies a product and a serial number.  (repeatable)
     #
-    # This is an advanced option.
-    #
     add_param :license, String
     
     ##
-    # Links SWC files to the resulting application SWF file. The compiler only links in those classes for the SWC file that are required.
+    # Links SWC files to the resulting application SWF file. The compiler only links in those classes for the SWC file that are referenced from
+    # your Document Root, or another class that it references.
     #
-    # The default value of the library-path option includes all SWC files in the libs directory and the current locale. These are required.
+    # The default value of the {#library_path} option includes all SWC files in the libs directory and the current locale. These are required.
     #
-    # To point to individual classes or packages rather than entire SWC files, use the source-path option.
+    # To point to individual classes or packages rather than entire SWC files, use the {#source_path} option.
     #
-    # If you set the value of the library_path using the '=' operator, you must also explicitly add the framework.swc and 
-    # locale SWC files. Your new entry is not appended to the library-path but replaces it.
+    # You can use the << operator to append the new argument to the list of existing library paths:
     #
+    #   desc "Compile the Application"
     #   mxmlc 'bin/SomeProject.swf' do |t|
     #     t.input = 'src/SomeProject.as'
-    #     t.library_path = ['lib/SomeLib.swc']
+    #     t.library_path << 'lib/somelib/SomeLib.swc'
     #   end
     #
-    # You can use the << operator to append the new argument to the list of existing SWC files.
+    # If you set the value of the library_path using the '=' operator, you must set the entire Array.
     #
+    # You may also need to explicitly add the framework.swc and locale SWC files. Your new entry is 
+    # not appended to the {#library_path} but replaces it. Once the value has been set, you can use 
+    # the '<<' operator for subsequent applications.
+    #
+    #   desc "Compile the Application"
     #   mxmlc 'bin/SomeProject.swf' do |t|
     #     t.input = 'src/SomeProject.as'
-    #     t.library_path << 'lib/SomeLib.swc'
+    #     t.source_path << 'src'
+    #     t.library_path = ['lib/somelib/SomeLib.swc']
     #   end
     #
     # In a configuration file, you can set the append attribute of the library-path tag to true to indicate that the values should be appended to the library path rather than replace it.
+    #
+    # @see {#source_path}
     #
     add_param :library_path, Files
     
@@ -367,22 +574,38 @@ module FlashSDK
     #
     #     <def>, <pre>, and <ext> 
     #
-    # symbols showing linker dependencies in the final SWF file.
+    # Symbols showing linker dependencies in the final SWF file.
     #
-    # The file format output by this command can be used to write a file for input to the load-externs option.
+    # The file format output by this command can be used to write a file for input to the {#load_externs} option.
     #
-    # This is an advanced option.
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.link_report = 'ext/link-report.xml'
+    #   end
+    #
+    # @see #load_externs
     #
     add_param :link_report, File
     
     ##
     # Specifies the location of the configuration file that defines compiler options.
     #
-    # If you specify a configuration file, you can override individual options by setting them on the command line.
+    # If you specify a configuration file, you can still override individual options by setting them on the command line.
     #
     # All relative paths in the configuration file are relative to the location of the configuration file itself.
+    # 
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.load_config << 'mxmlc-config.xml'
+    #   end
     #
-    # Use the += operator to chain this configuration file to other configuration files.
+    # If you would like to see this file for your current configuration, you can set the {#dump_config} parameter and run your rake task.
+    #
+    # @see #dump_config
     #
     add_param :load_config, Files
     
@@ -397,6 +620,25 @@ module FlashSDK
     #
     # This option provides compile-time link checking for external components that are dynamically linked.
     #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.load_externs = 'framework-link-report.xml'
+    #   end
+    #
+    # The input for this parameter is often the output of another build task that is set up to emit a {#link_report}, 
+    # for example, the previous example might be loading a {#link_report} from a task that looks like:
+    #
+    #   desc "Compile the Application"
+    #   compc 'bin/rsls' do |t|
+    #     t.directory = true
+    #     t.include_sources << 'lib/framework'
+    #     t.link_report = 'framework-link-report.xml'
+    #   end
+    #
+    # @see #link_report
+    #
     add_param :load_externs, File
     
     ##
@@ -406,9 +648,9 @@ module FlashSDK
     # with only the locale option changing.
     #
     # You must also include the parent directory of the individual locale directories, 
-    # plus the token {locale}, in the source-path; for example:
+    # plus the token \{locale\}, in the source-path; for example:
     #
-    #      mxmlc -locale en_EN -source-path locale/{locale} -file-specs MainApp.mxml
+    #      mxmlc -locale en_EN -source-path locale/\{locale\} -file-specs MainApp.mxml
     #
     add_param :locale, String
     
