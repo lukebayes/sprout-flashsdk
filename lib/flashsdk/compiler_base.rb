@@ -105,6 +105,9 @@ module FlashSDK
     #     t.debug = true
     #   end
     #
+    # @see #optimize
+    # @see #verbose_stacktraces
+    #
     add_param :debug, Boolean, { :hidden_value => true }
     
     ##
@@ -170,22 +173,24 @@ module FlashSDK
     add_param :default_script_limits, String
     
     ##
-    # Defines the default application size, in pixels as a String for example: 
+    # Defines the default application size, in pixels as a String.
     #
-    #   desc "Compile the Application"
-    #   mxmlc 'bin/SomeProject.swf' do |t|
-    #     t.input = 'src/SomeProject.as'
-    #     t.source_path << 'src'
-    #     t.default_size = '950 550'
-    #   end
-    #
-    # If you're using the Flex 4 SDK, this value should be comma-delimited like:
+    # If you're using the Flex 4 SDK, these values should be comma-delimited like:
     #
     #   desc "Compile the Application"
     #   mxmlc 'bin/SomeProject.swf' do |t|
     #     t.input = 'src/SomeProject.as'
     #     t.source_path << 'src'
     #     t.default_size = '950,550'
+    #   end
+    #
+    # If you're using the Flex 3 SDK, these values should be space-delimited like:
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.default_size = '950 550'
     #   end
     #
     add_param :default_size, String
@@ -587,7 +592,7 @@ module FlashSDK
     #
     # @see #load_externs
     #
-    add_param :link_report, File
+    add_param :link_report, String # SHOULD be a String - File types become prerequisites.
     
     ##
     # Specifies the location of the configuration file that defines compiler options.
@@ -648,9 +653,40 @@ module FlashSDK
     # with only the locale option changing.
     #
     # You must also include the parent directory of the individual locale directories, 
-    # plus the token \{locale\}, in the source-path; for example:
+    # plus the token \{locale\}, in the source-path. 
     #
-    #      mxmlc -locale en_EN -source-path locale/\{locale\} -file-specs MainApp.mxml
+    # One way to do this with Rake might be as follows:
+    #
+    #   # Create a new, empty task to asseble the locale-specific
+    #   # build tasks:
+    #   desc 'Build localized SWF files'
+    #   task :build_locales
+    #
+    #   # For each supported locale, create a new build task:
+    #   ['en_US', 'en_EN', 'es_ES'].each do |locale|
+    #
+    #     swf = "bin/SomeProject-#{locale}.swf"
+    #
+    #     mxmlc swf do |t|
+    #       t.input = 'src/SomeProject.as'
+    #       t.source_path << 'src'
+    #       t.source_path << "locale/#{locale}"
+    #       t.locale = locale
+    #     end
+    #
+    #     # Add the localized build task as a prerequisite
+    #     # to the aggregate task:
+    #     task :build_locales => swf
+    #   end
+    #
+    # If the previous code was in a Rake file, you could
+    # build all localized SWFs with:
+    #
+    #   rake build_locales
+    #
+    # You could also build a single locale with:
+    #
+    #   rake bin/SomeProject-en_US.swf
     #
     add_param :locale, String
     
@@ -670,22 +706,36 @@ module FlashSDK
     add_param :namespaces_namespace, String
     
     ##
-    # Enables the ActionScript optimizer. This optimizer reduces file size and increases performance by optimizing the SWF file's bytecode.
+    # Enables the ActionScript optimizer. This optimizer reduces file size and increases performance by optimizing the SWF file's bytecode, but 
+    # takes slightly longer to compile. This should usually be set to true for any SWF files that are headed to production.
     #
-    # The default value is false.
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.optimize = true
+    #   end
+    #
+    # @see #debug
     #
     add_param :optimize, Boolean
     
     ##
-    # Specifies the output path and filename for the resulting file. If you omit this option, the compiler saves the SWF file to the directory where the target file is located.
+    # Specifies the output path and filename for the resulting file. 
     #
-    # The default SWF filename matches the target filename, but with a SWF file extension.
+    # If you omit this option, the compiler saves the SWF file to the 
+    # directory where the target file is located. The default SWF 
+    # filename matches the target filename, but with a SWF file extension. When 
+    # using this option with the component compiler (compc), the output is a 
+    # SWC file rather than a SWF file.
     #
-    # If you use a relative path to define the filename, it is always relative to the current working directory, not the target MXML application root.
+    # The compiler creates extra directories based on the specified filename 
+    # if those directories are not present.
     #
-    # The compiler creates extra directories based on the specified filename if those directories are not present.
+    # The {#mxmlc} Rake task uses a Rake::File task under the covers, and
+    # will automatically set this value with the string passed into the task name.
     #
-    # When using this option with the component compiler, the output is a SWC file rather than a SWF file.
+    # This parameter should not be set directly within the task body.
     #
     add_param :output, File, { :file_task_name => true }
     
@@ -705,28 +755,56 @@ module FlashSDK
     add_param :resource_bundle_list, File
     
     ##
-    # Specifies a list of run-time shared libraries (RSLs) to use for this application. RSLs are dynamically-linked at run time.
+    # Specifies a list of run-time shared libraries (RSLs) 
+    # to use for this application. RSLs are dynamically-linked at run time.
     #
-    # You specify the location of the SWF file relative to the deployment location of the application. For example, if you store a file named library.swf file in the web_root/libraries directory on the web server, and the application in the web root, you specify libraries/library.swf.
+    # You specify the location of the SWF file relative to the deployment 
+    # location of the application. For example, if you store a file named 
+    # library.swf file in the web_root/libraries directory on the web server, 
+    # and the application in the web root, you specify libraries/library.swf.
     #
     add_param :runtime_shared_libraries, Strings
 
     ## 
-    # Alias for runtime_shared_libraries
+    # Alias for {#runtime_shared_libraries}
     #
     add_param_alias :rsl, :runtime_shared_libraries
 
     ##
-    # Runtime shared library path.
+    # Setting up Runtime Shared Libraries (RSLs) is extremely complicated and usually
+    # not worth doing unless you're using the Flex framework.
     #
-    #   t.runtime_shared_library_path << "[path-element] [rsl-url] [policy-file-url]"
+    # Following are some URLs where you might learn more about using RSLs:
     #
-    # @see Sprout::MXMLC#rslp
+    # * http://www.newtriks.com/?p=802
+    # * http://blogs.adobe.com/rgonzalez/2006/06/modular_applications_part_2.html
+    # * http://code.google.com/p/maashaack/wiki/Metadata
+    # * http://flexscript.wordpress.com/2008/11/15/using-runtime-shared-libraries-utilizing-flash-player-cache/
+    # 
+    # If you're not using the Flex framework, the most difficult thing you'll need to do
+    # is set up a Preloader and figure out how to determine which urls to load the RSLs from.
+    #
+    # If you are setting up RSLs with the Flex framework, you should be able to create
+    # a build task something like the following:
+    #
+    #   version     = '4.1.0.16076'
+    #   rsls_dir    = 'lib/rsls'
+    #   crossdomain = ''
+    #   host        = 'http://yourdomain.com'
+    #
+    #   desc "Compile the Application"
+    #   mxmlc "bin/SomeProject.swf" do |t|
+    #     t.source_path << 'src'
+    #     t.input       = 'src/SomeProject.mxml'
+    #     t.pkg_version = version
+    #     t.runtime_shared_library_path << "lib/framework_#{version}.swc,#{host}#{rsls_dir}/framework_#{version}.swz,#{crossdomain},#{host}#{rsls_dir}/framework_#{version}.swf"
+    #     t.runtime_shared_library_path << "lib/rpc_#{version}.swc,#{host}#{rsls_dir}/rpc_#{version}.swz,#{crossdomain},#{host}#{rsls_dir}/rpc_#{version}.swf"
+    #   end
     #
     add_param :runtime_shared_library_path, Strings
     
     ##
-    # Alias for runtime_shared_library_path
+    # Alias for {#runtime_shared_library_path}
     #
     add_param_alias :rslp, :runtime_shared_library_path
     
@@ -740,12 +818,26 @@ module FlashSDK
     #
     # The default value is true.
     #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.as'
+    #     t.source_path << 'src'
+    #     t.show_actionscript_warnings = false
+    #   end
+    #
     add_param :show_actionscript_warnings, Boolean, { :default => true, :show_on_false => true }
 
     ##
     # Shows a warning when Flash Player cannot detect changes to a bound property.
     #
     # The default value is true.
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.mxml'
+    #     t.source_path << 'src'
+    #     t.show_binding_warnings = false
+    #   end
     #
     add_param :show_binding_warnings, Boolean, { :default => true, :show_on_false => true }
     
@@ -754,39 +846,66 @@ module FlashSDK
     #
     # The default value is true.
     #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.mxml'
+    #     t.source_path << 'src'
+    #     t.show_deprecation_warnings = false
+    #   end
+    #
     add_param :show_deprecation_warnings, Boolean, { :default => true, :show_on_false => true }
     
     ##
-    # Adds directories or files to the source path. The Flex compiler searches directories in the source path for MXML or AS source files that are used in your Flex applications and includes those that are required at compile time.
+    # Adds directories to the source path. The compiler
+    # searches directories in the source path for MXML or AS source
+    # files based on import statements and type references.
     #
-    # You can use wildcards to include all files and subdirectories of a directory.
+    # Only those files that have been referenced will be included
+    # in a compiled SWF or SWC file.
     #
-    # To link an entire library SWC file and not individual classes or directories, use the library-path option.
+    # To add the contents of a SWC file to the entity search, use
+    # the {#library_path} option.
     #
-    # The source path is also used as the search path for the component compiler's include-classes and include-resource-bundles options.
+    # The source path is also used as the search path for the component 
+    # compiler's {#include_classes} and {linclude_resource_bundles} options.
     #
-    # You can also use the += operator to append the new argument to the list of existing source path entries.
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.mxml'
+    #     t.source_path << 'src'
+    #     t.source_path << 'lib/othersrc'
+    #     t.source_path << 'lib/anothersrc'
+    #   end
     #
     add_param :source_path, Paths
     
     add_param_alias :sp, :source_path 
 
     ##
-    # Statically link the libraries specified by the -runtime-shared-libraries-path option.
+    # Statically link the libraries specified by the {#runtime_shared_libraries_path} option.
     #
-    #     alias -static-rsls
+    # @see #runtime_shared_libraries_path
     #
     add_param :static_link_runtime_shared_libraries, Boolean, { :default => true }
 
     ##
-    # Alias for static_link_runtime_shared_libraries
+    # Alias for {#static_link_runtime_shared_libraries}
     #
     add_param_alias :static_rsls, :static_link_runtime_shared_libraries 
     
     ##
     # Prints undefined property and function calls; also performs compile-time type checking on assignments and options supplied to method calls.
     #
+    # Turning of strict typing will essentially enable Duck-Typing in the Flash Player.
+    #
     # The default value is true.
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.mxml'
+    #     t.source_path << 'src'
+    #     t.strict = false
+    #   end
     #
     add_param :strict, Boolean, { :default => true, :show_on_false => true }
     
@@ -794,6 +913,15 @@ module FlashSDK
     # Specifies the version of the player the application is targeting.
     #
     # Features requiring a later version will not be compiled into the application. The minimum value supported is "9.0.0".
+    #
+    # Be aware that this value is a String.
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.mxml'
+    #     t.source_path << 'src'
+    #     t.target_player = '10'
+    #   end
     #
     add_param :target_player, String
     
@@ -814,14 +942,22 @@ module FlashSDK
     #
     # The default value is true.
     #
-    # When the use-network property is set to false, the application can access the local filesystem (for example, use the XML.load() method with file: URLs) but not network services. In most circumstances, the value of this property should be true.
+    # When the use-network property is set to false, the application can 
+    # access the local filesystem (for example, use the XML.load() method 
+    # with file: URLs) but not network services. In most circumstances, the 
+    # value of this property should be true.
     #
     add_param :use_network, Boolean, { :default => true, :show_on_false => true }
     
     ##
-    # Generates source code that includes line numbers. When a run-time error occurs, the stacktrace shows these line numbers.
+    # Generates source code that includes source files and line numbers. When 
+    # a run-time error occurs, the stacktrace shows these line numbers.
     #
-    # Enabling this option generates larger SWF files.\nThe default value is false.
+    # Enabling this option generates larger SWF files.
+    #
+    # The default value is false.
+    #
+    # @see #debug
     #
     add_param :verbose_stacktraces, Boolean
 
