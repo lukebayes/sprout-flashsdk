@@ -89,6 +89,7 @@ module FlashSDK
       start = Time.now
       port = port || @port
       begin
+        #Sprout.stdout.puts "[FCSH] #{command}"
         session = TCPSocket.new 'localhost', port
         session.puts command
         response = session.read
@@ -122,10 +123,11 @@ module FlashSDK
     private
 
     def render_request request
-      hash = Digest::MD5.hexdigest request
       if request.match /^mxmlc|^compc/
+        hash = Digest::MD5.hexdigest request
+
         if requests[hash].nil?
-          requests[hash] = requests.size + 1
+          requests[hash] = next_compiler_index
           request
         else
           "compile #{requests[hash]}"
@@ -135,6 +137,15 @@ module FlashSDK
       end
     end
 
+    def next_compiler_index
+      index = 1
+      @requests.each do |key, value|
+        value += 1
+        index = [index, value].max
+      end
+      index
+    end
+
     def clear_requests
       # Clear the cached requests,
       # but leave them in place, the underlying
@@ -142,8 +153,8 @@ module FlashSDK
       # indices.
 
       new_requests = {}
-      @requests.each do |item|
-        new_requests["removed-item"] = "removed-item"
+      @requests.each do |key, value|
+        new_requests["removed-item"] = value
       end
       @requests = new_requests
     end
