@@ -78,7 +78,8 @@ module FlashSDK
           clear_requests
         end
 
-        response = output.read
+        response = "#{rendered}\n"
+        response << output.read.gsub(rendered, '')
         session.puts response.gsub(fcsh.prompt, "\n")
         session.flush
         session.close
