@@ -867,7 +867,7 @@ module FlashSDK
     # the {#library_path} option.
     #
     # The source path is also used as the search path for the component 
-    # compiler's {#include_classes} and {linclude_resource_bundles} options.
+    # compiler's {#includes} and {#resource_bundle_list} options.
     #
     #   desc "Compile the Application"
     #   mxmlc 'bin/SomeProject.swf' do |t|
@@ -882,9 +882,9 @@ module FlashSDK
     add_param_alias :sp, :source_path 
 
     ##
-    # Statically link the libraries specified by the {#runtime_shared_libraries_path} option.
+    # Statically link the libraries specified by the {#runtime_shared_libraries} option.
     #
-    # @see #runtime_shared_libraries_path
+    # @see #runtime_shared_libraries
     #
     add_param :static_link_runtime_shared_libraries, Boolean, { :default => true }
 
