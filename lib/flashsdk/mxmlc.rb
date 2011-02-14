@@ -1,3 +1,4 @@
+require 'benchmark'
 module FlashSDK
 
   ##
