@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'flashsdk'
+
+reader = FlashPlayer::LogFile.new
+reader.tail
+
