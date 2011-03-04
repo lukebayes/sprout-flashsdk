@@ -53,6 +53,22 @@ before any flashplayer task:
   (type, 'help' for more info when prompted)
 
 ++++++++++++++++++++++++++++++++
+You can also launch any SWF file using
+a debug Flash Player with:
+
+  flashplayer bin/SomeProject.swf
+
+Or run a SWF with FDB like:
+
+  flashplayer --fdb bin/SomeProject.swf
+
+++++++++++++++++++++++++++++++++
+You can also tail your system's flashlog
+while running a SWF or HTML page with:
+
+  flashlog
+
+++++++++++++++++++++++++++++++++
 Issues or Questions? 
 
   Troubleshooting at:
