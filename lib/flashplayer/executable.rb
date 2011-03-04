@@ -3,6 +3,9 @@ module FlashPlayer
 
   class Executable < Sprout::Executable::Base
 
+    attr_accessor :stdout
+    attr_accessor :stderr
+
     ##
     # The file that the Flash Player should launch.
     #

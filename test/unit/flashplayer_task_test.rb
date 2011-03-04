@@ -16,8 +16,8 @@ class TaskTest < Test::Unit::TestCase
       @missing_home = File.join(fixtures, 'missing_folder')
       @config_path  = File.join(@missing_home, 'fp_config', 'mm.cfg')
 
-      Sprout.stdout = $stdout
-      Sprout.stderr = $stderr
+      #Sprout.stdout = $stdout
+      #Sprout.stderr = $stderr
     end
 
     teardown do
@@ -84,7 +84,7 @@ class TaskTest < Test::Unit::TestCase
 
     # Comment following lines to really launch the player:
     sys = FakeFlashPlayerSystem.new
-    t.stubs(:current_system).returns sys
+    FlashPlayer::Executable.any_instance.stubs(:current_system).returns sys
     sys.expects(:open_flashplayer_with).returns Thread.new{}
   end
 end
