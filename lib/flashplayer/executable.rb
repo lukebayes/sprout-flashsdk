@@ -20,18 +20,21 @@ module FlashPlayer
     #
     add_param :fdb, Boolean, { :hidden_value => true }
 
+    ##
+    # The Flash Player version to use.
+    add_param :version, String, { :default => FlashPlayer::VERSION }
+
     def initialize
       super
-      @mm_config    = MMConfig.new
-      @reader       = LogFile.new
+      @mm_config = MMConfig.new
+      @reader = LogFile.new
       @trust_config = Trust.new
-      @process      = nil
-      @stdout       = $stdout
-      @stderr       = $stderr
-      @logger       = $stdout
-
-      @pkg_name     = FlashPlayer::NAME
-      @pkg_version  = FlashPlayer::VERSION
+      @process = nil
+      @stdout = $stdout
+      @stderr = $stderr
+      @logger = $stdout
+      self.pkg_name = FlashPlayer::NAME
+      self.pkg_version = FlashPlayer::VERSION
     end
 
     def execute *args
