@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.homepage             = "http://www.adobe.com/products/flex"
   s.summary              = "Adobe Flash SDK including mxmlc, compc, asdoc, adl, adt, optimizer and fdb"
   s.description          = "The Flash SDK Rubygem is brought to you by Project Sprouts (http://projectsprouts.org)"
-  s.executables          =  ['sprout-as3', 'sprout-flex']
+  s.executables          =  ['sprout-as3', 'sprout-flex', 'flashplayer', 'flashlog']
   s.post_install_message = File.read 'POSTINSTALL.rdoc'
   s.files                = FileList['**/**/*'].exclude /.git|.svn|.DS_Store/
   s.add_bundler_dependencies
