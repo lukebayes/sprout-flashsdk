@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'fake_flashplayer_system'
 
 class TaskTest < Test::Unit::TestCase
   include Sprout::TestHelper
@@ -85,16 +86,6 @@ class TaskTest < Test::Unit::TestCase
     sys = FakeFlashPlayerSystem.new
     t.stubs(:current_system).returns sys
     sys.expects(:open_flashplayer_with).returns Thread.new{}
-  end
-end
-
-class FakeFlashPlayerSystem
-
-  def clean_path path
-    path
-  end
-
-  def open_flashplayer_with player, swf
   end
 end
 

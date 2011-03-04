@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'flashsdk'
+
+player = FlashPlayer::Executable.new
+player.parse! ARGV
+player.execute
+
