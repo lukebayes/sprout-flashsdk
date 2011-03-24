@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'sprout', '>= 1.1.8.pre'
+gem 'sprout', '>= 1.1.11.pre'
 
 group :development do
   gem "shoulda"
