@@ -350,17 +350,17 @@ module FlashSDK
     ##
     # Defines the font manager. The default is flash.fonts.JREFontManager. You can also use the flash.fonts.BatikFontManager.
     #
-    add_param :fonts_managers, Strings
+    add_param :fonts_managers, Strings, { :shell_name => "-compiler.fonts.managers" }
     
     ##
     # Sets the maximum number of fonts to keep in the server cache.
     #
-    add_param :fonts_max_cached_fonts, Number
+    add_param :fonts_max_cached_fonts, Number, { :shell_name => "-compiler.fonts.max.cached.fonts" }
     
     ##
     # Sets the maximum number of character glyph-outlines to keep in the server cache for each font face.
     #
-    add_param :fonts_max_glyphs_per_face, Number
+    add_param :fonts_max_glyphs_per_face, Number, { :shell_name => "-compiler.fonts.max.glyphs.per.face" }
     
     ##
     # Specifies a SWF file frame label with a sequence of one or more class names that will be linked onto the frame.
