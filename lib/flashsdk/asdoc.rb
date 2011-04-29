@@ -119,9 +119,7 @@ module FlashSDK
       # Never use fcsh for asdoc
       # (overused inheritance smell)
       self.use_fcsh = false
-      start = Time.now
-      super
-      duration = (Time.now - start).seconds
+      duration = Benchmark.measure { super }
       Sprout.stdout.puts "[ASDOC] Creation complete in #{duration} seconds."
     end
 

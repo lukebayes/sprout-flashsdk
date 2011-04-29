@@ -88,37 +88,38 @@ module FlashSDK
     end
 
     def execute command, port=nil
-      start = Time.now
-      port = port || @port
-      begin
-        #Sprout.stdout.puts "[FCSH] #{command}"
-        session = TCPSocket.new 'localhost', port
-        session.puts command
-        response = session.read
-        if response.match /Error/
-          raise Sprout::Errors::UsageError.new "[FCSH] #{response}"
-        else
-          Sprout.stdout.puts "[FCSH] #{response}"
-        end
-        response
-      rescue Errno::ECONNREFUSED => e
-        message = "[ERROR] "
-        message << e.message
-        message << ": Could not connect to an FCSH server on port: #{port} at: #{Dir.pwd}.\n\n"
-        message << "This is probably because one has not been started. To start a new FCSH server, open a new "
-        message << "terminal and run the following:\n\n"
-        message << "cd #{Dir.pwd}\n"
-        message << "rake fcsh:start\n"
-        raise Sprout::Errors::UsageError.new message
-      ensure
-        if !session.nil? && !session.closed?
-          session.flush
-          session.close
+      duration = Benchmark.measure do
+        port = port || @port
+        begin
+          #Sprout.stdout.puts "[FCSH] #{command}"
+          session = TCPSocket.new 'localhost', port
+          session.puts command
+          response = session.read
+          if response.match /Error/
+            raise Sprout::Errors::UsageError.new "[FCSH] #{response}"
+          else
+            Sprout.stdout.puts "[FCSH] #{response}"
+          end
+          response
+        rescue Errno::ECONNREFUSED => e
+          message = "[ERROR] "
+          message << e.message
+          message << ": Could not connect to an FCSH server on port: #{port} at: #{Dir.pwd}.\n\n"
+          message << "This is probably because one has not been started. To start a new FCSH server, open a new "
+          message << "terminal and run the following:\n\n"
+          message << "cd #{Dir.pwd}\n"
+          message << "rake fcsh:start\n"
+          raise Sprout::Errors::UsageError.new message
+        ensure
+          if !session.nil? && !session.closed?
+            session.flush
+            session.close
+          end
         end
       end
 
       if command.match /^mxmlc|^compc/
-        Sprout.stdout.puts "[FCSH] complete in #{(Time.now - start).seconds} seconds."
+        Sprout.stdout.puts "[FCSH] complete in #{duration} seconds."
       end
     end
 
