@@ -787,6 +787,7 @@ module FlashSDK
       super do |message|
         if message.match test_result_suffix
           write_test_result
+          on_test_result_complete
         end
         if @inside_test_result
           @test_result << message
@@ -795,6 +796,17 @@ module FlashSDK
           @inside_test_result = true
         end
       end
+    end
+
+    protected
+
+    ##
+    # Called when the test_result_suffix is encountered,
+    # and after results have been written to disk.
+    def on_test_result_complete
+      #kill
+      #confirm
+      #quit
     end
 
     private
@@ -831,3 +843,6 @@ task :fdb do
   ENV['USE_FDB'] = 'true'
 end
 
+task :ci do
+  ENV['USE_CI'] = 'true'
+end

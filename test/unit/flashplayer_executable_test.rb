@@ -53,6 +53,26 @@ class FlashPlayerExecutableTest < Test::Unit::TestCase
       player.execute
     end
 
+    should "update fdb on ci change" do
+      player = FlashPlayer::Executable.new
+      assert !player.fdb
+      assert !player.ci
+      player.ci = true
+      assert player.fdb
+      assert player.ci
+    end
+
+    should "call continue on fdb when ci is true" do
+      player = FlashPlayer::Executable.new
+      player.input = @swf
+      player.ci = true
+      #FlashSDK::FDB.any_instance.expects :execute
+      #FlashSDK::FDB.any_instance.expects :run
+      #FlashSDK::FDB.any_instance.expects :continue
+      #FlashSDK::FDB.any_instance.expects :quit
+      player.execute
+    end
+
   end
 
   private

@@ -21,6 +21,18 @@ module FlashPlayer
     add_param :fdb, Boolean, { :hidden_value => true }
 
     ##
+    # Execute SWF for a continuous integration (CI) environment.
+    # Setting this flag will change the way the SWF is executed
+    # in the following manner:
+    #
+    # * The Flex Debugger will be used for execution
+    # * The SWF will be auto-started 
+    # * Uncaught Runtime Errors will be traced to the flashlog and the SWF will be closed
+    # * Test execution results will be written to a file
+    # * The SWF will be auto-closed after results are collected
+    add_param :ci, Boolean, { :hidden_value => true, :writer => :set_ci }
+
+    ##
     # The Flash Player version to use.
     add_param :version, String, { :default => FlashPlayer::VERSION }
 
@@ -43,12 +55,16 @@ module FlashPlayer
         update_trust_config_with input
       end
 
-      if use_fdb?
+      if use_ci? || use_fdb?
         launch_fdb_and_player_with input
       else
         player_thread = launch_player_with input
         tail_flashlog player_thread
       end
+    end
+
+    def use_ci?
+      self.ci ||= ENV['USE_CI'].to_s == 'true'
     end
 
     def use_fdb?
@@ -71,6 +87,13 @@ module FlashPlayer
 
     private
 
+    def set_ci value
+      if value
+        # Ensure we set the global, so that FDB can check it...
+        self.fdb = true
+      end
+    end
+
     def launch_fdb_and_player_with input
       # Keep getting a fatal lock error which I believe
       # is being caused by the FlashPlayer and FDB attempting
@@ -85,6 +108,7 @@ module FlashPlayer
       fdb_instance.stderr = fake_err
       fdb_instance.execute false
       fdb_instance.run
+
       player_thread = launch_player_with input
 
       # Emit whatever messages have been passed:
@@ -92,10 +116,15 @@ module FlashPlayer
       stdout.flush
       stderr.puts fake_err.read
       stdout.flush
+
       # Replace the fdb instance streams with
       # the real ones:
       fdb_instance.stdout = stdout
       fdb_instance.stderr = stderr
+
+      if ci
+        fdb_instance.continue
+      end
 
       # Let the user interact with fdb:
       fdb_instance.handle_user_input

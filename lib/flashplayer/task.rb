@@ -22,6 +22,7 @@ module FlashPlayer
       super
       update_input_if_necessary
       @player.input = input
+      @player.ci = use_ci?
       @player.fdb = use_fdb?
       @player.execute
     end
@@ -35,6 +36,10 @@ module FlashPlayer
     end
 
     private
+
+    def use_ci?
+      ENV['USE_CI'].to_s == 'true'
+    end
 
     def use_fdb?
       # Check as string b/c this is
