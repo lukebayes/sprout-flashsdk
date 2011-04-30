@@ -101,7 +101,7 @@ module FlashSDK
 
     ##
     # Specifies a description for a package name.
-    add_param :package, Path
+    add_param :package, Strings, { :delimiter => ' ' }
     
     ##
     # Path for custom templates.
@@ -123,6 +123,18 @@ module FlashSDK
       Sprout.stdout.puts "[ASDOC] Creation complete in #{duration} seconds."
     end
 
+    protected
+
+    ##
+    # Override the default behavior that creates a file task, 
+    # and create a 'task' instead. This will force the docs
+    # to get recreated with every run, instead of failing to
+    # create when the outer folder still exists.
+    def create_outer_task *args
+      task *args do
+        execute
+      end
+    end
   end
 end
 
