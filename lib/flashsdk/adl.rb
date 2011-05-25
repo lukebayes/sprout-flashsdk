@@ -40,6 +40,12 @@ module FlashSDK
   end
 end
 
+def adl *args, &block
+  exe = FlashSDK::ADL.new
+  exe.to_rake(*args, &block)
+  exe
+end
+
 ##
 # TODO: This should NOT be here!
 # This is preventing that method from working
