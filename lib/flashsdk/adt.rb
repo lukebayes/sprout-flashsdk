@@ -45,6 +45,11 @@ module FlashSDK
     #
     add_param :package, Boolean, { :hidden_value => true }
 
+		##
+		# Use a specific target, like apk-debug for Android or ipa-debug for iOS
+		#
+		add_param :target, String, { :delimiter => ' ' }
+
     ##
     # Set true to create a certificate.
     #
