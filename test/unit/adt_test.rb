@@ -73,6 +73,20 @@ class ADTTest < Test::Unit::TestCase
       end
     end
 
+		should "launch an app" do
+      as_a_unix_system do
+        t = adt @expected_output do |t|
+					t.launchApp			 = true
+					t.platform			 = @platform
+          t.appid					 = @appid
+        end
+        assert_equal "-launchApp -platform #{@platform} -appid #{@appid}", t.to_shell
+
+        #t.execute
+        #assert_file @expected_output
+      end
+    end
+
     should "create a self-signed certificate" do
       as_a_unix_system do
         t = adt(@certificate) do |t|
