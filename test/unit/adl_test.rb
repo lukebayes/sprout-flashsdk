@@ -8,6 +8,8 @@ class ADLTest < Test::Unit::TestCase
     setup do
       @fixture  = File.join 'test', 'fixtures', 'air', 'simple'
       @app_desc = File.join @fixture, 'SomeProject.xml'
+			@profile = 'mobileDevice'
+			@screensize = 'NexusOne'
     end
 
     teardown do
@@ -17,7 +19,9 @@ class ADLTest < Test::Unit::TestCase
       adl = FlashSDK::ADL.new
       adl.app_desc = @app_desc
       adl.root_dir = Dir.pwd
-      assert_equal "#{@app_desc} #{Dir.pwd}", adl.to_shell
+			adl.screensize = @screensize
+			adl.profile = @profile
+      assert_equal "-profile #{@profile} -screensize #{@screensize} #{@app_desc} #{Dir.pwd}", adl.to_shell
       # Uncomment to actually launch
       # the AIR application:
       #adl.execute

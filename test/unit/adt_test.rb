@@ -13,6 +13,7 @@ class ADTTest < Test::Unit::TestCase
       @swf_main        = File.join @fixture, 'SomeProject.mxml'
 
       @certificate     = File.join @fixture, 'SomeProject.pfx'
+			@target					 = 'apk-debug'
       @cert_password   = 'samplePassword'
     end
 
@@ -25,6 +26,7 @@ class ADTTest < Test::Unit::TestCase
       as_a_unix_system do
         t = adt @expected_output do |t|
           t.package        = true
+          t.target         = @target
           t.package_input  = @application_xml
           t.package_output = @expected_output
           t.storetype      = 'PKCS12'
@@ -32,7 +34,7 @@ class ADTTest < Test::Unit::TestCase
           t.storepass      = @cert_password
           t.included_files << @swf_input
         end
-        assert_equal '-package -storetype PKCS12 -keystore test/fixtures/air/simple/SomeProject.pfx -storepass samplePassword test/fixtures/air/simple/SomeProject.air test/fixtures/air/simple/SomeProject.xml test/fixtures/air/simple/SomeProject.swf', t.to_shell
+        assert_equal "-package -target #{@target} -storetype PKCS12 -keystore test/fixtures/air/simple/SomeProject.pfx -storepass samplePassword test/fixtures/air/simple/SomeProject.air test/fixtures/air/simple/SomeProject.xml test/fixtures/air/simple/SomeProject.swf", t.to_shell
 
         #t.execute
         #assert_file @expected_output
