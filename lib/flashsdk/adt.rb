@@ -40,6 +40,14 @@ module FlashSDK
     # fixing a bug related to how ADT actually expects
     # the arguments...
 
+		add_param :installApp, Boolean, { :hidden_value => true }
+
+		add_param :uninstallApp, Boolean, { :hidden_value => true }
+
+		add_param :platform, String, { :delimiter => ' ' }
+
+		add_param :appid, String, { :delimiter => ' ' }
+		
     ##
     # Create an AIR package.
     #

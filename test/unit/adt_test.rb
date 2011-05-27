@@ -9,11 +9,14 @@ class ADTTest < Test::Unit::TestCase
       @fixture         = File.join 'test', 'fixtures', 'air', 'simple'
       @application_xml = File.join @fixture, 'SomeProject.xml'
       @expected_output = File.join @fixture, 'SomeProject.air'
+      @apk_input = File.join @fixture, 'SomeProject.apk'
       @swf_input       = File.join @fixture, 'SomeProject.swf'
       @swf_main        = File.join @fixture, 'SomeProject.mxml'
 
       @certificate     = File.join @fixture, 'SomeProject.pfx'
+			@platform				 = 'android'
 			@target					 = 'apk-debug'
+      @appid   			 	 = 'com.foo.bar.SomeProject'
       @cert_password   = 'samplePassword'
     end
 
@@ -35,6 +38,35 @@ class ADTTest < Test::Unit::TestCase
           t.included_files << @swf_input
         end
         assert_equal "-package -target #{@target} -storetype PKCS12 -keystore test/fixtures/air/simple/SomeProject.pfx -storepass samplePassword test/fixtures/air/simple/SomeProject.air test/fixtures/air/simple/SomeProject.xml test/fixtures/air/simple/SomeProject.swf", t.to_shell
+
+        #t.execute
+        #assert_file @expected_output
+      end
+    end
+
+		should "install an APK" do
+      as_a_unix_system do
+        t = adt @expected_output do |t|
+					t.installApp		 = true
+					t.platform			 = @platform
+          t.package        = true
+          t.package_input  = @apk_input
+        end
+        assert_equal "-installApp -platform #{@platform} -package #{@apk_input}", t.to_shell
+
+        #t.execute
+        #assert_file @expected_output
+      end
+    end
+
+		should "uninstall an APK" do
+      as_a_unix_system do
+        t = adt @expected_output do |t|
+					t.uninstallApp	 = true
+					t.platform			 = @platform
+          t.appid					 = @appid
+        end
+        assert_equal "-uninstallApp -platform #{@platform} -appid #{@appid}", t.to_shell
 
         #t.execute
         #assert_file @expected_output
