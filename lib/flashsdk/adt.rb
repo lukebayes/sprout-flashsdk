@@ -132,6 +132,11 @@ module FlashSDK
     #
     add_param :checkstore, String
 
+		##
+		# Provisioning profile for iOS apps
+		#
+		add_param :provisioning_profile, String, { :delimiter => ' ' }
+
     ##
     # Expects two files:
     #
