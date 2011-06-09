@@ -12,7 +12,7 @@ class FakeMXMLC
 
   def initialize args
     #puts ">> ARGS: #{args.inspect}"
-    if(args.size == 2 && 
+    if(args.size == 1 && 
        args[0] == "-static-link-runtime-shared-libraries" && 
        args[1] == "test/fixtures/mxmlc/simple/SomeFile.as")
       compile_simple_swf args

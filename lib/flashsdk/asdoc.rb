@@ -131,7 +131,7 @@ module FlashSDK
     # to get recreated with every run, instead of failing to
     # create when the outer folder still exists.
     def create_outer_task *args
-      task *args do
+      Rake::Task.define_task *args do
         execute
       end
     end
