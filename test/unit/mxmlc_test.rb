@@ -25,8 +25,6 @@ class MXMLCTest < Test::Unit::TestCase
         mxmlc.input = @input
         mxmlc.output = @expected_output
         mxmlc.execute
-        puts "--------------------"
-        puts mxmlc.to_shell
         assert_file @expected_output
       end
     end

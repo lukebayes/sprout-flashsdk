@@ -120,7 +120,6 @@ module FlashSDK
 
     def execute
       duration = Benchmark.measure { super }
-      puts ">> EXECUTE WITH: #{binary_path} and: #{output}"
       Sprout.stdout.puts "[MXMLC] Compilation complete in #{duration.real} seconds." unless use_fcsh?
     end
 
