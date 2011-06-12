@@ -14,6 +14,10 @@ class FCSHSocketTest < Test::Unit::TestCase
       @test_port = 12543
     end
 
+    teardown do
+      clear_tasks
+    end
+
     should "be instantiable" do
       service_ready = false
       # Create the remote side of the connection:
