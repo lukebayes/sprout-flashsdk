@@ -29,7 +29,6 @@ class MXMLCTest < Test::Unit::TestCase
       end
     end
 
-=begin
     should "accept input" do
       as_a_unix_system do
         mxmlc = FlashSDK::MXMLC.new
@@ -62,7 +61,6 @@ class MXMLCTest < Test::Unit::TestCase
       mxmlc.use_fcsh = true
       mxmlc.execute
     end
-=end
 
   end
 end
