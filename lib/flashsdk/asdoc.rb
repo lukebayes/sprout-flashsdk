@@ -101,7 +101,7 @@ module FlashSDK
 
     ##
     # Specifies a description for a package name.
-    add_param :package, Path
+    add_param :package, Strings, { :delimiter => ' ' }
     
     ##
     # Path for custom templates.
@@ -119,12 +119,22 @@ module FlashSDK
       # Never use fcsh for asdoc
       # (overused inheritance smell)
       self.use_fcsh = false
-      start = Time.now
-      super
-      duration = (Time.now - start).seconds
+      duration = Benchmark.measure { super }
       Sprout.stdout.puts "[ASDOC] Creation complete in #{duration} seconds."
     end
 
+    protected
+
+    ##
+    # Override the default behavior that creates a file task, 
+    # and create a 'task' instead. This will force the docs
+    # to get recreated with every run, instead of failing to
+    # create when the outer folder still exists.
+    def create_outer_task *args
+      Rake::Task.define_task *args do
+        execute
+      end
+    end
   end
 end
 

@@ -54,7 +54,7 @@ class TaskTest < Test::Unit::TestCase
       t = flashplayer :run do |t|
         t.input = @swf
       end
-      file @swf
+      Rake::FileTask.define_task @swf
       configure_task t
       t.invoke
       assert_equal @swf, t.input
@@ -62,7 +62,7 @@ class TaskTest < Test::Unit::TestCase
 
     should "work with swf as prerequisite" do
       t = flashplayer :run => @swf
-      file @swf
+      Rake::FileTask.define_task @swf
       configure_task t
       t.invoke
       assert_equal @swf, t.input
@@ -70,9 +70,9 @@ class TaskTest < Test::Unit::TestCase
 
     should "fire when declared as a dependency" do
       t = flashplayer :run => @swf
-      file @swf
+      Rake::FileTask.define_task @swf
       configure_task t
-      other = task :parent => :run
+      other = Rake::Task.define_task :parent => :run
       other.invoke
     end
   end

@@ -119,10 +119,8 @@ module FlashSDK
     set :executable, :mxmlc
 
     def execute
-      start = Time.now
-      super
-      duration = (Time.now - start).seconds
-      Sprout.stdout.puts "[MXMLC] Compilation complete in #{duration} seconds." unless use_fcsh?
+      duration = Benchmark.measure { super }
+      Sprout.stdout.puts "[MXMLC] Compilation complete in #{duration.real} seconds." unless use_fcsh?
     end
 
     def use_fcsh?

@@ -735,8 +735,6 @@ module FlashSDK
     # The {#mxmlc} Rake task uses a Rake::File task under the covers, and
     # will automatically set this value with the string passed into the task name.
     #
-    # This parameter should not be set directly within the task body.
-    #
     add_param :output, File, { :file_task_name => true }
     
     ##

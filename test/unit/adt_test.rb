@@ -9,10 +9,17 @@ class ADTTest < Test::Unit::TestCase
       @fixture         = File.join 'test', 'fixtures', 'air', 'simple'
       @application_xml = File.join @fixture, 'SomeProject.xml'
       @expected_output = File.join @fixture, 'SomeProject.air'
+      @apk_input 			 = File.join @fixture, 'SomeProject.apk'
+      @ipa_output 		 = File.join @fixture, 'SomeProject.ipa'
       @swf_input       = File.join @fixture, 'SomeProject.swf'
       @swf_main        = File.join @fixture, 'SomeProject.mxml'
 
       @certificate     = File.join @fixture, 'SomeProject.pfx'
+      @ipa_cert	       = File.join @fixture, 'SomeProject.p12'
+			@provisioning_profile = File.join @fixture, 'Profile.mobileprovision'
+			@platform				 = 'android'
+			@target					 = 'apk-debug'
+      @appid   			 	 = 'com.foo.bar.SomeProject'
       @cert_password   = 'samplePassword'
     end
 
@@ -25,6 +32,7 @@ class ADTTest < Test::Unit::TestCase
       as_a_unix_system do
         t = adt @expected_output do |t|
           t.package        = true
+          t.target         = @target
           t.package_input  = @application_xml
           t.package_output = @expected_output
           t.storetype      = 'PKCS12'
@@ -32,7 +40,70 @@ class ADTTest < Test::Unit::TestCase
           t.storepass      = @cert_password
           t.included_files << @swf_input
         end
-        assert_equal '-package -storetype PKCS12 -keystore test/fixtures/air/simple/SomeProject.pfx -storepass samplePassword test/fixtures/air/simple/SomeProject.air test/fixtures/air/simple/SomeProject.xml test/fixtures/air/simple/SomeProject.swf', t.to_shell
+        assert_equal "-package -target #{@target} -storetype PKCS12 -keystore test/fixtures/air/simple/SomeProject.pfx -storepass samplePassword test/fixtures/air/simple/SomeProject.air test/fixtures/air/simple/SomeProject.xml test/fixtures/air/simple/SomeProject.swf", t.to_shell
+
+        #t.execute
+        #assert_file @expected_output
+      end
+    end
+
+		should "package an iOS swf with a provisioning profile" do
+      as_a_unix_system do
+        t = adt @ipa_output do |t|
+          t.package        = true
+          t.target         = 'ipa-test'
+          t.package_input  = @application_xml
+          t.package_output = @ipa_output
+          t.storetype      = 'PKCS12'
+          t.keystore       = @ipa_cert
+          t.storepass      = @cert_password
+					t.provisioning_profile = @provisioning_profile
+          t.included_files << @swf_input
+        end
+        assert_equal "-package -target ipa-test -storetype PKCS12 -keystore #{@ipa_cert} -storepass #{@cert_password} -provisioning-profile #{@provisioning_profile} #{@ipa_output} #{@application_xml} #{@swf_input}", t.to_shell
+
+        #t.execute
+        #assert_file @expected_output
+      end
+    end
+
+		should "install an APK" do
+      as_a_unix_system do
+        t = adt @expected_output do |t|
+					t.installApp		 = true
+					t.platform			 = @platform
+          t.package        = true
+          t.package_input  = @apk_input
+        end
+        assert_equal "-installApp -platform #{@platform} -package #{@apk_input}", t.to_shell
+
+        #t.execute
+        #assert_file @expected_output
+      end
+    end
+
+		should "uninstall an APK" do
+      as_a_unix_system do
+        t = adt @expected_output do |t|
+					t.uninstallApp	 = true
+					t.platform			 = @platform
+          t.appid					 = @appid
+        end
+        assert_equal "-uninstallApp -platform #{@platform} -appid #{@appid}", t.to_shell
+
+        #t.execute
+        #assert_file @expected_output
+      end
+    end
+
+		should "launch an app" do
+      as_a_unix_system do
+        t = adt @expected_output do |t|
+					t.launchApp			 = true
+					t.platform			 = @platform
+          t.appid					 = @appid
+        end
+        assert_equal "-launchApp -platform #{@platform} -appid #{@appid}", t.to_shell
 
         #t.execute
         #assert_file @expected_output

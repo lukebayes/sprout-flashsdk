@@ -8,9 +8,9 @@ module FlashSDK
 
     add_param :nodebug, Boolean
 
-    add_param :profile, String
+    add_param :profile, String, { :delimiter => ' ' }
 
-    add_param :screensize, String
+    add_param :screensize, String, { :delimiter => ' ' }
 
     add_param :app_desc, String, { :hidden_name => true, :delimiter => ' ' }
 
@@ -37,7 +37,18 @@ module FlashSDK
     # The default executable target.
     #
     set :executable, :adl
+
+		##
+		# The default prefix
+		#
+		set :default_prefix, '-'
   end
+end
+
+def adl *args, &block
+  exe = FlashSDK::ADL.new
+  exe.to_rake(*args, &block)
+  exe
 end
 
 ##
