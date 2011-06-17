@@ -15,6 +15,7 @@ class FlashPlayerExecutableTest < Test::Unit::TestCase
       @swf          = File.join(fixtures, 'flashplayer', 'AsUnit Runner.swf')
       @missing_home = File.join(fixtures, 'missing_folder')
       @config_path  = File.join(@missing_home, 'fp_config', 'mm.cfg')
+      @used_fdb     = ENV['USE_FDB']
 
       Sprout.stdout = $stdout
       Sprout.stderr = $stderr
@@ -22,10 +23,10 @@ class FlashPlayerExecutableTest < Test::Unit::TestCase
 
     teardown do
       remove_file @missing_home
-      ENV['USE_FDB'] = 'false'
+      remove_file 'TestResults.xml'
+      ENV['USE_FDB'] = @used_fdb
     end
 
-    ## THIS METHOD SHOULD BE COMMENTED OUT....
 =begin
     should "launch SWF on os x" do
       # No creation of expected FlashPlayer folders...
@@ -44,7 +45,6 @@ class FlashPlayerExecutableTest < Test::Unit::TestCase
         player.execute
       end
     end
-=end
 
     should "work with input" do
       player = FlashPlayer::Executable.new
@@ -62,6 +62,7 @@ class FlashPlayerExecutableTest < Test::Unit::TestCase
       assert player.ci
     end
 
+=end
     should "call continue on fdb when ci is true" do
       player = FlashPlayer::Executable.new
       player.input = @swf

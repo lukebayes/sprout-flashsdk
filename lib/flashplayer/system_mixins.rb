@@ -33,8 +33,6 @@ module Sprout
         super wrapper.join(" "), File.expand_path(swf)
       end
 
-      private
-
       ##
       # Use AppleScript to close the Flash Player
       def close_flashplayer
@@ -44,6 +42,8 @@ module Sprout
         closer << @player_exe
         `#{closer.join(" ")}`
       end
+
+      private
 
       def ext_gem_path
         File.join(File.dirname(__FILE__), '..', '..', 'ext')
@@ -85,13 +85,10 @@ module Sprout
         @player_thread
       end
       
-      private
-
       def close_flashplayer
         # Don't need to do anything - created
-        # this method to handle belligerent OS X trash.
+        # this method to handle belligerent OS X Player.
       end
-
     end
   end
 end

@@ -30,6 +30,7 @@ module FlashPlayer
     # * Uncaught Runtime Errors will be traced to the flashlog and the SWF will be closed
     # * Test execution results will be written to a file
     # * The SWF will be auto-closed after results are collected
+    #
     add_param :ci, Boolean, { :hidden_value => true, :writer => :set_ci }
 
     ##
@@ -123,14 +124,27 @@ module FlashPlayer
       fdb_instance.stderr = stderr
 
       if ci
+        # Subscribe to the test_result_complete
+        # handler that FDB will throw when the
+        # expected trace output is encountered:
+        fdb_instance.on_test_result_complete do
+          # kill the running Player after
+          # results are complete:
+          current_system.close_flashplayer
+          sleep 0.1
+          fdb_instance.quit
+        end
+        # Tell FDB to execute the loaded
+        # SWF file now:
         fdb_instance.continue
+        fdb_instance.wait
+      else
+        # Let the user interact with fdb:
+        fdb_instance.handle_user_input
+
+        fdb_instance.wait
+        player_thread.join if player_thread.alive?
       end
-
-      # Let the user interact with fdb:
-      fdb_instance.handle_user_input
-
-      fdb_instance.wait
-      player_thread.join if player_thread.alive?
     end
 
     def execute_safely

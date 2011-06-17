@@ -46,6 +46,7 @@ module FlashSDK
       super
       @test_result = ''
       @inside_test_result = false
+      @test_result_handler = nil
       @test_result_file = 'TestResults.xml'
       @test_result_prefix = /<TestResults>/
       @test_result_suffix = /<\/TestResults>/
@@ -787,7 +788,7 @@ module FlashSDK
       super do |message|
         if message.match test_result_suffix
           write_test_result
-          on_test_result_complete
+          @test_result_handler.call() unless @test_result_handler.nil?
         end
         if @inside_test_result
           @test_result << message
@@ -798,15 +799,8 @@ module FlashSDK
       end
     end
 
-    protected
-
-    ##
-    # Called when the test_result_suffix is encountered,
-    # and after results have been written to disk.
-    def on_test_result_complete
-      #kill
-      #confirm
-      #quit
+    def on_test_result_complete &block
+      @test_result_handler = block
     end
 
     private
