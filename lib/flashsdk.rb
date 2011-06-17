@@ -3,7 +3,6 @@ require 'sprout'
 lib = File.expand_path File.dirname(__FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'rake/dsl'
 require 'benchmark'
 require 'flashsdk/module'
 require 'flashsdk/generators/flash_helper'
