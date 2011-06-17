@@ -17,8 +17,8 @@ class FlashPlayerExecutableTest < Test::Unit::TestCase
       @config_path  = File.join(@missing_home, 'fp_config', 'mm.cfg')
       @used_fdb     = ENV['USE_FDB']
 
-      Sprout.stdout = $stdout
-      Sprout.stderr = $stderr
+      #Sprout.stdout = $stdout
+      #Sprout.stderr = $stderr
     end
 
     teardown do
@@ -45,6 +45,7 @@ class FlashPlayerExecutableTest < Test::Unit::TestCase
         player.execute
       end
     end
+=end
 
     should "work with input" do
       player = FlashPlayer::Executable.new
@@ -62,11 +63,11 @@ class FlashPlayerExecutableTest < Test::Unit::TestCase
       assert player.ci
     end
 
-=end
     should "call continue on fdb when ci is true" do
       player = FlashPlayer::Executable.new
       player.input = @swf
-      player.ci = true
+      player.fdb = true
+      player.logger = StringIO.new
       #FlashSDK::FDB.any_instance.expects :execute
       #FlashSDK::FDB.any_instance.expects :run
       #FlashSDK::FDB.any_instance.expects :continue

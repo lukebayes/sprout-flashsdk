@@ -4,6 +4,7 @@ module FlashPlayer
   class LogFile
 
     attr_accessor :logger
+    attr_accessor :line_prefix
 
     def initialize
       @logger = $stdout
@@ -42,7 +43,9 @@ module FlashPlayer
         lines_read = 0
         file.readlines.each do |line|
           if(lines_read >= lines_put)
-            logger.puts "[trace] #{line}"
+            # Only add the line prefix if the user requests it:
+            line = "#{line_prefix} #{line}" unless line_prefix.nil?
+            logger.puts line
             logger.flush
             lines_put += 1
           end

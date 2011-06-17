@@ -37,15 +37,32 @@ module FlashPlayer
     # The Flash Player version to use.
     add_param :version, String, { :default => FlashPlayer::VERSION }
 
+    ##
+    # The line prefix that should be emitted to stdout
+    # for each line of flashlog output encountered.
+    #
+    # This feature is only here in case you have other scripts looking for the legacy
+    # prefix of [trace] that used to precede every line of output.
+    #
+    # In order to reactivate that prefix, simply update your 
+    # rake task as follows:
+    #
+    #   flashplayer 'bin/SomeProject.swf' do |t|
+    #     t.line_prefix = '[trace]'
+    #   end
+    #
+    add_param :line_prefix, String
+
     def initialize
       super
       @mm_config = MMConfig.new
       @reader = LogFile.new
+      @reader.line_prefix = line_prefix
       @trust_config = Trust.new
       @process = nil
+      @logger = $stdout
       @stdout = $stdout
       @stderr = $stderr
-      @logger = $stdout
       self.pkg_name = FlashPlayer::NAME
       self.pkg_version = FlashPlayer::VERSION
     end
@@ -76,6 +93,8 @@ module FlashPlayer
     end
 
     def logger=(logger)
+      @stdout              = logger
+      @stderr              = logger
       @logger              = logger
       @mm_config.logger    = logger
       @reader.logger       = logger
@@ -96,32 +115,13 @@ module FlashPlayer
     end
 
     def launch_fdb_and_player_with input
-      # Keep getting a fatal lock error which I believe
-      # is being caused by the FlashPlayer and FDB attempting
-      # to write to stdout simultaneously.
-      # Trying to give fdb a fake stream until after the
-      # player is launched...
-      fake_out = Sprout::OutputBuffer.new
-      fake_err = Sprout::OutputBuffer.new
-
       fdb_instance = FlashSDK::FDB.new
-      fdb_instance.stdout = fake_out
-      fdb_instance.stderr = fake_err
+      fdb_instance.stdout = @stdout
+      fdb_instance.stderr = @stderr
       fdb_instance.execute false
       fdb_instance.run
 
       player_thread = launch_player_with input
-
-      # Emit whatever messages have been passed:
-      stdout.puts fake_out.read
-      stdout.flush
-      stderr.puts fake_err.read
-      stdout.flush
-
-      # Replace the fdb instance streams with
-      # the real ones:
-      fdb_instance.stdout = stdout
-      fdb_instance.stderr = stderr
 
       if ci
         # Subscribe to the test_result_complete
