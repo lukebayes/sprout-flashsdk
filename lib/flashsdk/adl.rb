@@ -38,10 +38,10 @@ module FlashSDK
     #
     set :executable, :adl
 
-		##
-		# The default prefix
-		#
-		set :default_prefix, '-'
+    ##
+    # The default prefix
+    #
+    set :default_prefix, '-'
   end
 end
 

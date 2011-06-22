@@ -6,21 +6,20 @@ class ADTTest < Test::Unit::TestCase
   context "An ADT tool" do
 
     setup do
-      @fixture         = File.join 'test', 'fixtures', 'air', 'simple'
-      @application_xml = File.join @fixture, 'SomeProject.xml'
-      @expected_output = File.join @fixture, 'SomeProject.air'
-      @apk_input 			 = File.join @fixture, 'SomeProject.apk'
-      @ipa_output 		 = File.join @fixture, 'SomeProject.ipa'
-      @swf_input       = File.join @fixture, 'SomeProject.swf'
-      @swf_main        = File.join @fixture, 'SomeProject.mxml'
-
-      @certificate     = File.join @fixture, 'SomeProject.pfx'
-      @ipa_cert	       = File.join @fixture, 'SomeProject.p12'
-			@provisioning_profile = File.join @fixture, 'Profile.mobileprovision'
-			@platform				 = 'android'
-			@target					 = 'apk-debug'
-      @appid   			 	 = 'com.foo.bar.SomeProject'
-      @cert_password   = 'samplePassword'
+      @fixture              = File.join 'test', 'fixtures', 'air', 'simple'
+      @application_xml      = File.join @fixture, 'SomeProject.xml'
+      @expected_output      = File.join @fixture, 'SomeProject.air'
+      @apk_input            = File.join @fixture, 'SomeProject.apk'
+      @ipa_output           = File.join @fixture, 'SomeProject.ipa'
+      @swf_input            = File.join @fixture, 'SomeProject.swf'
+      @swf_main             = File.join @fixture, 'SomeProject.mxml'
+      @certificate          = File.join @fixture, 'SomeProject.pfx'
+      @ipa_cert             = File.join @fixture, 'SomeProject.p12'
+      @provisioning_profile = File.join @fixture, 'Profile.mobileprovision'
+      @platform             = 'android'
+      @target               = 'apk-debug'
+      @appid                = 'com.foo.bar.SomeProject'
+      @cert_password        = 'samplePassword'
     end
 
     teardown do
@@ -47,7 +46,7 @@ class ADTTest < Test::Unit::TestCase
       end
     end
 
-		should "package an iOS swf with a provisioning profile" do
+    should "package an iOS swf with a provisioning profile" do
       as_a_unix_system do
         t = adt @ipa_output do |t|
           t.package        = true
@@ -57,7 +56,7 @@ class ADTTest < Test::Unit::TestCase
           t.storetype      = 'PKCS12'
           t.keystore       = @ipa_cert
           t.storepass      = @cert_password
-					t.provisioning_profile = @provisioning_profile
+          t.provisioning_profile = @provisioning_profile
           t.included_files << @swf_input
         end
         assert_equal "-package -target ipa-test -storetype PKCS12 -keystore #{@ipa_cert} -storepass #{@cert_password} -provisioning-profile #{@provisioning_profile} #{@ipa_output} #{@application_xml} #{@swf_input}", t.to_shell
@@ -67,13 +66,13 @@ class ADTTest < Test::Unit::TestCase
       end
     end
 
-		should "install an APK" do
+    should "install an APK" do
       as_a_unix_system do
         t = adt @expected_output do |t|
-					t.installApp		 = true
-					t.platform			 = @platform
-          t.package        = true
-          t.package_input  = @apk_input
+          t.installApp    = true
+          t.platform      = @platform
+          t.package       = true
+          t.package_input = @apk_input
         end
         assert_equal "-installApp -platform #{@platform} -package #{@apk_input}", t.to_shell
 
@@ -82,12 +81,12 @@ class ADTTest < Test::Unit::TestCase
       end
     end
 
-		should "uninstall an APK" do
+    should "uninstall an APK" do
       as_a_unix_system do
         t = adt @expected_output do |t|
-					t.uninstallApp	 = true
-					t.platform			 = @platform
-          t.appid					 = @appid
+          t.uninstallApp = true
+          t.platform     = @platform
+          t.appid        = @appid
         end
         assert_equal "-uninstallApp -platform #{@platform} -appid #{@appid}", t.to_shell
 
@@ -96,12 +95,12 @@ class ADTTest < Test::Unit::TestCase
       end
     end
 
-		should "launch an app" do
+    should "launch an app" do
       as_a_unix_system do
         t = adt @expected_output do |t|
-					t.launchApp			 = true
-					t.platform			 = @platform
-          t.appid					 = @appid
+          t.launchApp = true
+          t.platform  = @platform
+          t.appid     = @appid
         end
         assert_equal "-launchApp -platform #{@platform} -appid #{@appid}", t.to_shell
 

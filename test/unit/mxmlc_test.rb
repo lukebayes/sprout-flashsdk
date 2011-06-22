@@ -61,7 +61,6 @@ class MXMLCTest < Test::Unit::TestCase
       mxmlc.use_fcsh = true
       mxmlc.execute
     end
-
   end
 end
 
