@@ -39,41 +39,41 @@ module FlashSDK
     # Please do not alphabetize or rearrange unless you're
     # fixing a bug related to how ADT actually expects
     # the arguments...
-		
-		##
-		# Install an app on a device
-		#
-		add_param :installApp, Boolean, { :hidden_value => true }
+    
+    ##
+    # Install an app on a device
+    #
+    add_param :installApp, Boolean, { :hidden_value => true }
 
-		##
-		# Uninstall an app from a device
-		#
-		add_param :uninstallApp, Boolean, { :hidden_value => true }
-		
-		##
-		# Launch an app on a device
-		#
-		add_param :launchApp, Boolean, { :hidden_value => true }
-		
-		##
-		# The platform to use (ex: android)
-		#
-		add_param :platform, String, { :delimiter => ' ' }
+    ##
+    # Uninstall an app from a device
+    #
+    add_param :uninstallApp, Boolean, { :hidden_value => true }
+    
+    ##
+    # Launch an app on a device
+    #
+    add_param :launchApp, Boolean, { :hidden_value => true }
+    
+    ##
+    # The platform to use (ex: android)
+    #
+    add_param :platform, String, { :delimiter => ' ' }
 
-		##
-		# The appid of the app being installed/uninstalled (ex: com.foo.Bar)
-		#
-		add_param :appid, String, { :delimiter => ' ' }
-		
+    ##
+    # The appid of the app being installed/uninstalled (ex: com.foo.Bar)
+    #
+    add_param :appid, String, { :delimiter => ' ' }
+    
     ##
     # Create an AIR package.
     #
     add_param :package, Boolean, { :hidden_value => true }
 
-		##
-		# Use a specific target, like apk-debug for Android or ipa-debug for iOS
-		#
-		add_param :target, String, { :delimiter => ' ' }
+    ##
+    # Use a specific target, like apk-debug for Android or ipa-debug for iOS
+    #
+    add_param :target, String, { :delimiter => ' ' }
 
     ##
     # Set true to create a certificate.
@@ -132,10 +132,10 @@ module FlashSDK
     #
     add_param :checkstore, String
 
-		##
-		# Provisioning profile for iOS apps
-		#
-		add_param :provisioning_profile, String, { :delimiter => ' ' }
+    ##
+    # Provisioning profile for iOS apps
+    #
+    add_param :provisioning_profile, String, { :delimiter => ' ' }
 
     ##
     # Expects two files:
