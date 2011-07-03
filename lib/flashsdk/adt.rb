@@ -228,6 +228,21 @@ module FlashSDK
     # they will not be included.
     #
     add_param :included_paths, Paths, { :hidden_name => true }
+    
+    ##
+    # Allows file options in the form of -C <dir> <fileOrDir>+
+    #
+    # For example if you defined:
+    #
+    #    t.file_options    << 'dir path/to/asset.xml'
+    #
+    # In your adt task defintion, then:
+    #
+    #    -C dir path/to/asset.xml
+    #
+    # Would be appended to your arguments.
+    #
+    add_param :file_options, Strings, { :shell_name => '-C', :delimiter => ' ' }
 
     ##
     # The the Ruby file that will load the expected
@@ -258,4 +273,3 @@ def adt *args, &block
   exe.to_rake(*args, &block)
   exe
 end
-
