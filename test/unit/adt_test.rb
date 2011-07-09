@@ -45,6 +45,26 @@ class ADTTest < Test::Unit::TestCase
         #assert_file @expected_output
       end
     end
+    
+    should "package a SWF and complex assets with an application.xml" do
+      as_a_unix_system do
+        t = adt @expected_output do |t|
+          t.package        = true
+          t.target         = @target
+          t.package_input  = @application_xml
+          t.package_output = @expected_output
+          t.storetype      = 'PKCS12'
+          t.keystore       = @certificate
+          t.storepass      = @cert_password
+          t.included_files << @swf_input
+          t.file_options << 'bin path/to/asset.xml'
+        end
+        assert_equal "-package -target #{@target} -storetype PKCS12 -keystore test/fixtures/air/simple/SomeProject.pfx -storepass samplePassword test/fixtures/air/simple/SomeProject.air test/fixtures/air/simple/SomeProject.xml test/fixtures/air/simple/SomeProject.swf -C bin path/to/asset.xml", t.to_shell
+
+        #t.execute
+        #assert_file @expected_output
+      end
+    end
 
     should "package an iOS swf with a provisioning profile" do
       as_a_unix_system do
