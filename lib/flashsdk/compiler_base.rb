@@ -53,8 +53,8 @@ module FlashSDK
     #     t.as3 = false
     #   end
     # 
-    add_param :as3, Boolean, { :default => true, :show_on_false => true }
-    
+    add_param :as3, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
+
     ##
     # Prints detailed compile times to the standard output. The default value is true. 
     #
@@ -65,8 +65,8 @@ module FlashSDK
     #     t.benchmark = true
     #   end
     #
-    add_param :benchmark, Boolean, { :default => true, :show_on_false => true }
-    
+    add_param :benchmark, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
+
     ##
     # Sets the value of the {context.root} token in channel definitions in the flex-services.xml file. If you do not specify the value of this option, Flex uses an empty string.
     #
@@ -718,7 +718,7 @@ module FlashSDK
     #
     # @see #debug
     #
-    add_param :optimize, Boolean
+    add_param :optimize, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
     
     ##
     # Specifies the output path and filename for the resulting file. 
@@ -823,7 +823,7 @@ module FlashSDK
     #     t.show_actionscript_warnings = false
     #   end
     #
-    add_param :show_actionscript_warnings, Boolean, { :default => true, :show_on_false => true }
+    add_param :show_actionscript_warnings, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
 
     ##
     # Shows a warning when Flash Player cannot detect changes to a bound property.
@@ -837,7 +837,36 @@ module FlashSDK
     #     t.show_binding_warnings = false
     #   end
     #
-    add_param :show_binding_warnings, Boolean, { :default => true, :show_on_false => true }
+    add_param :show_binding_warnings, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
+
+    ##
+    # Shows warnings when you try to embed a font with a family name that is the same as the operating system font name.
+    # The compiler normally warns you that you are shadowing a system font. Set this option to false to disable the warnings.
+    #
+    # The default value is true.
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.mxml'
+    #     t.source_path << 'src'
+    #     t.show_shadowed_device_font_warnings = false
+    #   end
+    #
+    add_param :show_shadowed_device_font_warnings, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
+
+    ##
+    # Shows warnings when a type selector in a style sheet or <mx:Style> block is not used by any components in the application.
+    #
+    # The default value is true.
+    #
+    #   desc "Compile the Application"
+    #   mxmlc 'bin/SomeProject.swf' do |t|
+    #     t.input = 'src/SomeProject.mxml'
+    #     t.source_path << 'src'
+    #     t.show_unused_type_selector_warnings = false
+    #   end
+    #
+    add_param :show_unused_type_selector_warnings, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
     
     ##
     # Shows deprecation warnings for Flex components. To see warnings for ActionScript classes, use the show-actionscript-warnings option.
@@ -905,7 +934,7 @@ module FlashSDK
     #     t.strict = false
     #   end
     #
-    add_param :strict, Boolean, { :default => true, :show_on_false => true }
+    add_param :strict, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
     
     ##
     # Specifies the version of the player the application is targeting.
@@ -945,7 +974,14 @@ module FlashSDK
     # with file: URLs) but not network services. In most circumstances, the 
     # value of this property should be true.
     #
-    add_param :use_network, Boolean, { :default => true, :show_on_false => true }
+    add_param :use_network, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
+
+    ##
+    # Enables resource bundles. Set to true to instruct the compiler to process the contents of the [ResourceBundle] metadata tag.
+    #
+    # The default value is true.
+    #
+    add_param :use_resource_bundle_metadata, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
     
     ##
     # Generates source code that includes source files and line numbers. When 
@@ -974,7 +1010,7 @@ module FlashSDK
     #
     # The default value is true.
     #
-    add_param :warnings, Boolean
+    add_param :warnings, Boolean, { :default => true, :show_on_false => true, :hidden_value => false, :delimiter => '=' }
 
     ##
     # Set to true in order to compile with the Flex Compiler Shell (FCSH).
