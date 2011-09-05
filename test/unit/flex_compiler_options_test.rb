@@ -148,18 +148,18 @@ class FlexCompilerOptionsTest < Test::Unit::TestCase
     end
 
     # -static-link-runtime-shared-libraries
-    should "default to static-link-runtime-shared-libraries=true" do
-      assert_equal true, @mxmlc.static_link_runtime_shared_libraries
+    should "default to static-link-runtime-shared-libraries=false" do
+      assert_equal false, @mxmlc.static_link_runtime_shared_libraries
     end
 
-    should "not include a -static-link-runtime-shared-libraries flag if :static-link-runtime-shared-libraries is set to true" do
+    should "include a -static-link-runtime-shared-libraries=true flag if :static-link-runtime-shared-libraries is set to true" do
       @mxmlc.static_link_runtime_shared_libraries = true
-      assert_no_match /-static-link-runtime-shared-libraries/, @mxmlc.to_shell
+      assert_equal '-static-link-runtime-shared-libraries=true', @mxmlc.to_shell
     end
 
-    should "include -static-link-runtime-shared-libraries=false flag if :static-link-runtime-shared-libraries is set to false" do
+    should "not include -static-link-runtime-shared-libraries=false flag if :static-link-runtime-shared-libraries is set to false" do
       @mxmlc.static_link_runtime_shared_libraries = false
-      assert_equal '-static-link-runtime-shared-libraries=false', @mxmlc.to_shell
+      assert_no_match /-static-link-runtime-shared-libraries/, @mxmlc.to_shell
     end
 
     # -strict

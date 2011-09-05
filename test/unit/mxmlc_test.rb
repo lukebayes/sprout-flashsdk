@@ -34,14 +34,13 @@ class MXMLCTest < Test::Unit::TestCase
         mxmlc = FlashSDK::MXMLC.new
         mxmlc.input = 'test/fixtures/mxmlc/simple/SomeFile.as'
         mxmlc.source_path << 'test/fixtures/mxmlc/simple'
-        assert_equal '-source-path+=test/fixtures/mxmlc/simple -static-link-runtime-shared-libraries test/fixtures/mxmlc/simple/SomeFile.as', mxmlc.to_shell
+        assert_equal '-source-path+=test/fixtures/mxmlc/simple test/fixtures/mxmlc/simple/SomeFile.as', mxmlc.to_shell
       end
     end
 
     should "assign default-size" do
       mxmlc = FlashSDK::MXMLC.new
       mxmlc.default_size = '800,500'
-      mxmlc.static_link_runtime_shared_libraries = false
       assert_equal '-default-size=800,500', mxmlc.to_shell
     end
 

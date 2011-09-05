@@ -911,9 +911,14 @@ module FlashSDK
     ##
     # Statically link the libraries specified by the {#runtime_shared_libraries} option.
     #
+    # Default changed to false in Flex 4: http://opensource.adobe.com/wiki/display/flexsdk/Linking+RSLs+by+Default
+    #
+    # We respect this new default.
+    #
     # @see #runtime_shared_libraries
     #
-    add_param :static_link_runtime_shared_libraries, Boolean, { :default => true }
+    add_param :static_link_runtime_shared_libraries, Boolean, { :default => false, :hidden_value => false, :delimiter => '=' }
+
 
     ##
     # Alias for {#static_link_runtime_shared_libraries}

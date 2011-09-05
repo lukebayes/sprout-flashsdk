@@ -12,12 +12,11 @@ class FakeMXMLC
 
   def initialize args
     #puts ">> ARGS: #{args.inspect}"
-    if(args.size == 3 && 
+    if(args.size == 2 && 
        args[0].include?('SomeFile.swf') &&
-       args[1].include?('-static-link-runtime-shared-libraries') &&
-       args[2].include?('SomeFile.as'))
+       args[1].include?('SomeFile.as'))
       compile_simple_swf args
-    elsif args == ["-output=test/fixtures/air/simple/bin/SomeProject.swf", "-static-link-runtime-shared-libraries", "test/fixtures/air/simple/SomeProject.as"]
+    elsif args == ["-output=test/fixtures/air/simple/bin/SomeProject.swf", "test/fixtures/air/simple/SomeProject.as"]
       compile_amxmlc_swf args
     else
       raise "Unexpected args sent to mxmlc stub #{args.join(', ')}"
