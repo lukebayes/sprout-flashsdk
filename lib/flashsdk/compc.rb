@@ -9,7 +9,7 @@ module FlashSDK
   #     t.include_classes << 'SomeProject'
   #     t.source_path << 'src'
   #   end
-  # 
+  #
   #   desc 'Compile the SWC'
   #   task :swc => 'bin/SomeProject.swc'
   #
@@ -26,7 +26,7 @@ module FlashSDK
     #   end
     #
     # @see Sprout::COMPC#include_sources
-    # 
+    #
     add_param :directory, Boolean
 
     ##
@@ -83,8 +83,11 @@ module FlashSDK
     add_param :include_sources, Paths
 
     ##
-    # Not sure about this option, it was in the CLI help, but not documented on the Adobe site
+    # Defines the mapping between your namespaces and the manifest.xml file describing the classes in that namespace.
     #
+    #   compc "bin/SomeProject.swc" do |t|
+    #     t.namespace = 'http://sprouts.org/ui sprouts-manifest.xml'
+    #   end
     add_param :namespace, String
 
     ##
@@ -105,7 +108,7 @@ module FlashSDK
     # The default pkg version
     #
     set :pkg_version, ">= #{FlashSDK::VERSION}"
-    
+
     ##
     # The default executable target.
     #
