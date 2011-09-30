@@ -1,16 +1,17 @@
+$:.unshift File.expand_path("../lib", __FILE__)
+
 require 'rubygems'
-require 'bundler'
+require "bundler/gem_tasks"
 
 test_package = File.join(File.dirname(__FILE__), 'test', 'unit')
 $: << test_package unless $:.include? test_package
 
 Bundler.require
 
-require 'rake'
 require 'rake/clean'
 require 'rake/testtask'
 
-require File.join(File.dirname(__FILE__), 'lib', 'flashsdk', 'module')
+#require File.join(File.dirname(__FILE__), 'lib', 'flashsdk', 'module')
 
 namespace :test do
   Rake::TestTask.new(:units) do |t|
@@ -39,4 +40,3 @@ task :package => "pkg/#{gem_package}"
 
 CLEAN.add gem_package
 CLEAN.add 'pkg'
-

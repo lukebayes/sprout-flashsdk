@@ -18,6 +18,9 @@ Gem::Specification.new do |s|
   s.files                = Dir['**/*']
   s.files.reject!          { |fn| fn.match /.git|.svn|.DS_Store/ }
   s.add_dependency('sprout', '>= 1.1.15.pre')
+  s.add_development_dependency "shoulda"
+  s.add_development_dependency "mocha"
+  s.add_development_dependency "rake"
   s.require_paths << 'lib'
 end
 
