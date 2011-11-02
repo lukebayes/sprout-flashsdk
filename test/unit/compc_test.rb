@@ -20,7 +20,7 @@ class COMPCTest < Test::Unit::TestCase
         compc = FlashSDK::COMPC.new
         compc.output = @expected_output
         compc.include_sources << @fixture
-        assert_equal '--output=test/fixtures/compc/simple/SomeFile.swc --static-link-runtime-shared-libraries --include-sources+=test/fixtures/compc/simple', compc.to_shell
+        assert_equal '--output=test/fixtures/compc/simple/SomeFile.swc --include-sources+=test/fixtures/compc/simple', compc.to_shell
       end
     end
 

@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-lib = File.expand_path File.dirname(__FILE__), 'lib'
+lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
 require 'bundler'
-require 'flashsdk'
+require 'flashsdk/module.rb'
 
 Gem::Specification.new do |s|
   s.name                 = 'flashsdk'
@@ -15,8 +15,9 @@ Gem::Specification.new do |s|
   s.description          = "The Flash SDK Rubygem is brought to you by Project Sprouts (http://projectsprouts.org)"
   s.executables          =  ['sprout-as3', 'sprout-flex', 'flashplayer', 'flashlog']
   s.post_install_message = File.read 'POSTINSTALL.rdoc'
-  s.files                = FileList['**/**/*'].exclude /.git|.svn|.DS_Store/
-  s.add_bundler_dependencies
+  s.files                = Dir['**/*']
+  s.files.reject!          { |fn| fn.match /.git|.svn|.DS_Store/ }
+  s.add_dependency('sprout', '>= 1.1.15.pre')
   s.require_paths << 'lib'
 end
 
