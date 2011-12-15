@@ -42,6 +42,25 @@ module FlashSDK
     # The default prefix
     #
     set :default_prefix, '-'
+
+    ##
+    # Overide the default task creation so
+    # adl will run regardless of a file product.
+    #
+    def create_outer_task *args
+      Rake::Task.define_task(*args) do
+        execute
+      end
+    end
+
+    ##
+    # Overide the default behaviour to stop the file product
+    # being added to to the CLEAN task.
+    #
+    def update_rake_task_name_from_args *args
+      self.rake_task_name = parse_rake_task_arg args.last
+      self.rake_task_name
+    end
   end
 end
 
