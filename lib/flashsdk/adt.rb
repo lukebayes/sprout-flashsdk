@@ -71,11 +71,6 @@ module FlashSDK
     add_param :package, Boolean, { :hidden_value => true }
 
     ##
-    # Use a specific target, like apk-debug for Android or ipa-debug for iOS
-    #
-    add_param :target, String, { :delimiter => ' ' }
-
-    ##
     # Set true to create a certificate.
     #
     # If this value is true, you can optionally set org_unit, org_name and country.
@@ -155,6 +150,12 @@ module FlashSDK
     ##
     # The AIR runtime version to use.
     add_param :version, String, { :delimiter => ' ' }
+
+
+    ##
+    # Use a specific target, like apk-debug for Android or ipa-debug for iOS
+    #
+    add_param :target, String, { :delimiter => ' ' }
 
     ##
     # The AIR file that should be created
