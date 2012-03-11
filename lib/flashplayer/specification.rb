@@ -22,7 +22,7 @@
       t.platform     = :windows
       t.archive_type = :exe
       t.url          = "http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.exe"
-      t.md5          = "5f7f4c4246784745b0e1b5593e9bc60f"
+      t.md5          = "6897ac6223a8a5d0e93135871ca001fe"
       t.add_executable :flashplayer, "5f7f4c4246784745b0e1b5593e9bc60f.exe"
     end
 
@@ -30,7 +30,7 @@
       t.platform     = :osx
       t.archive_type = :zip
       t.url          = "http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.app.zip"
-      t.md5          = "f753a8538f5f41db838fc81cdc994a64"
+      t.md5          = "67ca9fd0c92fdb8f6c9d0fe4f4e690ec"
       t.add_executable :flashplayer, "Flash Player Debugger.app"
     end
 
@@ -38,7 +38,7 @@
       t.platform     = :linux
       t.archive_type = :tgz
       t.url          = "http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.tar.gz"
-      t.md5          = "051a2d6460419c78f66ec6e9e4ff4cc8"
+      t.md5          = "696264267dcf3305b8e4706bb60238ad"
       t.add_executable :flashplayer, "flashplayerdebugger"
     end
   end
