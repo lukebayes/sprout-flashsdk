@@ -21,24 +21,25 @@
     s.add_remote_file_target do |t|
       t.platform     = :windows
       t.archive_type = :exe
+      t.url          = "http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug_32bit.exe"
       t.url          = "http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.exe"
-      t.md5          = "6897ac6223a8a5d0e93135871ca001fe"
+      t.md5          = "6fbc96203b878529a5baefe2226a403e"
       t.add_executable :flashplayer, "5f7f4c4246784745b0e1b5593e9bc60f.exe"
     end
 
     s.add_remote_file_target do |t|
       t.platform     = :osx
       t.archive_type = :zip
-      t.url          = "http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.app.zip"
-      t.md5          = "67ca9fd0c92fdb8f6c9d0fe4f4e690ec"
+      t.url          = "http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug.app.zip"
+      t.md5          = "861e7b57ffae780ba391ac6adcb40a0d"
       t.add_executable :flashplayer, "Flash Player Debugger.app"
     end
 
     s.add_remote_file_target do |t|
       t.platform     = :linux
       t.archive_type = :tgz
-      t.url          = "http://download.macromedia.com/pub/flashplayer/updaters/10/flashplayer_10_sa_debug.tar.gz"
-      t.md5          = "696264267dcf3305b8e4706bb60238ad"
+      t.url          = "http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_sa_debug.i386.tar.gz"
+      t.md5          = "2d5d0da2bcf4b76afe75f7a113f4f3f1"
       t.add_executable :flashplayer, "flashplayerdebugger"
     end
   end
