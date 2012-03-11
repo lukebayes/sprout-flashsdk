@@ -29,6 +29,7 @@ require 'asunit4'
 # Compile the debug swf
 mxmlc "<%= bin %>/<%= debug_swf_name %>" do |t|
   t.input = "<%= src %>/<%= class_name %>.as"
+  t.static_link_runtime_shared_libraries = true
   t.debug = true
 end
 
@@ -43,6 +44,7 @@ library :asunit4
 # Compile the test swf
 mxmlc "<%= bin %>/<%= test_swf_name %>" => :asunit4 do |t|
   t.input = "<%= src %>/<%= test_runner_name %>.as"
+  t.static_link_runtime_shared_libraries = true
   t.source_path << 'test'
   t.debug = true
 end
@@ -55,6 +57,7 @@ flashplayer :test => "<%= bin %>/<%= test_swf_name %>"
 
 compc "<%= bin %>/<%= class_name %>.swc" do |t|
   t.input_class = "<%= class_name %>"
+  t.static_link_runtime_shared_libraries = true
   t.source_path << 'src'
 end
 

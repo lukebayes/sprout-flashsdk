@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.post_install_message = File.read 'POSTINSTALL.rdoc'
   s.files                = Dir['**/*']
   s.files.reject!          { |fn| fn.match /.git|.svn|.DS_Store/ }
-  s.add_dependency('sprout', '>= 1.1.15.pre')
+  s.add_dependency('sprout', '>= 1.1.18.pre')
   s.add_development_dependency('shoulda')
   s.add_development_dependency('mocha')
   s.require_paths << 'lib'
