@@ -164,7 +164,7 @@ class ADTTest < Test::Unit::TestCase
           t.pfx_file    = @certificate
           t.password    = @cert_password
         end
-        
+
         assert_equal '-certificate -cn SelfCertificate 2048-RSA test/fixtures/air/simple/SomeProject.pfx samplePassword', t.to_shell
 
         # Uncomment to actually run adt (much slower)
