@@ -7,4 +7,3 @@ require 'flashplayer/log_file'
 require 'flashplayer/executable'
 require 'flashplayer/task'
 require 'flashplayer/specification'
-

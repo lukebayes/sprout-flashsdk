@@ -42,4 +42,3 @@
       t.add_executable :flashplayer, "flashplayerdebugger"
     end
   end
-
