@@ -39,8 +39,14 @@ class ADTTest < Test::Unit::TestCase
           t.storepass      = @cert_password
           t.included_files << @swf_input
         end
-        assert_equal "-package -target #{@target} -storetype PKCS12 -keystore test/fixtures/air/simple/SomeProject.pfx -storepass samplePassword test/fixtures/air/simple/SomeProject.air test/fixtures/air/simple/SomeProject.xml test/fixtures/air/simple/SomeProject.swf", t.to_shell
 
+        assert_equal "-package -storetype PKCS12 -keystore #{@certificate} " +
+            "-storepass #{@cert_password} -target #{@target} " +
+            "test/fixtures/air/simple/SomeProject.air " +
+            "test/fixtures/air/simple/SomeProject.xml " +
+            "test/fixtures/air/simple/SomeProject.swf", t.to_shell
+
+        # Uncomment to actually run adt (much slower)
         #t.execute
         #assert_file @expected_output
       end
@@ -59,8 +65,15 @@ class ADTTest < Test::Unit::TestCase
           t.included_files << @swf_input
           t.file_options << 'bin path/to/asset.xml'
         end
-        assert_equal "-package -target #{@target} -storetype PKCS12 -keystore test/fixtures/air/simple/SomeProject.pfx -storepass samplePassword test/fixtures/air/simple/SomeProject.air test/fixtures/air/simple/SomeProject.xml test/fixtures/air/simple/SomeProject.swf -C bin path/to/asset.xml", t.to_shell
 
+        assert_equal "-package -storetype PKCS12 -keystore #{@certificate} " +
+            "-storepass #{@cert_password} -target #{@target} " +
+            "test/fixtures/air/simple/SomeProject.air " +
+            "test/fixtures/air/simple/SomeProject.xml " +
+            "test/fixtures/air/simple/SomeProject.swf " +
+            "-C bin path/to/asset.xml", t.to_shell
+
+        # Uncomment to actually run adt (much slower)
         #t.execute
         #assert_file @expected_output
       end
@@ -79,8 +92,15 @@ class ADTTest < Test::Unit::TestCase
           t.provisioning_profile = @provisioning_profile
           t.included_files << @swf_input
         end
-        assert_equal "-package -target ipa-test -storetype PKCS12 -keystore #{@ipa_cert} -storepass #{@cert_password} -provisioning-profile #{@provisioning_profile} #{@ipa_output} #{@application_xml} #{@swf_input}", t.to_shell
 
+        assert_equal "-package -storetype PKCS12 -keystore #{@ipa_cert} " +
+            "-storepass #{@cert_password} -provisioning-profile " +
+            "#{@provisioning_profile} -target ipa-test " +
+            "test/fixtures/air/simple/SomeProject.ipa " +
+            "test/fixtures/air/simple/SomeProject.xml " +
+            "test/fixtures/air/simple/SomeProject.swf", t.to_shell
+
+        # Uncomment to actually run adt (much slower)
         #t.execute
         #assert_file @expected_output
       end
@@ -94,8 +114,10 @@ class ADTTest < Test::Unit::TestCase
           t.package       = true
           t.package_input = @apk_input
         end
+
         assert_equal "-installApp -platform #{@platform} -package #{@apk_input}", t.to_shell
 
+        # Uncomment to actually run adt (much slower)
         #t.execute
         #assert_file @expected_output
       end
@@ -108,8 +130,10 @@ class ADTTest < Test::Unit::TestCase
           t.platform     = @platform
           t.appid        = @appid
         end
+
         assert_equal "-uninstallApp -platform #{@platform} -appid #{@appid}", t.to_shell
 
+        # Uncomment to actually run adt (much slower)
         #t.execute
         #assert_file @expected_output
       end
@@ -122,8 +146,10 @@ class ADTTest < Test::Unit::TestCase
           t.platform  = @platform
           t.appid     = @appid
         end
+
         assert_equal "-launchApp -platform #{@platform} -appid #{@appid}", t.to_shell
 
+        # Uncomment to actually run adt (much slower)
         #t.execute
         #assert_file @expected_output
       end
@@ -138,8 +164,10 @@ class ADTTest < Test::Unit::TestCase
           t.pfx_file    = @certificate
           t.password    = @cert_password
         end
+        
         assert_equal '-certificate -cn SelfCertificate 2048-RSA test/fixtures/air/simple/SomeProject.pfx samplePassword', t.to_shell
 
+        # Uncomment to actually run adt (much slower)
         #t.execute
         #assert_file @certificate
       end
