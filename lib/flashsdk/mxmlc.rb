@@ -97,6 +97,13 @@ module FlashSDK
     add_param :input, File, { :required => true, :hidden_name => true }
 
     ##
+    # Specifies the resource bundles to include when compiling a locale SWF. All resource bundles specified with this option must be in the compiler's source path. You specify this using the source-path compiler option.
+    #
+    # For more information on using resource bundles, see Localizing Flex Applications (http://livedocs.adobe.com/flex/201/html/l10n_076_1.html#129288) in Flex 2 Developer's Guide.
+    #
+    add_param :include_resource_bundles, Files
+
+    ##
     # The default prefix for shell params.
     set :default_prefix, '-'
 
